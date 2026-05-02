@@ -1,0 +1,28 @@
+name: scheda_palestra
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  bloc: ^9.2.0
+  bloc_test: ^10.0.0
+  dartz: ^0.10.1
+  equatable: ^2.0.8
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  go_router: ^17.2.2
+  hive_flutter: ^1.1.0
+  mocktail: ^1.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.14.1
+
+flutter:
+  uses-material-design: true
