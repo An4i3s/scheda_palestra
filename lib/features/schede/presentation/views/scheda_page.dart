@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
+import 'package:scheda_palestra/features/exercises/presentation/exercise_type_bloc.dart/exercises_type_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_state.dart';
@@ -22,10 +23,14 @@ class _SchedePageState extends State<SchedePage> {
             backgroundColor: AppColors.backgroundColor,
 
       floatingActionButton: FloatingActionButton(
+        heroTag: 'scheda_form',
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-              value: context.read<SchedeBloc>(),
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: context.read<SchedeBloc>()),
+                BlocProvider.value(value: context.read<ExerciseTypeBloc>()),
+              ],
               child: const SchedaFormPage(),
             ),
           ),
@@ -55,8 +60,11 @@ class _SchedePageState extends State<SchedePage> {
                   scheda: schede[index],
                   onEdit: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => BlocProvider.value(
-                        value: context.read<SchedeBloc>(),
+                      builder: (_) => MultiBlocProvider(
+                        providers: [
+                          BlocProvider.value(value: context.read<SchedeBloc>()),
+                          BlocProvider.value(value: context.read<ExerciseTypeBloc>()),
+                        ],
                         child: SchedaFormPage(scheda: schede[index]),
                       ),
                     ),

@@ -172,6 +172,7 @@ abstract class AppRouter {
             BlocProvider.value(value: _homeBloc),
             BlocProvider.value(value: _schedeBloc),
             BlocProvider.value(value: _exercisesBloc),
+            BlocProvider.value(value: _exerciseTypeBloc),
           ],
           child: const App(),
         ),

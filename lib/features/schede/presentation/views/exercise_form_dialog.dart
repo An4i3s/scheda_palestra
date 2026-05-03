@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/features/exercises/data/models/exercise_model.dart';
+import 'package:scheda_palestra/features/exercises/presentation/exercise_type_bloc.dart/exercises_type_bloc.dart';
+import 'package:scheda_palestra/features/exercises/presentation/exercise_type_bloc.dart/exercises_type_state.dart';
 import 'package:scheda_palestra/features/schede/presentation/views/scheda_form_page.dart';
 
 class ExerciseFormDialog extends StatefulWidget {
@@ -23,14 +26,13 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
   late final TextEditingController _ripetizioniController;
   late final TextEditingController _pesoController;
   String? _selectedExercise;
-
+  
 
   bool get _isEditing => widget.esercizio != null;
 
   @override
   void initState() {
-    // super.initState();
-    // _nomeController = TextEditingController(text: widget.esercizio?.name ?? '');
+    super.initState();
     _serieController = TextEditingController(
       text: widget.esercizio?.series.toString() ?? '',
     );
@@ -60,7 +62,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
     final esercizio = ExerciseModel(
        id: widget.esercizio?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
       // name: _nomeController.text.trim(),
-      name: _selectedExercise ?? EX[0],
+      name: _selectedExercise ?? "",
       series: int.parse(_serieController.text),
       repetitions: int.parse(_ripetizioniController.text),
       weight: int.parse(_pesoController.text), targetMuscleGroup: TargetMuscleGroup.chest, restTime: 30,
@@ -79,29 +81,39 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-                             DropdownButton(
-                          hint: Text("Selezione Esercizio"),
-                          items: EX.map((exercise) {
-                            return DropdownMenuItem(
-                              value: exercise,
-                              child: Text(exercise),
-                            );
-                          }).toList(),
-                          value: _selectedExercise,
-                          onChanged: (value) => setState(() {
-                            _selectedExercise = value;
-                          }),
-                        ),
-            // TextFormField(
-            //   controller: _nomeController,
-            //   decoration: const InputDecoration(
-            //     labelText: 'Nome *',
-            //     border: OutlineInputBorder(),
-            //   ),
-            //   validator: (v) =>
-            //       (v == null || v.trim().isEmpty) ? 'Campo obbligatorio' : null,
-            //   textCapitalization: TextCapitalization.sentences,
-            // ),
+            BlocBuilder<ExerciseTypeBloc, ExercisesTypeState>(
+              builder: (context, state) {
+                if (state is ExercisesTypeLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (state is ExercisesTypeError) {
+                  return Text(
+                    'Errore: ${state.message}',
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.error),
+                  );
+                }
+
+                if (state is ExercisesTypeLoaded) {
+                  return DropdownButton<String>(
+                    hint: const Text("Seleziona Esercizio"),
+                    items: state.exercises.map((exercise) {
+                      return DropdownMenuItem(
+                        value: exercise.name,
+                        child: Text(exercise.name),
+                      );
+                    }).toList(),
+                    value: _selectedExercise,
+                    onChanged: (value) => setState(() {
+                      _selectedExercise = value;
+                    }),
+                  );
+                }
+
+                return const Text("Nessun esercizio disponibile");
+              },
+            ),
             const SizedBox(height: 12),
             Row(
               children: [

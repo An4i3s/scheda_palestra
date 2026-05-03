@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/helpers/workout_chip_helper.dart';
 import 'package:scheda_palestra/features/exercises/data/models/exercise_model.dart';
+import 'package:scheda_palestra/features/exercises/presentation/exercise_type_bloc.dart/exercises_type_bloc.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
@@ -18,8 +19,6 @@ class SchedaFormPage extends StatefulWidget {
   @override
   State<SchedaFormPage> createState() => _SchedaFormPageState();
 }
-
-final EX = ["Panca piana", "Squat", "Stacco da terra", "Rematore", "Military press", "Curl bicipiti", "Estensioni tricipiti", "Affondi", "Lat machine", "Leg press"];
 
 class _SchedaFormPageState extends State<SchedaFormPage> {
   final _formKey = GlobalKey<FormState>();
@@ -66,15 +65,18 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
   void _showExerciseDialog({int? index, ExerciseModel? esercizio}) {
     showDialog<void>(
       context: context,
-      builder: (_) => ExerciseFormDialog(
-        esercizio: esercizio,
-        onSubmit: (saved) {
-          if (index != null) {
-            _editEsercizio(index, saved);
-          } else {
+      builder: (_) =>  BlocProvider.value(
+        value: context.read<ExerciseTypeBloc>(),
+        child: ExerciseFormDialog(
+          esercizio: esercizio,
+          onSubmit: (saved) {
+            if (index != null) {
+              _editEsercizio(index, saved);
+            } else {
             _addEsercizio(saved);
           }
         },
+        ),
       ),
     );
   }
@@ -154,20 +156,6 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                             _selectedCategory = value;
                           }),
                         ),
-            // SizedBox(height: 8),
-                //  DropdownButton(
-                //           hint: Text("Selezione Esercizio"),
-                //           items: EX.map((exercise) {
-                //             return DropdownMenuItem(
-                //               value: exercise,
-                //               child: Text(exercise),
-                //             );
-                //           }).toList(),
-                //           value: _selectedExercise,
-                //           onChanged: (value) => setState(() {
-                //             _selectedExercise = value;
-                //           }),
-                //         ),
             Expanded(
               child: _esercizi.isEmpty
                   ? const Center(child: Text('Nessun esercizio aggiunto'))

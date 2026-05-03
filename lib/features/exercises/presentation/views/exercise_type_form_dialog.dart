@@ -30,9 +30,8 @@ class _ExerciseTypeFormDialogState extends State<ExerciseTypeFormDialog> {
 
   @override
   void initState() {
-    // super.initState();
+    super.initState();
     _nameController = TextEditingController(text: widget.exerciseType?.name ?? '');
-
   }
 
   @override
