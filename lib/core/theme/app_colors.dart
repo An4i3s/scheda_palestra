@@ -15,4 +15,16 @@ class AppColors {
   static const Color cardioChipColor = Color(0xFF7000FF);
   static const Color enduranceChipColor = Color(0xFFFF00E5);
   static const Color flexibilityChipColor = Color(0xFFCCFF00);
+
+
+  //STATS
+
+  
+    static const Color setsColors = Color(0xFFC7FAFF);
+    static const Color repsColors = Color(0xFFFFD7F0);
+    static const Color restColors = Color(0xFFF6EDFF);
+    
+    static const Color setsTextColors = Color(0xFF00A0AA);
+    static const Color repsTextColors = Color(0xFFD800C1);
+    static const Color restTextColors = Color(0xFF7212FF);
 }

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:scheda_palestra/features/home/data/home_model.dart';
-import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 
 class HomeState extends Equatable {
   const HomeState();

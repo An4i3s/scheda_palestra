@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:scheda_palestra/core/utils/failures.dart';
-import 'package:scheda_palestra/features/exercises/data/models/exercise_model.dart';
+import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';

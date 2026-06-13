@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:scheda_palestra/features/exercises/data/models/exercise_model.dart';
+import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 
 class SchedaModelAdapter extends TypeAdapter<SchedaModel> {

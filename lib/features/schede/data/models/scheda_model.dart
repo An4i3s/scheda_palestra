@@ -1,10 +1,14 @@
-import 'package:scheda_palestra/features/exercises/data/models/exercise_model.dart';
+import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 
 enum WorkoutCategory {
   strength,
-  cardio,
-  endurance,
-  flexibility,
+  ruuning,
+  walking,
+  cycling,
+  swimming,
+  pilates,
+  yoga,
+  crossfit,
 }
 
 class SchedaModel  {
