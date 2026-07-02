@@ -178,10 +178,18 @@ class _WorkoutViewState extends State<WorkoutView> {
                       ),
                     ),
                   ),
-                  ...workout.scheda.esercizi.map((e) => ExerciseWorkout(exerciseModel: e, onPressed: () { 
-                    context.read<WorkoutBloc>().add(WorkoutExerciseToggle(exerciseId: e.id));
-                    print(" workout.completedExercises.contains(e) = ${ workout.completedExercises.contains(e)}");
-                   }, isPressed: workout.completedExerciseIds.contains(e.id),))
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                                  ...workout.scheda.esercizi.map((e) => ExerciseWorkout(exerciseModel: e, onPressed: () { 
+                      context.read<WorkoutBloc>().add(WorkoutExerciseToggle(exerciseId: e.id));
+                     }, isPressed: workout.completedExerciseIds.contains(e.id),))
+                      ],),
+                    ),
+                  ),
+        
                 ],
               ),
             );
