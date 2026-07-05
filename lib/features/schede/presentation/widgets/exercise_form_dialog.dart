@@ -23,6 +23,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
   late final TextEditingController _timeController;
   late final TextEditingController _kmController;
   late final TextEditingController _elevationController;
+  late final TextEditingController _obiettivoController;
   WorkoutCategory? _workoutCategory;
 
   bool get _isEditing => widget.esercizio != null;
@@ -54,6 +55,9 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
     _elevationController = TextEditingController(
       text: widget.esercizio?.elevation.toString() ?? '',
     );
+    _obiettivoController = TextEditingController(
+      text: widget.esercizio?.description ?? '',
+    );
     _workoutCategory = widget.esercizio?.category ?? widget.defaultCategory;
   }
 
@@ -67,6 +71,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
     _timeController.dispose();
     _kmController.dispose();
     _elevationController.dispose();
+    _obiettivoController.dispose();
     super.dispose();
   }
 
@@ -93,6 +98,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
       time: _intOrNull(_timeController.text),
       km: _intOrNull(_kmController.text),
       elevation: _intOrNull(_elevationController.text),
+      description: _obiettivoController.text.trim().isEmpty ? null : _obiettivoController.text.trim(),
     );
 
     widget.onSubmit(esercizio);
@@ -216,6 +222,15 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
           (v == null || _intOrNull(v) == null) ? 'Campo obbligatorio' : null,
     );
 
+    final obiettivoField = TextFormField(
+      controller: _obiettivoController,
+      decoration: const InputDecoration(
+        labelText: 'Obiettivo',
+        border: OutlineInputBorder(),
+      ),
+      maxLines: 2,
+    );
+
     switch (category) {
       case WorkoutCategory.strength:
         return [
@@ -263,7 +278,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
       case WorkoutCategory.yoga:
       case WorkoutCategory.crossfit:
         return [
-          seriesField,
+          obiettivoField,
           const SizedBox(height: 12),
           timeField,
         ];

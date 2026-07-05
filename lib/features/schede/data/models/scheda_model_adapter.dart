@@ -5,12 +5,47 @@ import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 class SchedaModelAdapter extends TypeAdapter<SchedaModel> {
   @override
   SchedaModel read(BinaryReader reader) {
+    String readSafeString() {
+      try {
+        return reader.readString();
+      } catch (_) {
+        return '';
+      }
+    }
+
+    int readSafeInt() {
+      try {
+        return reader.readInt();
+      } catch (_) {
+        return 0;
+      }
+    }
+
+    List<ExerciseModel> readSafeList() {
+      try {
+        return (reader.readList()).cast<ExerciseModel>();
+      } catch (_) {
+        return <ExerciseModel>[];
+      }
+    }
+
+    final id = readSafeString();
+    final nome = readSafeString();
+    final createdAtMillis = readSafeInt();
+    final createdAt = DateTime.fromMillisecondsSinceEpoch(
+        createdAtMillis == 0 ? DateTime.now().millisecondsSinceEpoch : createdAtMillis);
+    final esercizi = readSafeList();
+    final categoryIndex = readSafeInt();
+    final category = (categoryIndex >= 0 && categoryIndex < WorkoutCategory.values.length)
+        ? WorkoutCategory.values[categoryIndex]
+        : WorkoutCategory.strength;
+
     return SchedaModel(
-      id: reader.readString(),
-      nome: reader.readString(),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
-      esercizi: (reader.readList()).cast<ExerciseModel>(),
-      category: WorkoutCategory.values[reader.readInt()],
+      id: id,
+      nome: nome,
+      createdAt: createdAt,
+      esercizi: esercizi,
+      category: category,
     );
   }
 

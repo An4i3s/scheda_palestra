@@ -28,7 +28,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
     on<WourtkoutLoaded>(_onLoaded);
     on<WourtkoutStarted>(_onStarted);
     on<WorkoutCreated>(_onCreated);
-    on<WorkoutExerciseToggle>(_onExToggled);
+    on<WorkoutExerciseToggled>(_onExToggled);
 
     // on<WorkoutSaved>(_onSaved);
     // on<WorkoutResumed>(_onResumed)
@@ -78,7 +78,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
 
 
   Future<void> _onExToggled(
-    WorkoutExerciseToggle event,
+    WorkoutExerciseToggled event,
     Emitter<WorkoutState> emit,
   ) async {
     emit(const WorkoutLoading());

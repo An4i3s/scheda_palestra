@@ -2,10 +2,11 @@
 import 'package:flutter/material.dart';
 
 class Metrics extends StatelessWidget {
-  const Metrics({super.key, required this.value, required this.title});
+  const Metrics({super.key, required this.value, required this.title, this.description});
 
-  final int value;
+  final int? value;
   final String title;
+  final String? description;
 
 
   @override
@@ -14,7 +15,8 @@ class Metrics extends StatelessWidget {
       children: [
         Text("$title:"),
         const SizedBox(width: 4),
-        Text(value.toString(), style: const TextStyle(fontWeight: FontWeight.bold),),
+        if(value!=null) Text(value!.toString(), style: const TextStyle(fontWeight: FontWeight.bold),),
+        if(description!=null) Text(description!, style: const TextStyle(fontWeight: FontWeight.bold),),
       ],
     );
   }
@@ -91,9 +93,10 @@ class WalkingMetricsWidget extends StatelessWidget {
 }
 
 class GenericExerciseWidget extends StatelessWidget {
-  const GenericExerciseWidget({super.key, required this.time, required this.series});
+  const GenericExerciseWidget({super.key, required this.time, required this.series, required this.description});
   final int? time;
-  final int series;
+  final int? series;
+  final String? description;
 
   @override
   Widget build(BuildContext context) => GridView.count(
@@ -105,6 +108,7 @@ class GenericExerciseWidget extends StatelessWidget {
                   childAspectRatio: 6,
                   children: [
                      Metrics(title: 'Time', value: time??0, ),
-                     Metrics(title: 'Series', value: series, ),
+                     if(series!=null) Metrics(title: 'Series', value: series!, ),
+                     if(description!=null) Metrics(title: 'Description', value: null, description: description, ),
                   ]);
 }

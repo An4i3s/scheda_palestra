@@ -15,6 +15,13 @@ class ExerciseModelAdapter extends TypeAdapter<ExerciseModel> {
         return 0;
       }
     }
+    String readSafeString() {
+      try {
+        return reader.readString();
+      } catch (_) {
+        return '';
+      }
+    }
 
     return ExerciseModel(
       name: reader.readString(),
@@ -27,6 +34,7 @@ class ExerciseModelAdapter extends TypeAdapter<ExerciseModel> {
       time: readSafeInt(),
       km: readSafeInt(),
       elevation: readSafeInt(),
+      description: readSafeString(),
     );
   }
 
@@ -42,5 +50,6 @@ class ExerciseModelAdapter extends TypeAdapter<ExerciseModel> {
     writer.writeInt(obj.time??0);
     writer.writeInt(obj.km??0);
     writer.writeInt(obj.elevation??0);
+    writer.writeString(obj.description??'');
   }
 }

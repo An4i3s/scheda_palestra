@@ -6,32 +6,40 @@ import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 class WorkoutChipHelper {
   static String getChipLabel(WorkoutCategory category) {
     switch (category) {
-
       case WorkoutCategory.strength:
         return 'Forza';
-      case WorkoutCategory.cardio:
-       return 'Cardio';
-      case WorkoutCategory.endurance:
-      return 'Resistenza';
-      case WorkoutCategory.flexibility:
-        return 'Flessibilità';
+      case WorkoutCategory.ruuning:
+        return 'Corsa';
+      case WorkoutCategory.walking:
+        return 'Camminata';
+      case WorkoutCategory.cycling:
+        return 'Bicicletta';
+      case WorkoutCategory.swimming:
+        return 'Nuoto';
+      case WorkoutCategory.pilates:
+        return 'Pilates';
+      case WorkoutCategory.yoga:
+        return 'Yoga';
+      case WorkoutCategory.crossfit:
+        return 'Crossfit';
     }
   } 
 
    static Color getChipColors(WorkoutCategory category){
     switch (category) {
       case WorkoutCategory.strength:
-        // return const Color(0xFFCCFF00);
         return AppColors.strengthChipColor;
-      case WorkoutCategory.cardio:
-        // return const Color(0xFF03DAC6);
-          return AppColors.cardioChipColor;
-      case WorkoutCategory.endurance:
-        // return const Color(0xFFFF2E63);
-          return AppColors.enduranceChipColor;
-      case WorkoutCategory.flexibility:
-        // return const Color(0xFF6200EE);
-          return AppColors.flexibilityChipColor;
+      case WorkoutCategory.ruuning:
+      case WorkoutCategory.cycling:
+      case WorkoutCategory.swimming:
+        return AppColors.cardioChipColor;
+      case WorkoutCategory.walking:
+        return AppColors.enduranceChipColor;
+      case WorkoutCategory.pilates:
+      case WorkoutCategory.yoga:
+        return AppColors.flexibilityChipColor;
+      case WorkoutCategory.crossfit:
+        return AppColors.strengthChipColor;
     }
    }
 }

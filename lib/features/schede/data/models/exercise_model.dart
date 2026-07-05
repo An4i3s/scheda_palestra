@@ -7,6 +7,7 @@ class ExerciseModel {
   final int? repetitions;
   final int? weight;
   final WorkoutCategory category;
+  final String? description;
   final int? restTime;
   final int? time;
   final int? km;
@@ -16,6 +17,7 @@ class ExerciseModel {
     required this.series,
     required this.repetitions,
     required this.weight,
+    this.description,
     required this.category, required this.restTime, required this.id, this.time, this.km, this.elevation,
   });
 }
