@@ -23,7 +23,8 @@ class _ExerciseWorkoutState extends State<ExerciseWorkout> {
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey)
+          border: Border.all(color: Colors.grey),
+          color: Colors.white
         ),
         child: Row(
           spacing: 16,

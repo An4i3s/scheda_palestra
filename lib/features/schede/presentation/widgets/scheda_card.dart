@@ -32,11 +32,24 @@ class _SchedaCardState extends State<SchedaCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-                  Text(widget.scheda.nome, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+              Text(
+                widget.scheda.nome,
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: [
                   IconButton(
                     padding: EdgeInsets.zero,
-                    onPressed: widget.onDelete, icon: Icon(Icons.delete, color: Colors.red, size: 18,),)
-                  
+                    onPressed: widget.onEdit,
+                    icon: const Icon(Icons.edit_outlined, size: 18),
+                  ),
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: widget.onDelete,
+                    icon: const Icon(Icons.delete, color: Colors.red, size: 18),
+                  ),
+                ],
+              ),
             ],
           ),
           Text("Descrizione scheda"),

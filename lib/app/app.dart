@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
 import 'package:scheda_palestra/features/schede/presentation/views/scheda_page.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_view.dart';
@@ -22,40 +23,43 @@ class _MainPageState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        
-        backgroundColor: Colors.white,
-        body: IndexedStack(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: IndexedStack(
           index: _currentIndex,
           children: _pages,
         ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _currentIndex,
-          onDestinationSelected: (i) => setState(() => _currentIndex = i),
-          destinations: const [
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (i) => setState(() => _currentIndex = i),
+        backgroundColor: Colors.white,
+        indicatorColor: Colors.transparent,
+        overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+        labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const TextStyle(color: Colors.red);
+          }
+          return const TextStyle(color: Colors.black);
+        }),
+        destinations: [
+          NavigationDestination(
+            icon: SvgPicture.asset("assets/icons/home.svg"),
+            selectedIcon:SvgPicture.asset("assets/icons/home.svg", colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),),
+            label: 'Home',
+          ),
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Home',
-            ),
-              NavigationDestination(
-              icon: Icon(Icons.man_rounded),
-              selectedIcon: Icon(Icons.man_rounded),
-              label: 'Workout',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.fitness_center_outlined),
-              selectedIcon: Icon(Icons.fitness_center),
-              label: 'Schede',
-            ),
-            // NavigationDestination(
-            //   icon: Icon(Icons.fitbit_outlined),
-            //   selectedIcon: Icon(Icons.fitbit_outlined),
-            //   label: 'Esercizi',
-            // ),
-          ],
-        ),
+            icon:  SvgPicture.asset("assets/icons/muscle.svg"),
+            selectedIcon: SvgPicture.asset("assets/icons/muscle.svg", colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),),
+            label: 'Workout',
+          ),
+          NavigationDestination(
+            icon: SvgPicture.asset("assets/icons/note.svg"),
+            selectedIcon: SvgPicture.asset("assets/icons/note.svg", colorFilter: ColorFilter.mode(Colors.red, BlendMode.srcIn),),
+            label: 'Schede',
+          ),
+        ],
       ),
     );
   }

@@ -16,7 +16,15 @@ class Metrics extends StatelessWidget {
         Text("$title:"),
         const SizedBox(width: 4),
         if(value!=null) Text(value!.toString(), style: const TextStyle(fontWeight: FontWeight.bold),),
-        if(description!=null) Text(description!, style: const TextStyle(fontWeight: FontWeight.bold),),
+        if (description != null)
+          Expanded(
+            child: Text(
+              description!,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              softWrap: true,
+              overflow: TextOverflow.visible,
+            ),
+          ),
       ],
     );
   }

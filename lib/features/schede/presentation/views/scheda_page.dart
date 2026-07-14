@@ -19,9 +19,13 @@ class _SchedePageState extends State<SchedePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Column(
+      
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Column(
         spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.start,
+        
         children: [
           const Text('Le mie schede', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
           const Text('Gestisci i tuoi programmi di allenamento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),
@@ -97,18 +101,17 @@ class _SchedePageState extends State<SchedePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
                         child: SchedaCard(
                           scheda: scheda,
-                          onEdit: (){},
-                          // onEdit: () => Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (_) => MultiBlocProvider(
-                          //       providers: [
-                          //         BlocProvider.value(value: context.read<SchedeBloc>()),
-                          //         BlocProvider.value(value: context.read<ExercisesBloc>()),
-                          //       ],
-                          //       child: ,
-                          //     ),
-                          //   ),
-                          // ),
+                          onEdit: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => MultiBlocProvider(
+                                providers: [
+                                  BlocProvider.value(value: context.read<SchedeBloc>()),
+                                  BlocProvider.value(value: context.read<ExercisesBloc>()),
+                                ],
+                                child: SchedaFormPage(scheda: scheda),
+                              ),
+                            ),
+                          ),
                           onDelete: () => context.read<SchedeBloc>().add(
                             SchedaDeleted(scheda.id),
                           ),
