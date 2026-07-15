@@ -23,6 +23,7 @@ class SchedaFormPage extends StatefulWidget {
 class _SchedaFormPageState extends State<SchedaFormPage> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nomeController;
+  late final TextEditingController _descrizioneController;
   late List<ExerciseModel> _esercizi;
   WorkoutCategory? _selectedCategory;
 
@@ -33,6 +34,9 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
   void initState() {
     super.initState();
     _nomeController = TextEditingController(text: widget.scheda?.nome ?? '');
+    _descrizioneController = TextEditingController(
+      text: widget.scheda?.descrizione ?? '',
+    );
     _esercizi = List.from(widget.scheda?.esercizi ?? []);
     _selectedCategory = widget.scheda?.category ?? WorkoutCategory.strength;
   }
@@ -40,6 +44,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
   @override
   void dispose() {
     _nomeController.dispose();
+    _descrizioneController.dispose();
     super.dispose();
   }
 
@@ -89,9 +94,10 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     final scheda = SchedaModel(
       id: widget.scheda?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
       nome: _nomeController.text.trim(),
+      descrizione: _descrizioneController.text.trim(),
       createdAt: widget.scheda?.createdAt ?? DateTime.now(),
-      esercizi: _esercizi, 
-      category: _selectedCategory??WorkoutCategory.strength,
+      esercizi: _esercizi,
+      category: _selectedCategory ?? WorkoutCategory.strength,
     );
 
     context.read<SchedeBloc>().add(SchedaSaved(scheda));
@@ -123,15 +129,30 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(16),
-              child: TextFormField(
-                controller: _nomeController,
-                decoration: const InputDecoration(
-                  labelText: 'Nome scheda *',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (v) =>
-                    (v == null || v.trim().isEmpty) ? 'Campo obbligatorio' : null,
-                textCapitalization: TextCapitalization.sentences,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: _nomeController,
+                    decoration: const InputDecoration(
+                      labelText: 'Nome scheda *',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (v) =>
+                        (v == null || v.trim().isEmpty) ? 'Campo obbligatorio' : null,
+                    textCapitalization: TextCapitalization.sentences,
+                  ),
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    controller: _descrizioneController,
+                    maxLines: 3,
+                    decoration: const InputDecoration(
+                      labelText: 'Descrizione',
+                      border: OutlineInputBorder(),
+                      alignLabelWithHint: true,
+                    ),
+                    textCapitalization: TextCapitalization.sentences,
+                  ),
+                ],
               ),
             ),
             Padding(

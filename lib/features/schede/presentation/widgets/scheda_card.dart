@@ -3,8 +3,13 @@ import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_scheda.dart';
 
-class SchedaCard extends StatefulWidget{
-  const SchedaCard({super.key, required this.scheda, required this.onEdit, required this.onDelete});
+class SchedaCard extends StatefulWidget {
+  const SchedaCard({
+    super.key,
+    required this.scheda,
+    required this.onEdit,
+    required this.onDelete,
+  });
   final SchedaModel scheda;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
@@ -14,98 +19,132 @@ class SchedaCard extends StatefulWidget{
 }
 
 class _SchedaCardState extends State<SchedaCard> {
-  bool _showExercises = false;
+  final _controller = ExpansibleController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 16, left:16, right: 16),
+      padding: EdgeInsets.only(bottom: 16, left: 16, right: 16, top: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: AppColors.neutralColor,
-        border: Border.all(color:Colors.grey, width: 1),
+        border: Border.all(color: Colors.grey[350] ?? Colors.grey, width: 1),
       ),
-      child:  Center(child: Column(
-        spacing: 8,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                widget.scheda.nome,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: widget.onEdit,
-                    icon: const Icon(Icons.edit_outlined, size: 18),
-                  ),
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: widget.onDelete,
-                    icon: const Icon(Icons.delete, color: Colors.red, size: 18),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Text("Descrizione scheda"),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                color: Colors.amberAccent,
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                child: const Text("Intermedio", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
-              ),
-              const SizedBox(width: 12),
-              Text("${widget.scheda.esercizi.length} esercizi"),
-              const SizedBox(width: 12),
-              const Text("45 min"),
-            ],
-          ),
-          SizedBox(
-            width: 164,
-            child: Row(
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _showExercises ?  Text("Nascondi esercizi", style: TextStyle(color: Colors.red[800], fontWeight: FontWeight.w600),) :  Text("Mostra esercizi",  style: TextStyle(color: Colors.red[800], fontWeight: FontWeight.w600)),
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    setState(() {
-                      _showExercises = !_showExercises;
-                    });
-                  },
-                  child: SizedBox(
-                    width: 22,
-                    height: 22,
-                    child: Center(
-                      child: Icon(
-                        _showExercises ? Icons.arrow_circle_up : Icons.arrow_circle_down,
-                        size: 16,
+                Text(
+                  widget.scheda.nome,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: widget.onEdit,
+                      icon: const Icon(Icons.edit_outlined, size: 18),
+                    ),
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: widget.onDelete,
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                        size: 18,
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
-          ),
-          if (_showExercises)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widget.scheda.esercizi
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: ExerciseInScheda(index: widget.scheda.esercizi.indexOf(e)+1, exercise: e,),
-                      ))
-                  .toList(),
+            Text(
+              widget.scheda.descrizione.isNotEmpty
+                  ? widget.scheda.descrizione
+                  : 'Nessuna descrizione',
+              style: TextStyle(
+                color: widget.scheda.descrizione.isNotEmpty
+                    ? Colors.black87
+                    : Colors.grey[600],
+              ),
             ),
-        ],
-      )),
+            SizedBox(height: 4,),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("${widget.scheda.esercizi.length} esercizi"),
+                const SizedBox(width: 12),
+                const Text("45 min"),
+              ],
+            ),
+            Expansible(
+              headerBuilder:
+                  (BuildContext context, Animation<double> animation) {
+                    return ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: _controller.isExpanded
+                          ? Text(
+                              "Nascondi esercizi",
+                              style: TextStyle(
+                                color: AppColors.tertiaryColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          : Text(
+                              "Mostra esercizi",
+                              style: TextStyle(
+                                color: AppColors.tertiaryColor,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                      onTap: () {
+                        if (_controller.isExpanded) {
+                          _controller.collapse();
+                        } else {
+                          _controller.expand();
+                        }
+                      },
+                      trailing: RotationTransition(
+                        
+                        turns: Tween<double>(
+                          begin: 0.0,
+                          end: 0.5,
+                        ).animate(animation),
+                        child: const Icon(
+                          Icons.arrow_drop_down,
+                          color: AppColors.tertiaryColor,
+                        ),
+                      ),
+                    );
+                  },
+              bodyBuilder: (BuildContext context, Animation<double> animation) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: widget.scheda.esercizi
+                      .map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: ExerciseInScheda(
+                            index: widget.scheda.esercizi.indexOf(e) + 1,
+                            exercise: e,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              },
+              controller: _controller,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

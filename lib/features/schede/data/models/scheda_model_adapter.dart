@@ -31,6 +31,7 @@ class SchedaModelAdapter extends TypeAdapter<SchedaModel> {
 
     final id = readSafeString();
     final nome = readSafeString();
+    final descrizione = readSafeString();
     final createdAtMillis = readSafeInt();
     final createdAt = DateTime.fromMillisecondsSinceEpoch(
         createdAtMillis == 0 ? DateTime.now().millisecondsSinceEpoch : createdAtMillis);
@@ -43,6 +44,7 @@ class SchedaModelAdapter extends TypeAdapter<SchedaModel> {
     return SchedaModel(
       id: id,
       nome: nome,
+      descrizione: descrizione,
       createdAt: createdAt,
       esercizi: esercizi,
       category: category,
@@ -56,6 +58,7 @@ class SchedaModelAdapter extends TypeAdapter<SchedaModel> {
   void write(BinaryWriter writer, SchedaModel obj) {
     writer.writeString(obj.id);
     writer.writeString(obj.nome);
+    writer.writeString(obj.descrizione);
     writer.writeInt(obj.createdAt.millisecondsSinceEpoch);
     writer.writeList(obj.esercizi);
     writer.writeInt(obj.category.index);

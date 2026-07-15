@@ -19,19 +19,21 @@ class _SchedePageState extends State<SchedePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        toolbarHeight: 96,
+        backgroundColor: AppColors.backgroundColor,
         title: Column(
         spacing: 8,
         crossAxisAlignment: CrossAxisAlignment.start,
         
         children: [
           const Text('Le mie schede', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
-          const Text('Gestisci i tuoi programmi di allenamento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),
+          const Text('Gestisci i tuoi programmi di allenamento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.blueGrey),),
         ],
-      )),
-            backgroundColor: AppColors.backgroundColor,
+              )),
+       
       body: BlocConsumer<SchedeBloc, SchedaState>(
         listener: (context, state) {
           if (state is SchedeError) {
@@ -42,9 +44,14 @@ class _SchedePageState extends State<SchedePage> {
         },
         builder: (context, state) {
           final createButton = SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             sliver: SliverToBoxAdapter(
               child: OutlinedButton(
+                
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(AppColors.setsTextColors),
+                  side: WidgetStatePropertyAll(BorderSide.none)
+                ),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => MultiBlocProvider(
@@ -56,13 +63,16 @@ class _SchedePageState extends State<SchedePage> {
                     ),
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.add),
-                    SizedBox(width: 8),
-                    Text('Crea nuova scheda'),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.add, color: Colors.white, size: 24,),
+                      SizedBox(width: 8),
+                      Text('Crea nuova scheda', style: TextStyle(color: Colors.white, fontSize: 18),),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -85,12 +95,12 @@ class _SchedePageState extends State<SchedePage> {
                     (context, index) {
                       if (index == 0) {
                         return Padding(
-                          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                          padding: const EdgeInsets.all(16),
                           child: Text(
                             'Schede Create (${schede.length})',
                             style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         );

@@ -11,10 +11,12 @@ enum WorkoutCategory {
   crossfit,
 }
 
-class SchedaModel  {
+class SchedaModel {
   final String id;
 
   final String nome;
+
+  final String descrizione;
 
   final DateTime createdAt;
 
@@ -25,13 +27,16 @@ class SchedaModel  {
   SchedaModel({
     required this.id,
     required this.nome,
+    this.descrizione = '',
     required this.createdAt,
-    this.esercizi = const [], required this.category,
+    this.esercizi = const [],
+    required this.category,
   });
 
   SchedaModel copyWith({
     String? id,
     String? nome,
+    String? descrizione,
     DateTime? createdAt,
     List<ExerciseModel>? esercizi,
     WorkoutCategory? category,
@@ -39,8 +44,10 @@ class SchedaModel  {
     return SchedaModel(
       id: id ?? this.id,
       nome: nome ?? this.nome,
+      descrizione: descrizione ?? this.descrizione,
       createdAt: createdAt ?? this.createdAt,
-      esercizi: esercizi ?? this.esercizi, category: category ?? this.category,
+      esercizi: esercizi ?? this.esercizi,
+      category: category ?? this.category,
     );
   }
 }

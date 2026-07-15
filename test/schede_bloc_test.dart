@@ -31,7 +31,27 @@ class MockDeleteScheda extends Mock {
 final tScheda = SchedaModel(
   id: '1',
   nome: 'Full Body A',
-  esercizi:  [ExerciseModel(name: 'Squat', series: 3, repetitions: 10, weight: 50, targetMuscleGroup: TargetMuscleGroup.chest, restTime: 30, id: '1'), ExerciseModel(name: 'Panca', series: 3, repetitions: 10, weight: 50, targetMuscleGroup: TargetMuscleGroup.chest, restTime: 30, id: '2')],
+  descrizione: 'Scheda per forza e resistenza',
+  esercizi: [
+    ExerciseModel(
+      name: 'Squat',
+      series: 3,
+      repetitions: 10,
+      weight: 50,
+      category: WorkoutCategory.strength,
+      restTime: 30,
+      id: '1',
+    ),
+    ExerciseModel(
+      name: 'Panca',
+      series: 3,
+      repetitions: 10,
+      weight: 50,
+      category: WorkoutCategory.strength,
+      restTime: 30,
+      id: '2',
+    ),
+  ],
   createdAt: DateTime(2024),
   category: WorkoutCategory.strength,
 );
