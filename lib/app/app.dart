@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
 import 'package:scheda_palestra/features/schede/presentation/views/scheda_page.dart';
-import 'package:scheda_palestra/features/workout/presentation/workout_view.dart';
+import 'package:scheda_palestra/features/workout/presentation/views/workout_view.dart';
 
 class App extends StatefulWidget {
   const App({super.key});

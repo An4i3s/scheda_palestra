@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_state.dart';
-import 'package:scheda_palestra/features/workout/presentation/views/create_workout_dialog.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_state.dart';
-import 'package:scheda_palestra/features/workout/presentation/workout_exercise.dart';
+import 'package:scheda_palestra/features/workout/presentation/views/workout_exercise.dart';
 
 class WorkoutView extends StatefulWidget {
   const WorkoutView({super.key});
@@ -30,26 +29,6 @@ class _WorkoutViewState extends State<WorkoutView> {
   Widget build(BuildContext context) {
     return Scaffold(
        backgroundColor:AppColors.backgroundColor,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final schedeState = context.read<SchedeBloc>().state;
-          final workoutBloc = context.read<WorkoutBloc>();
-
-          if (schedeState is SchedeLoaded) {
-            showDialog(
-              context: context,
-              useRootNavigator: false,
-              builder: (context) => CreateWorkoutDialog(
-                schede: schedeState.schede,
-                onCreateWorkout: (workout) {
-                  workoutBloc.add(WorkoutCreated(workout));
-                },
-              ),
-            );
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
           if (state is WorkoutLoading) {
