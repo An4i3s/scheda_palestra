@@ -6,10 +6,10 @@ class AppColors {
   static const Color secondaryColor = Color(0xFF03DAC6);
   static const Color tertiaryColor = Color(0xFFFF2E63);
   static const Color textColor = Color(0xFF121212);
-  static const Color backgroundColor = Color(0xFFf4f4f6);
+  static const Color backgroundColor = Color(0xFFf4fdfd);
 
   // Buttons
-   static const Color primaryBtnColor = Color(0xFFff4545);
+   static const Color primaryBtnColor = Color(0xFFBA1650);
   // Chips
 
   static const Color strengthChipColor = Color(0xFF00F0FF);
