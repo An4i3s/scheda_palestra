@@ -59,4 +59,14 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
       return Left(CacheFailure(e.toString()));
     }
   }
+  
+  @override
+  Future<Either<Failure, bool>> deleteWorkout(WorkoutModel workout) async{
+    try{
+      final deleted = await datasource.deleteWorkout(workout);
+      return Right(deleted);
+    }catch(e){
+        return Left(CacheFailure(e.toString()));
+    }
+  }
 }

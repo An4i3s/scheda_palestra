@@ -36,14 +36,12 @@ class WorkoutLocalDatasourceImpl implements WorkoutLocalDatasource {
     final box = await _box;
     return box.values.toList();
   }
-
-  @override
-  Future<WorkoutModel> createWorkout(WorkoutModel workout) async {
-    final box = await _box;
-    await box.put(workout.id, workout);
-    await box.put(_currentKey, workout);
-    return workout;
-  }
+@override
+Future<WorkoutModel> createWorkout(WorkoutModel workout) async {
+  final box = await _box;
+  await box.put(workout.id, workout);
+  return workout;
+}
   
   @override
 Future<WorkoutModel> toggleExercise(String exerciseId) async {
@@ -59,4 +57,23 @@ Future<WorkoutModel> toggleExercise(String exerciseId) async {
   await box.put(_currentKey, updatedWorkout);
   return updatedWorkout;
 }
+
+  @override
+  Future<bool> deleteWorkout(WorkoutModel workout) async{
+      final box = await _box;
+      await box.delete(workout.id);
+      return !box.containsKey(workout.id);
+    
+  }
+
+  // @override
+  // Future<WorkoutModel> updateWorkout(WorkoutModel workout) {
+  //   // try{
+  //   //    final box = await _box;
+  //   //    final workout = box.get(_currentKey);
+  //   //    final updatedWorkout = workout
+  //   // }
+     
+  //  return Wo
+  // }
 }

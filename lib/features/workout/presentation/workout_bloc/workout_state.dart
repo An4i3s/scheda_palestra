@@ -33,6 +33,10 @@ class WorkoutInProgress extends WorkoutState{
   const WorkoutInProgress(); 
 }
 
+class WorkoutDeleted extends WorkoutState{
+  const WorkoutDeleted(); 
+}
+
 
 class WorkoutRegistered extends WorkoutState{
   const WorkoutRegistered(); 

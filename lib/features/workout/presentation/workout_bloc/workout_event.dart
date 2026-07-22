@@ -37,6 +37,14 @@ class WorkoutCreated extends WorkoutEvent {
   List<Object?> get props => [workout];
 }
 
+class WorkoutOnDeleted extends WorkoutEvent {
+  final WorkoutModel workout;
+  const WorkoutOnDeleted(this.workout);
+
+  @override
+  List<Object?> get props => [workout];
+}
+
 // Segna esercizi come completo/non completo
 class WorkoutExerciseToggled extends WorkoutEvent {
   final String exerciseId;

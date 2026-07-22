@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
+import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 
 class DaysOfWeekWidget extends StatefulWidget {
@@ -11,7 +12,7 @@ class DaysOfWeekWidget extends StatefulWidget {
   });
 
   final WorkoutModel? workout;
-  final void Function(BuildContext c) onPressed;
+  final void Function(BuildContext c, int? selectedDay, WorkoutModel? selectedWorkout) onPressed;
   final DaysOfWeek dayOfWeek;
 
   @override
@@ -51,9 +52,9 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () =>  widget.onPressed(context),
+      onTap: () =>  widget.onPressed(context,  DaysOfWeek.values.indexOf(widget.dayOfWeek)+1, widget.workout),
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: _getBoxDecoration(),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,7 +81,7 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
               ),
             ),
                        
-            widget.workout!=null ? Icon(Icons.sports_gymnastics) : Icon(Icons.add),
+            widget.workout!=null ? Text("🏋️") : Icon(Icons.add, size: 16,),
             Text(
               widget.workout?.scheda.nome ?? 'Riposo',
               style: TextStyle(
