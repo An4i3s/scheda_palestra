@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
-import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
-import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_state.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_state.dart';

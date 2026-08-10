@@ -1,11 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/data/home_model.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/days_of_week.dart';
-import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 
 class WeeklyPlanWidget extends StatelessWidget {

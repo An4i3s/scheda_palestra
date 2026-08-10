@@ -48,25 +48,24 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
       return Left(CacheFailure(e.toString()));
     }
   }
-  
+
   @override
-  Future<Either<Failure, WorkoutModel>> toggleExercise(String exId) async{
-    try{
-      final toggled = await datasource.toggleExercise(exId);
-      return Right(toggled);
-    }
-    catch(e){
+  Future<Either<Failure, WorkoutModel>> toggleExercise(String exerciseId) async {
+    try {
+      final updated = await datasource.toggleExercise(exerciseId);
+      return Right(updated);
+    } catch (e) {
       return Left(CacheFailure(e.toString()));
     }
   }
-  
+
   @override
-  Future<Either<Failure, bool>> deleteWorkout(WorkoutModel workout) async{
-    try{
+  Future<Either<Failure, bool>> deleteWorkout(WorkoutModel workout) async {
+    try {
       final deleted = await datasource.deleteWorkout(workout);
       return Right(deleted);
-    }catch(e){
-        return Left(CacheFailure(e.toString()));
+    } catch (e) {
+      return Left(CacheFailure(e.toString()));
     }
   }
 }

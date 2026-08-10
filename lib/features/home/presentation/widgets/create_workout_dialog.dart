@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
-import 'package:scheda_palestra/features/home/presentation/widgets/home_workout_options.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/home_workout_options_list.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
@@ -92,6 +91,7 @@ final selectedScheda = widget.schede
             child: Text("Nessuna scheda disponibile. Creane una nel tab Schede!"),
           ) : HomeWorkoutOptionsList(
             schede: widget.schede, onChanged: (i) {
+              print("Error on changed workout $i");
             setState(() {
               _selectedSchedaId = i;
             });
