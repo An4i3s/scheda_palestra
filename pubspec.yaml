@@ -28,6 +28,4 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icons/home.svg
-    - assets/icons/muscle.svg
-    - assets/icons/note.svg
+    - assets/icons/

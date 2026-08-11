@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_scheda.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/scheda_delete_dialog.dart';
 
 class SchedaCard extends StatefulWidget {
   const SchedaCard({
@@ -54,12 +56,13 @@ class _SchedaCardState extends State<SchedaCard> {
                     ),
                     IconButton(
                       padding: EdgeInsets.zero,
-                      onPressed: widget.onDelete,
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                        size: 18,
-                      ),
+                      // onPressed: widget.onDelete,
+                      onPressed: () {
+                        showDialog(context: context, builder: (c){
+                          return SchedaDeleteDialog(schedaModel: widget.scheda, onDelete: widget.onDelete,);
+                        });
+                      },
+                      icon: SvgPicture.asset("assets/icons/trash.svg", width: 48, height: 48, colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
                     ),
                   ],
                 ),

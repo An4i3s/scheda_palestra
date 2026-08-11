@@ -32,7 +32,7 @@ class HomeWorkoutOptions extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Color(0xFFe7f4f5),
+                    color: AppColors.containerColor,
                     borderRadius: BorderRadius.circular(32)
                   ),
                   child: isRest ?  Text("😴", style: TextStyle(fontSize: 18),): Text("🏋🏻‍♀️", style: TextStyle(fontSize: 18),),),

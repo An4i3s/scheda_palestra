@@ -10,6 +10,11 @@ class AppColors {
 
   // Buttons
    static const Color primaryBtnColor = Color(0xFFBA1650);
+
+    //Container
+    
+     static const Color containerColor = Color(0xFFe7f4f5);
+
   // Chips
 
   static const Color strengthChipColor = Color(0xFF00F0FF);
