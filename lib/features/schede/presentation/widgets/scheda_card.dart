@@ -48,21 +48,23 @@ class _SchedaCardState extends State<SchedaCard> {
                   ),
                 ),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
+                      constraints: BoxConstraints(maxWidth: 20, maxHeight: 48),
                       padding: EdgeInsets.zero,
                       onPressed: widget.onEdit,
-                      icon: const Icon(Icons.edit_outlined, size: 18),
+                      icon: SvgPicture.asset("assets/icons/edit.svg", colorFilter: ColorFilter.mode(AppColors.secondaryBtnColor, BlendMode.srcIn),),
                     ),
                     IconButton(
+                      constraints: BoxConstraints(maxWidth: 48, maxHeight: 64),
                       padding: EdgeInsets.zero,
-                      // onPressed: widget.onDelete,
                       onPressed: () {
                         showDialog(context: context, builder: (c){
                           return SchedaDeleteDialog(schedaModel: widget.scheda, onDelete: widget.onDelete,);
                         });
                       },
-                      icon: SvgPicture.asset("assets/icons/trash.svg", width: 48, height: 48, colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
+                      icon: SvgPicture.asset("assets/icons/trash.svg",colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
                     ),
                   ],
                 ),

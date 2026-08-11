@@ -74,7 +74,7 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
                     ),
                   ),
                    Container(width: 1, height: 20, 
-            color: _isToday() ? Colors.white :AppColors.setsTextColors,
+            color: _isToday() ? Colors.white :AppColors.secondaryBtnColor,
             ),
                 ],
               ),

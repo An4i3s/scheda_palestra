@@ -16,7 +16,7 @@ class HomeHeaderWidget extends StatelessWidget {
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: AppColors.setsTextColors
+        color: AppColors.secondaryBtnColor
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

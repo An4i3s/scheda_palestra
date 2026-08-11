@@ -10,6 +10,7 @@ class AppColors {
 
   // Buttons
    static const Color primaryBtnColor = Color(0xFFBA1650);
+  static const Color secondaryBtnColor = Color(0xFF00A0AA);
 
     //Container
     
@@ -30,7 +31,7 @@ class AppColors {
     static const Color repsColors = Color(0xFFFFD7F0);
     static const Color restColors = Color(0xFFF6EDFF);
     
-    static const Color setsTextColors = Color(0xFF00A0AA);
+   
     static const Color repsTextColors = Color(0xFFD800C1);
     static const Color restTextColors = Color(0xFF7212FF);
 }
