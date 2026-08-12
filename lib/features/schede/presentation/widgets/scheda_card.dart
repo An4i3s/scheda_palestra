@@ -49,15 +49,16 @@ class _SchedaCardState extends State<SchedaCard> {
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     IconButton(
-                      constraints: BoxConstraints(maxWidth: 20, maxHeight: 48),
+                      constraints: BoxConstraints( maxHeight: 22),
                       padding: EdgeInsets.zero,
                       onPressed: widget.onEdit,
                       icon: SvgPicture.asset("assets/icons/edit.svg", colorFilter: ColorFilter.mode(AppColors.secondaryBtnColor, BlendMode.srcIn),),
                     ),
                     IconButton(
-                      constraints: BoxConstraints(maxWidth: 48, maxHeight: 64),
+                      constraints: BoxConstraints(maxHeight: 48),
                       padding: EdgeInsets.zero,
                       onPressed: () {
                         showDialog(context: context, builder: (c){
