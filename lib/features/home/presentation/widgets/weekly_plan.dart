@@ -23,7 +23,7 @@ class WeeklyPlanWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color(0xFFc7e8ea))
+        border: Border.all(color: AppColors.borderContainerColor)
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -9,7 +9,6 @@ import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_form_dialog.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/workout_category_container.dart';
 
-//Todo creare lista esercizi name con nome e tipo eservzio (target group)
 
 class SchedaFormPage extends StatefulWidget {
   final SchedaModel? scheda;
@@ -107,7 +106,9 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFf3fdfd),
       appBar: AppBar(
+        backgroundColor: Color(0xFFf3fdfd),
         title: Text(_isEditing ? 'Modifica scheda' : 'Nuova scheda'),
         actions: [
           TextButton(

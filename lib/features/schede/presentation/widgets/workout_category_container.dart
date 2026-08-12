@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 
 class WorkoutCategoryContainer extends StatefulWidget{
@@ -30,32 +31,36 @@ class _WorkoutCategoryContainerState extends State<WorkoutCategoryContainer> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey, width: 1),
+        color: Colors.white,
+        border: Border.all(color: AppColors.borderContainerColor, width: 1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8,
         children: [
+          Text("Tipo di Allenamento", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+          SizedBox(height: 8,),
           Row(
             spacing: 8,
             children: [
-              Expanded(child: WorkoutTileContainer(name: 'Corsa', description: 'Corsa outdoor o tapis roulant', onTap:() => onCategoryTap(WorkoutCategory.ruuning), isSelected: _selectedCategory==WorkoutCategory.ruuning,)),
-              Expanded(child: WorkoutTileContainer(name: 'Camminata', description: 'Camminata veloca o in pendenza', onTap: () => onCategoryTap(WorkoutCategory.walking), isSelected:  _selectedCategory==WorkoutCategory.walking,)),
+              Expanded(child: WorkoutTileContainer(name: 'Corsa', description: 'Corsa outdoor o tapis roulant', onTap:() => onCategoryTap(WorkoutCategory.ruuning), isSelected: _selectedCategory==WorkoutCategory.ruuning, icon: '🏃‍♂️',)),
+              Expanded(child: WorkoutTileContainer(name: 'Camminata', description: 'Camminata veloce o in pendenza', onTap: () => onCategoryTap(WorkoutCategory.walking), isSelected:  _selectedCategory==WorkoutCategory.walking, icon: '🚶',)),
             ],
           ),
           Row(
             spacing: 8,
             children: [
-              Expanded(child: WorkoutTileContainer(name: 'Forza', description: 'Allenamento di forza', onTap: () => onCategoryTap(WorkoutCategory.strength), isSelected:  _selectedCategory==WorkoutCategory.strength,)),
-              Expanded(child: WorkoutTileContainer(name: 'Bicicletta', description: 'Bici o cyclette', onTap: () => onCategoryTap(WorkoutCategory.cycling), isSelected:  _selectedCategory==WorkoutCategory.cycling,)),
+              Expanded(child: WorkoutTileContainer(name: 'Forza', description: 'Allenamento di forza', onTap: () => onCategoryTap(WorkoutCategory.strength), isSelected:  _selectedCategory==WorkoutCategory.strength, icon: '💪',)),
+              Expanded(child: WorkoutTileContainer(name: 'Bicicletta', description: 'Bici o cyclette', onTap: () => onCategoryTap(WorkoutCategory.cycling), isSelected:  _selectedCategory==WorkoutCategory.cycling, icon: '🚴',)),
 
             ],
           )       ,
              Row(
             spacing: 8,
             children: [
-              Expanded(child: WorkoutTileContainer(name: 'Pilates', description: 'Sessione di Pilates', onTap: () => onCategoryTap(WorkoutCategory.pilates), isSelected:  _selectedCategory==WorkoutCategory.pilates,)),
-              Expanded(child: WorkoutTileContainer(name: 'Nuoto', description: 'Nuoto', onTap: () => onCategoryTap(WorkoutCategory.swimming), isSelected:  _selectedCategory==WorkoutCategory.swimming,)),
+              Expanded(child: WorkoutTileContainer(name: 'Pilates', description: 'Sessione di Pilates', onTap: () => onCategoryTap(WorkoutCategory.pilates), isSelected:  _selectedCategory==WorkoutCategory.pilates, icon: '🧘',)),
+              Expanded(child: WorkoutTileContainer(name: 'Nuoto', description: 'Nuoto', onTap: () => onCategoryTap(WorkoutCategory.swimming), isSelected:  _selectedCategory==WorkoutCategory.swimming, icon: '🏊',)),
 
             ],
           )   
@@ -67,9 +72,10 @@ class _WorkoutCategoryContainerState extends State<WorkoutCategoryContainer> {
 
 class WorkoutTileContainer extends StatelessWidget {
   const WorkoutTileContainer({
-    super.key, required this.name, required this.description, required this.onTap, required this.isSelected,
+    super.key, required this.name, required this.description, required this.onTap, required this.isSelected, required this.icon,
   });
   final String name;
+  final String icon;
   final String description;
   final void Function( ) onTap;
   final bool isSelected;
@@ -81,8 +87,9 @@ class WorkoutTileContainer extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.red[300]  : Colors.grey[300],
-          borderRadius: BorderRadius.circular(20),
+          color: isSelected ? AppColors.secondaryBtnColor  : AppColors.containerColor,
+          borderRadius: BorderRadius.circular(24),
+          border: isSelected ? null : Border.all(color: AppColors.borderContainerColor)
         ),
         child: Column(
           spacing: 4,
@@ -91,11 +98,11 @@ class WorkoutTileContainer extends StatelessWidget {
             Row(
               spacing: 8,
               children: [
-                Icon(Icons.face_retouching_natural_rounded),
-                Text(name),
+                Text(icon, style: TextStyle(fontSize: 20),),
+                Text(name, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontSize: 16, fontWeight: FontWeight.bold),),
               ],
             ),
-            Text(description, style: TextStyle(fontSize: 12,))
+            Text(description, style: TextStyle(fontSize: 13, color:  isSelected ? Colors.white : Colors.black))
           ],
         ),
       ),

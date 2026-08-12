@@ -29,7 +29,7 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
   BoxDecoration _getBoxDecoration(){
     if(_isToday()){
       return BoxDecoration(
-        color: Color(0xFF00a0aa),
+        color: AppColors.secondaryBtnColor,
          borderRadius: BorderRadius.circular(16),
       );
     }

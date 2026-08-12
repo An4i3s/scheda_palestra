@@ -15,6 +15,7 @@ class AppColors {
     //Container
     
      static const Color containerColor = Color(0xFFe7f4f5);
+     static const Color borderContainerColor = Color(0xFFc7e8ea);
 
   // Chips
 
