@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/custom_form_field.dart';
 
 class ExerciseFormDialog extends StatefulWidget {
   final ExerciseModel? esercizio;
@@ -108,33 +110,28 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(side: BorderSide(color: AppColors.borderContainerColor,), borderRadius: BorderRadiusGeometry.circular(16)),
       title: Text(_isEditing ? 'Modifica esercizio' : 'Nuovo esercizio'),
       content: Form(
         key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextFormField(
-              controller: _nomeController,
-              decoration: const InputDecoration(
-                labelText: 'Nome esercizio *',
-                border: OutlineInputBorder(),
-              ),
-              validator: (v) => (v == null || v.trim().isEmpty)
-                  ? 'Campo obbligatorio'
-                  : null,
-            ),
+            CustomFormField(nomeController: _nomeController, hintText: "es. Panca Piana", label: 'Nome esercizio',),
             const SizedBox(height: 12),
             ..._buildCategoryFields(),
           ],
         ),
       ),
       actions: [
-        TextButton(
+        FilledButton(
+          style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.containerColor)),
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Annulla'),
+          child: const Text('Annulla', style: TextStyle(color: Colors.black),),
         ),
         FilledButton(
+          style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor)),
           onPressed: _submit,
           child: Text(_isEditing ? 'Salva' : 'Aggiungi'),
         ),
@@ -145,91 +142,21 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
   List<Widget> _buildCategoryFields() {
     final category = _effectiveCategory;
 
-    final seriesField = TextFormField(
-      controller: _serieController,
-      decoration: const InputDecoration(
-        labelText: 'Serie *',
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (v) =>
-          (v == null || _intOrNull(v) == null) ? 'Campo obbligatorio' : null,
-    );
+    final seriesField = CustomFormField(nomeController: _serieController, label: "Serie *", isNum: true,);
 
-    final timeField = TextFormField(
-      controller: _timeController,
-      decoration: const InputDecoration(
-        labelText: 'Tempo (min) *',
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (v) =>
-          (v == null || _intOrNull(v) == null) ? 'Campo obbligatorio' : null,
-    );
+    final timeField = CustomFormField(nomeController: _timeController, label: "Tempo (min) *", isNum: true,);
+    
+    final kmField =  CustomFormField(nomeController: _kmController, label: "Km *", isNum: true,);
 
-    final kmField = TextFormField(
-      controller: _kmController,
-      decoration: const InputDecoration(
-        labelText: 'Km *',
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (v) =>
-          (v == null || _intOrNull(v) == null) ? 'Campo obbligatorio' : null,
-    );
+    final elevationField = CustomFormField(nomeController: _elevationController, label: "Dislivello (m)", isNum: true,);
 
-    final elevationField = TextFormField(
-      controller: _elevationController,
-      decoration: const InputDecoration(
-        labelText: 'Dislivello (m) *',
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (v) =>
-          (v == null || _intOrNull(v) == null) ? 'Campo obbligatorio' : null,
-    );
+    final repetitionsField = CustomFormField(nomeController: _ripetizioniController, label: "Ripetizioni ", isNum: true,);
 
-    final repetitionsField = TextFormField(
-      controller: _ripetizioniController,
-      decoration: const InputDecoration(
-        labelText: 'Ripetizioni *',
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (v) =>
-          (v == null || _intOrNull(v) == null) ? 'Campo obbligatorio' : null,
-    );
+    final weightField = CustomFormField(nomeController: _pesoController, label: "Peso (kg) ", isNum: true,);
 
-    final weightField = TextFormField(
-      controller: _pesoController,
-      decoration: const InputDecoration(
-        labelText: 'Peso (kg) *',
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (v) =>
-          (v == null || _intOrNull(v) == null) ? 'Campo obbligatorio' : null,
-    );
+    final restField = CustomFormField(nomeController: _restTimeController, label: "Recupero (sec) ", isNum: true,);
 
-    final restField = TextFormField(
-      controller: _restTimeController,
-      decoration: const InputDecoration(
-        labelText: 'Recupero (sec) *',
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (v) =>
-          (v == null || _intOrNull(v) == null) ? 'Campo obbligatorio' : null,
-    );
-
-    final obiettivoField = TextFormField(
-      controller: _obiettivoController,
-      decoration: const InputDecoration(
-        labelText: 'Obiettivo',
-        border: OutlineInputBorder(),
-      ),
-      maxLines: 2,
-    );
+    final obiettivoField =   CustomFormField(nomeController: _obiettivoController, label: "Obiettivo",);
 
     switch (category) {
       case WorkoutCategory.strength:

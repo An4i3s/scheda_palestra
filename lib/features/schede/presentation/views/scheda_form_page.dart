@@ -1,11 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/exercises_bloc/exercises_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/custom_form_field.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_form_dialog.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/workout_category_container.dart';
 
@@ -110,109 +112,142 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
       appBar: AppBar(
         backgroundColor: Color(0xFFf3fdfd),
         title: Text(_isEditing ? 'Modifica scheda' : 'Nuova scheda'),
-        actions: [
-          TextButton(
-            onPressed: _submit,
-            child: const Text('Salva'),
-          ),
-        ],
+        // actions: [
+        //   TextButton(
+        //     onPressed: _submit,
+        //     child: const Text('Salva'),
+        //   ),
+        // ],
       ),
       body: Form(
         key: _formKey,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: WorkoutCategoryContainer(
-                selectedCategory: _selectedCategory,
-                onCategorySelected: (category) => setState(() => _selectedCategory = category),
+        child: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: WorkoutCategoryContainer(
+                  selectedCategory: _selectedCategory,
+                  onCategorySelected: (category) => setState(() => _selectedCategory = category),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _nomeController,
-                    decoration: const InputDecoration(
-                      labelText: 'Nome scheda *',
-                      border: OutlineInputBorder(),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: AppColors.borderContainerColor),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomFormField(
+                        nomeController: _nomeController,
+                        hintText: "ex Upper Body, Leg Day...",
+                        label: "Nome Scheda",
+                      ),
+                      const SizedBox(height: 12),
+                      CustomFormField(
+                        nomeController: _descrizioneController,
+                        hintText: "Descrizione",
+                        label: 'Descrizione',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Esercizi (${_esercizi.length})',
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    validator: (v) =>
-                        (v == null || v.trim().isEmpty) ? 'Campo obbligatorio' : null,
-                    textCapitalization: TextCapitalization.sentences,
-                  ),
-                  const SizedBox(height: 12),
-                  TextFormField(
-                    controller: _descrizioneController,
-                    maxLines: 3,
-                    decoration: const InputDecoration(
-                      labelText: 'Descrizione',
-                      border: OutlineInputBorder(),
-                      alignLabelWithHint: true,
+                    FilledButton.icon(
+                      onPressed: () => _showExerciseDialog(),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor),
+                      ),
+                      icon: const Icon(Icons.add),
+                      label: const Text('Aggiungi'),
                     ),
-                    textCapitalization: TextCapitalization.sentences,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Esercizi (${_esercizi.length})',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  FilledButton.icon(
-                    onPressed: () => _showExerciseDialog(),
-                    icon: const Icon(Icons.add),
-                    label: const Text('Aggiungi'),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: _esercizi.isEmpty
-                  ? const Center(child: Text('Nessun esercizio aggiunto'))
-                  : ReorderableListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: _esercizi.length,
-                      onReorder: _reorderEsercizi,
-                      itemBuilder: (context, index) {
-                        final e = _esercizi[index];
-                        return ListTile(
-                          key: ValueKey(index),
-                          leading: const Icon(Icons.drag_handle),
-                          title: Text(e.name),
-                          subtitle: Text(
-                            '${e.series} serie × ${e.repetitions} rip — ${e.weight} kg',
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.edit_outlined),
-                                onPressed: () => _showExerciseDialog(
-                                  index: index,
-                                  esercizio: e,
-                                ),
+              const SizedBox(height: 8),
+              if (_esercizi.isEmpty)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  child: Center(child: Text('Nessun esercizio aggiunto')),
+                )
+              else
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ReorderableListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _esercizi.length,
+                    onReorder: _reorderEsercizi,
+                    itemBuilder: (context, index) {
+                      final e = _esercizi[index];
+                      return ListTile(
+                        key: ValueKey(index),
+                        leading: const Icon(Icons.drag_handle),
+                        title: Text(e.name),
+                        subtitle: Text(
+                          '${e.series} serie × ${e.repetitions} rip — ${e.weight} kg',
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit_outlined),
+                              onPressed: () => _showExerciseDialog(
+                                index: index,
+                                esercizio: e,
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.delete_outline),
-                                color: Theme.of(context).colorScheme.error,
-                                onPressed: () => _deleteEsercizio(index),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-            ),
-
-          ],
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete_outline),
+                              color: Theme.of(context).colorScheme.error,
+                              onPressed: () => _deleteEsercizio(index),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: OutlinedButton(
+                  onPressed: _submit,
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor),
+                    padding: const WidgetStatePropertyAll(EdgeInsets.all(16)),
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.save, color: Colors.white, size: 18),
+                      SizedBox(width: 8),
+                      Text(
+                        'Salva Scheda',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
