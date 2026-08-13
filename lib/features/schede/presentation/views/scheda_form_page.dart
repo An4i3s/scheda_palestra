@@ -112,12 +112,6 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
       appBar: AppBar(
         backgroundColor: Color(0xFFf3fdfd),
         title: Text(_isEditing ? 'Modifica scheda' : 'Nuova scheda'),
-        // actions: [
-        //   TextButton(
-        //     onPressed: _submit,
-        //     child: const Text('Salva'),
-        //   ),
-        // ],
       ),
       body: Form(
         key: _formKey,
