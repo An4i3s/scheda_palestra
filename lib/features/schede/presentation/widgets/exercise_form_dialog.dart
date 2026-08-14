@@ -110,6 +110,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(side: BorderSide(color: AppColors.borderContainerColor,), borderRadius: BorderRadiusGeometry.circular(16)),
       title: Text(_isEditing ? 'Modifica esercizio' : 'Nuovo esercizio'),
