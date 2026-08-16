@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
@@ -9,6 +10,8 @@ import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/custom_form_field.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_form_dialog.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_scheda_form.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/workout_category_container.dart';
 
 
@@ -48,7 +51,6 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     _descrizioneController.dispose();
     super.dispose();
   }
-
   void _addEsercizio(ExerciseModel esercizio) {
     setState(() => _esercizi.add(esercizio));
   }
@@ -57,19 +59,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     setState(() => _esercizi[index] = esercizio);
   }
 
-  void _deleteEsercizio(int index) {
-    setState(() => _esercizi.removeAt(index));
-  }
-
-  void _reorderEsercizi(int oldIndex, int newIndex) {
-    setState(() {
-      if (newIndex > oldIndex) newIndex--;
-      final item = _esercizi.removeAt(oldIndex);
-      _esercizi.insert(newIndex, item);
-    });
-  }
-
-  void _showExerciseDialog({int? index, ExerciseModel? esercizio}) {
+    void _showExerciseDialog({int? index, ExerciseModel? esercizio}) {
     showDialog<void>(
       context: context,
       builder: (_) =>  BlocProvider.value(
@@ -88,6 +78,20 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
       ),
     );
   }
+
+  void _deleteEsercizio(int index) {
+    setState(() => _esercizi.removeAt(index));
+  }
+
+  void _reorderEsercizi(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) newIndex--;
+      final item = _esercizi.removeAt(oldIndex);
+      _esercizi.insert(newIndex, item);
+    });
+  }
+
+
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
@@ -184,40 +188,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
               else
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ReorderableListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: _esercizi.length,
-                    onReorder: _reorderEsercizi,
-                    itemBuilder: (context, index) {
-                      final e = _esercizi[index];
-                      return ListTile(
-                        key: ValueKey(index),
-                        leading: const Icon(Icons.drag_handle),
-                        title: Text(e.name),
-                        subtitle: Text(
-                          '${e.series} serie × ${e.repetitions} rip — ${e.weight} kg',
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.edit_outlined),
-                              onPressed: () => _showExerciseDialog(
-                                index: index,
-                                esercizio: e,
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete_outline),
-                              color: Theme.of(context).colorScheme.error,
-                              onPressed: () => _deleteEsercizio(index),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                  child: ExerciseSchedaForm(esercizi: _esercizi, onDelete: (i) => _deleteEsercizio(i), onEdit: (i, e) => _showExerciseDialog(  index: i, esercizio: e),),
                 ),
               Padding(
                 padding: const EdgeInsets.all(16.0),

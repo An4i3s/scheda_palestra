@@ -15,20 +15,20 @@ class Metrics extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             '$title:',
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.blueGrey),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
-          const SizedBox(height: 2),
+          const SizedBox(width: 2),
           if (hasDescription)
             Text(
               description!.trim(),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey),
               softWrap: true,
               overflow: TextOverflow.visible,
               maxLines: 4,
@@ -36,7 +36,7 @@ class Metrics extends StatelessWidget {
           else if (hasValue)
             Text(
               value!.toString(),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
