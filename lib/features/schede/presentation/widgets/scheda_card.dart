@@ -99,14 +99,14 @@ class _SchedaCardState extends State<SchedaCard> {
                           ? Text(
                               "Nascondi esercizi",
                               style: TextStyle(
-                                color: AppColors.tertiaryColor,
+                                color: AppColors.primaryBtnColor,
                                 fontWeight: FontWeight.w600,
                               ),
                             )
                           : Text(
                               "Mostra esercizi",
                               style: TextStyle(
-                                color: AppColors.tertiaryColor,
+                                color: AppColors.primaryBtnColor,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -125,7 +125,7 @@ class _SchedaCardState extends State<SchedaCard> {
                         ).animate(animation),
                         child: const Icon(
                           Icons.arrow_drop_down,
-                          color: AppColors.tertiaryColor,
+                          color: AppColors.primaryBtnColor,
                         ),
                       ),
                     );

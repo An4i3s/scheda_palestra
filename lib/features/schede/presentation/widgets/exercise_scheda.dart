@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats.dart';
@@ -29,7 +30,7 @@ class ExerciseInScheda extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.red[800],
+              color: AppColors.primaryBtnColor,
               borderRadius: BorderRadius.circular(64),
             ),
             child: Center(child: Text(index.toString(), style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),)),
