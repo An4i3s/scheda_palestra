@@ -53,7 +53,7 @@ class _WorkoutViewState extends State<WorkoutView> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.black.withAlpha(200),
+                      color: Color(0xFF1a3538),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -100,8 +100,8 @@ class _WorkoutViewState extends State<WorkoutView> {
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
                                           colors: [
-                                            Colors.green.shade400,
-                                            Colors.green.shade600,
+                                            AppColors.secondaryBtnColor,
+                                            AppColors.secondaryBtnColor
                                           ],
                                         ),
                                       ),
