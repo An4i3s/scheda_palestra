@@ -4,6 +4,7 @@ import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats_list.dart';
 
 class ExerciseInScheda extends StatelessWidget {
   const ExerciseInScheda({
@@ -48,16 +49,7 @@ class ExerciseInScheda extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                    switch (exercise.category) {
-                      WorkoutCategory.strength => StrengthMetricsWidget(series: exercise.series, reps: exercise.repetitions, rest: exercise.restTime, weight: exercise.weight, ),               
-                      WorkoutCategory.ruuning =>  CardioMetricsWidget(time: exercise.time, km: exercise.km, series: exercise.series,),
-                      WorkoutCategory.walking => WalkingMetricsWidget(time: exercise.time, km: exercise.km, elevation: exercise.elevation, series: exercise.series, )  ,
-                      WorkoutCategory.cycling =>  CardioMetricsWidget(time: exercise.time, km: exercise.km, series: exercise.series,),
-                      WorkoutCategory.swimming =>  CardioMetricsWidget(time: exercise.time, km: exercise.km, series: exercise.series,),
-                      WorkoutCategory.pilates => GenericExerciseWidget(time: exercise.time, description: exercise.description, series: null,),
-                      WorkoutCategory.yoga => GenericExerciseWidget(series: exercise.series, time: exercise.time, description: exercise.description,),
-                      WorkoutCategory.crossfit => GenericExerciseWidget(series: exercise.series, time: exercise.time, description: exercise.description,),
-                    },
+                ExerciseStatsList(exerciseModel: exercise),
               ],
             ),
           ),

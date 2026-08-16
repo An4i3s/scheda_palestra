@@ -4,6 +4,7 @@ import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats_list.dart';
 
 class ExerciseSchedaForm extends StatefulWidget{
   final List<ExerciseModel> esercizi;
@@ -59,16 +60,7 @@ class _ExerciseSchedaFormState extends State<ExerciseSchedaForm> {
                             ],
                           ),
                           title: Text(e.name, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-                          subtitle:      switch (e.category) {
-                                  WorkoutCategory.strength => StrengthMetricsWidget(series: e.series, reps: e.repetitions, rest: e.restTime, weight: e.weight, ),               
-                                  WorkoutCategory.ruuning =>  CardioMetricsWidget(time: e.time, km: e.km, series: e.series,),
-                                  WorkoutCategory.walking => WalkingMetricsWidget(time: e.time, km: e.km, elevation: e.elevation, series: e.series, )  ,
-                                  WorkoutCategory.cycling =>  CardioMetricsWidget(time: e.time, km: e.km, series: e.series,),
-                                  WorkoutCategory.swimming =>  CardioMetricsWidget(time: e.time, km: e.km, series: e.series,),
-                                  WorkoutCategory.pilates => GenericExerciseWidget(time: e.time, description: e.description, series: null,),
-                                  WorkoutCategory.yoga => GenericExerciseWidget(series: e.series, time: e.time, description: e.description,),
-                                  WorkoutCategory.crossfit => GenericExerciseWidget(series: e.series, time: e.time, description: e.description,),
-                    },
+                          subtitle:     ExerciseStatsList(exerciseModel: e,),
                           trailing:   Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
