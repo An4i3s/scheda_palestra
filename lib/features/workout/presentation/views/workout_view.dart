@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
+import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
+import 'package:scheda_palestra/features/workout/presentation/widgets/workout_exercises_list.dart';
+import 'package:scheda_palestra/features/workout/presentation/widgets/workout_header.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_state.dart';
-import 'package:scheda_palestra/features/workout/presentation/views/workout_exercise.dart';
 
 class WorkoutView extends StatefulWidget {
   const WorkoutView({super.key});
@@ -42,112 +44,22 @@ class _WorkoutViewState extends State<WorkoutView> {
 
           if (state is WorkoutLoaded) {
             final workout = state.workout;
+
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                spacing: 16,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      // color: Color(0xFF1a3538),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(0, 160, 170, 1.0),
-                          Color.fromRGBO(0, 122, 130, 1.0),
-                        ],
-                      ),
-
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Column(
-                        spacing: 8,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            workout.scheda.nome,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "${workout.scheda.esercizi.length.toString()} esercizi",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          AnimatedContainer(
-                            duration: Durations.medium1,
-                            width: double.infinity,
-                            height: 8,
-                            margin: const EdgeInsets.only(top: 8, bottom: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade700,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: Stack(
-                                children: [
-                                  AnimatedFractionallySizedBox(
-                                    widthFactor: workout.scheda.esercizi.isEmpty
-                                        ? 0
-                                        : workout.completedExerciseIds.length /
-                                              workout.scheda.esercizi.length,
-                                    heightFactor: 1,
-                                    alignment: Alignment.centerLeft,
-                                    duration: Durations.medium1,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '${workout.completedExerciseIds.length} /${workout.scheda.esercizi.length} completati',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                '${(100 * (workout.completedExerciseIds.length / workout.scheda.esercizi.length)).toStringAsFixed(0)}%',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  ...workout.scheda.esercizi.map(
-                    (e) => ExerciseWorkout(
-                      exerciseModel: e,
-                      onPressed: () {
-                        context.read<WorkoutBloc>().add(
-                          WorkoutExerciseToggled(exerciseId: e.id),
-                        );
-                      },
-                      isPressed: workout.isExerciseCompleted(e.id),
-                    ),
+                  WorkoutHeader(workout: workout),
+                  const SizedBox(height: 16),
+                  //avoid unnecessary re-renders of the Bloc on exercises toggled
+                  BlocSelector<WorkoutBloc, WorkoutState, WorkoutModel>(
+                    selector: (state) {
+                      if (state is WorkoutLoaded) return state.workout;
+                      return workout;
+                    },
+                    builder: (context, currentWorkout) {
+                      return WorkoutExerciseList(workout: currentWorkout);
+                    },
                   ),
                 ],
               ),
