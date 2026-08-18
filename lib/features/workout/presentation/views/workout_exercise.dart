@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats_list.dart';
 
 class ExerciseWorkout extends StatefulWidget {
   const ExerciseWorkout({
@@ -23,8 +25,8 @@ class _ExerciseWorkoutState extends State<ExerciseWorkout> {
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey),
-          color: Colors.white
+          border: Border.all(color: widget.isPressed ?   AppColors.secondaryBtnColor: Colors.grey),
+          color: widget.isPressed ? Color(0xFFebf9f9) : Colors.white
         ),
         child: Row(
           spacing: 16,
@@ -33,29 +35,23 @@ class _ExerciseWorkoutState extends State<ExerciseWorkout> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: widget.isPressed ? Colors.red : Colors.white,
+                color: widget.isPressed ? AppColors.secondaryBtnColor : Colors.white,
                 borderRadius: BorderRadius.circular(64),
-                border: Border.all(color: Colors.grey)
-      
+                border: Border.all(color: widget.isPressed ?   AppColors.secondaryBtnColor: Colors.grey),
               ),
+              child:  widget.isPressed ? Icon(Icons.check_circle_outline, color: Colors.white,):null,
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.exerciseModel.name, style: TextStyle(fontWeight: FontWeight(600)),),
+                  Text(widget.exerciseModel.name, style: TextStyle(fontWeight: FontWeight(600), color:  widget.isPressed ? AppColors.secondaryBtnColor : Colors.black, decoration:widget.isPressed ? TextDecoration.lineThrough:null),),
                   Wrap(
                     spacing: 16,
                     
                     direction: Axis.horizontal,
                     children: [
-                    if(widget.exerciseModel.series!=0)Text("Serie: ${widget.exerciseModel.series}"),
-                    if(widget.exerciseModel.repetitions!=0) Text("Ripetizioni: ${widget.exerciseModel.repetitions}"),
-                     if(widget.exerciseModel.km!=0)Text("km: ${widget.exerciseModel.km}"),
-                    if(widget.exerciseModel.elevation!=null && widget.exerciseModel.elevation!=0)Text("elevation: ${widget.exerciseModel.elevation}"),
-                    if(widget.exerciseModel.restTime!=0) Text("Rest: ${widget.exerciseModel.restTime}"),
-                    if(widget.exerciseModel.description!=null && widget.exerciseModel.description!.isNotEmpty)
-                      Text(widget.exerciseModel.description!),
+                    ExerciseStatsList(exerciseModel: widget.exerciseModel),
                   ],)
                 ],
               ),
@@ -66,3 +62,4 @@ class _ExerciseWorkoutState extends State<ExerciseWorkout> {
     );
   }
 }
+

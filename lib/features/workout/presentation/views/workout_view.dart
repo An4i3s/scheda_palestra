@@ -50,7 +50,7 @@ class _WorkoutViewState extends State<WorkoutView> {
               child: Column(
                 children: [
                   WorkoutHeader(workout: workout),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 42),
                   //avoid unnecessary re-renders of the Bloc on exercises toggled
                   BlocSelector<WorkoutBloc, WorkoutState, WorkoutModel>(
                     selector: (state) {

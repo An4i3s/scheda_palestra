@@ -13,6 +13,7 @@ class WorkoutExerciseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 12,
       children: workout.scheda.esercizi.map(
         (e) => ExerciseWorkout(
           exerciseModel: e,

@@ -19,8 +19,8 @@ class Metrics extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            '$title:',
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.blueGrey),
+            title,
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.blueGrey),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
