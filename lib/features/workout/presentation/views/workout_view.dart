@@ -14,19 +14,16 @@ class WorkoutView extends StatefulWidget {
 }
 
 class _WorkoutViewState extends State<WorkoutView> {
-
   @override
   void initState() {
     super.initState();
     context.read<WorkoutBloc>().add(const WourtkoutLoaded());
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor:AppColors.backgroundColor,
+      backgroundColor: AppColors.backgroundColor,
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
           if (state is WorkoutLoading) {
@@ -53,7 +50,16 @@ class _WorkoutViewState extends State<WorkoutView> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Color(0xFF1a3538),
+                      // color: Color(0xFF1a3538),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color.fromRGBO(0, 160, 170, 1.0),
+                          Color.fromRGBO(0, 122, 130, 1.0),
+                        ],
+                      ),
+
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -66,7 +72,7 @@ class _WorkoutViewState extends State<WorkoutView> {
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 24,
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
@@ -92,18 +98,14 @@ class _WorkoutViewState extends State<WorkoutView> {
                                   AnimatedFractionallySizedBox(
                                     widthFactor: workout.scheda.esercizi.isEmpty
                                         ? 0
-                                        : workout.completedExerciseIds.length / workout.scheda.esercizi.length,
+                                        : workout.completedExerciseIds.length /
+                                              workout.scheda.esercizi.length,
                                     heightFactor: 1,
                                     alignment: Alignment.centerLeft,
                                     duration: Durations.medium1,
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            AppColors.secondaryBtnColor,
-                                            AppColors.secondaryBtnColor
-                                          ],
-                                        ),
+                                        color: Colors.white
                                       ),
                                     ),
                                   ),
@@ -131,38 +133,22 @@ class _WorkoutViewState extends State<WorkoutView> {
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      context.read<WorkoutBloc>().add(const WourtkoutStarted());
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.red.withAlpha(200),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.play_arrow),
-                          SizedBox(width: 8),
-                          Text("Inizia Allenamento")
-                        ],
-                      ),
+                  ...workout.scheda.esercizi.map(
+                    (e) => ExerciseWorkout(
+                      exerciseModel: e,
+                      onPressed: () {
+                        context.read<WorkoutBloc>().add(
+                          WorkoutExerciseToggled(exerciseId: e.id),
+                        );
+                      },
+                      isPressed: workout.isExerciseCompleted(e.id),
                     ),
                   ),
-                  ...workout.scheda.esercizi.map((e) => ExerciseWorkout(
-                    exerciseModel: e,
-                    onPressed: () {
-                      context.read<WorkoutBloc>().add(WorkoutExerciseToggled(exerciseId: e.id));
-                    },
-                    isPressed: workout.isExerciseCompleted(e.id),
-                  ))
                 ],
               ),
             );
