@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
     print("selectedDay  = $selectedDay");
 
     showModalBottomSheet(
-      
+      isDismissible: false,
       context: context,
        builder: (_) => CreateWorkoutBottomSheet(
         schede: schedeState.schede, 
