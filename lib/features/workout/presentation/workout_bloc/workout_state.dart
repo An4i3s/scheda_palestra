@@ -50,3 +50,8 @@ class WorkoutError extends WorkoutState {
   List<Object?> get props => [message];
 }
 
+class WorkoutCompleted extends WorkoutState{
+  final WorkoutModel workout;
+  const WorkoutCompleted({required this.workout}); 
+}
+

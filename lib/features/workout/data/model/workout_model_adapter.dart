@@ -16,6 +16,7 @@ class WorkoutModelAdapter extends TypeAdapter<WorkoutModel> {
       dayOfWeek: reader.readInt(),
       scheda: reader.read() as SchedaModel,
       completedExerciseIds: (reader.readList()).cast<String>().toSet(),
+      isCompleted: reader.readBool(),
     );
   }
 
@@ -27,5 +28,6 @@ class WorkoutModelAdapter extends TypeAdapter<WorkoutModel> {
     writer.writeInt(obj.dayOfWeek);
     writer.write(obj.scheda);
     writer.writeList(obj.completedExerciseIds.toList());
+    writer.writeBool(obj.isCompleted);
   }
 }

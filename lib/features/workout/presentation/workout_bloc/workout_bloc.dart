@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/utils/failures.dart';
@@ -11,6 +13,7 @@ typedef GetAllWorkoutsFn = Future<Either<Failure, List<WorkoutModel>>> Function(
 typedef CreateWorkoutFn = Future<Either<Failure, WorkoutModel>> Function(WorkoutModel);
 typedef ToggleExerciseFn = Future<Either<Failure, WorkoutModel>> Function(String exerciseId);
 typedef DeleteWorkoutFn = Future<Either<Failure, bool>> Function(WorkoutModel workout);
+typedef CompleteWorkoutFn = Future<Either<Failure, bool>> Function(WorkoutModel workout);
 
 class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
   final GetCurrentWorkoutFn getCurrentWorkout;
@@ -19,6 +22,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
   final CreateWorkoutFn createWorkoutFn;
   final ToggleExerciseFn toggleExerciseFn;
   final DeleteWorkoutFn deleteWorkoutFn;
+  final CompleteWorkoutFn completeWorkoutFn;
 
   WorkoutBloc({
     required this.getCurrentWorkout,
@@ -26,13 +30,14 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
     required this.getAllWorkoutsFn,
     required this.createWorkoutFn,
     required this.toggleExerciseFn,
-    required this.deleteWorkoutFn,
+    required this.deleteWorkoutFn, required this.completeWorkoutFn,
   }):super(const WorkoutInitial()){
     on<WourtkoutLoaded>(_onLoaded);
     on<WourtkoutStarted>(_onStarted);
     on<WorkoutCreated>(_onCreated);
     on<WorkoutExerciseToggled>(_onExerciseToggled);
     on<WorkoutOnDeleted>(_onDeleted);
+    on<WorkoutOnCompleted>(_onCompleted);
 
     // on<WorkoutSaved>(_onSaved);
     // on<WorkoutResumed>(_onResumed)
@@ -86,9 +91,26 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
   ) async {
     emit(const WorkoutLoading());
     final result = await toggleExerciseFn(event.exerciseId);
-    result.fold(
-      (failure) => emit(WorkoutError(failure.message)),
-      (workout) => emit(WorkoutLoaded(workout)),
+
+    await result.fold(
+      (failure) async => emit(WorkoutError(failure.message)),
+      (workout) async {
+        final allCompleted =
+            workout.completedExerciseIds.length == workout.scheda.esercizi.length;
+
+        if (allCompleted) {
+          final completed = workout.copyWith(isCompleted: true);
+          final completeResult = await completeWorkoutFn(completed);
+
+          completeResult.fold(
+            (failure) => emit(WorkoutError(failure.message)),
+            (_) => emit(WorkoutCompleted(workout: completed)),
+          );
+          return;
+        }
+
+        emit(WorkoutLoaded(workout));
+      },
     );
   }
 
@@ -101,6 +123,18 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
     result.fold(
       (failure) => emit(WorkoutError(failure.message)),
       (_) => emit(const WorkoutDeleted()),
+    );
+  }
+
+  Future<void> _onCompleted(
+    WorkoutOnCompleted event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    emit(const WorkoutLoading());
+    final result = await completeWorkoutFn(event.workout);
+    result.fold(
+      (failure) => emit(WorkoutError(failure.message)),
+      (_) => emit(WorkoutCompleted(workout: event.workout)),
     );
   }
 }

@@ -51,3 +51,11 @@ class WorkoutOnDeleted extends WorkoutEvent {
   @override
   List<Object?> get props => [workout];
 }
+
+class WorkoutOnCompleted extends WorkoutEvent {
+  final WorkoutModel workout;
+  const WorkoutOnCompleted(this.workout);
+
+  @override
+  List<Object?> get props => [workout];
+}

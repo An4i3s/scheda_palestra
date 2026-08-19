@@ -70,4 +70,23 @@ class WorkoutLocalDatasourceImpl implements WorkoutLocalDatasource {
     }
     return true;
   }
+
+  @override
+  Future<bool> completeWorkout(WorkoutModel workout) async {
+    final box = await _box;
+    final current = box.get(_currentKey) ?? box.get(workout.id) ?? workout;
+    final completedWorkout = current.copyWith(
+      id: workout.id,
+      date: workout.date,
+      dayOfWeek: workout.dayOfWeek,
+      scheda: workout.scheda,
+      completedExercises: workout.completedExercises,
+      completedExerciseIds: workout.completedExerciseIds,
+      isCompleted: true,
+    );
+
+    await box.put(completedWorkout.id, completedWorkout);
+    await box.put(_currentKey, completedWorkout);
+    return true;
+  }
 }

@@ -89,6 +89,7 @@ import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
 import 'package:scheda_palestra/features/workout/data/datasources/workout_local_datasource_impl.dart';
 import 'package:scheda_palestra/features/workout/data/repositories/workout_repository_impl.dart';
+import 'package:scheda_palestra/features/workout/domain/usecases/complete_workout.dart';
 import 'package:scheda_palestra/features/workout/domain/usecases/create_workout.dart';
 import 'package:scheda_palestra/features/workout/domain/usecases/delete_workout.dart';
 import 'package:scheda_palestra/features/workout/domain/usecases/get_all_workouts.dart';
@@ -125,6 +126,7 @@ abstract class AppRouter {
   static final _createWorkout = CreateWorkout(repository: _workoutRepository);
   static final _toggleExercise = ToggleExercise(repository: _workoutRepository);
   static final _deleteWorkout = DeleteWorkout(repository: _workoutRepository);
+  static final _completeWorkout = CompleteWorkout(repository: _workoutRepository);
 
 
   // ─── BLoC (creati una volta sola) ─────────────────────────────────────────
@@ -150,6 +152,7 @@ abstract class AppRouter {
     createWorkoutFn: _createWorkout.call,
     toggleExerciseFn: _toggleExercise.call,
     deleteWorkoutFn: _deleteWorkout.call,
+    completeWorkoutFn: _completeWorkout.call
   )..add(const WourtkoutLoaded());
 
   // ─── Router ───────────────────────────────────────────────────────────────

@@ -8,6 +8,7 @@ class WorkoutModel {
   final int dayOfWeek;
   final SchedaModel scheda;
   final Set<String> completedExerciseIds;
+  final bool isCompleted;
 
   WorkoutModel({
     required this.id,
@@ -16,6 +17,7 @@ class WorkoutModel {
     required this.dayOfWeek,
     required this.scheda,
     this.completedExerciseIds = const {},
+    this.isCompleted = false,
   });
 
   bool isExerciseCompleted(String exerciseId) {
@@ -29,6 +31,7 @@ class WorkoutModel {
     int? dayOfWeek,
     SchedaModel? scheda,
     Set<String>? completedExerciseIds,
+    bool? isCompleted,
   }) {
     return WorkoutModel(
       id: id ?? this.id,
@@ -37,7 +40,12 @@ class WorkoutModel {
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,
       scheda: scheda ?? this.scheda,
       completedExerciseIds: completedExerciseIds ?? this.completedExerciseIds,
+      isCompleted: isCompleted ?? this.isCompleted,
     );
+  }
+
+  WorkoutModel markCompleted() {
+    return copyWith(isCompleted: true);
   }
 
   WorkoutModel markExerciseCompleted(String exerciseId) {
