@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
+import 'package:scheda_palestra/features/workout/presentation/views/rest_day_view.dart';
 import 'package:scheda_palestra/features/workout/presentation/widgets/success_animation.dart';
 import 'package:scheda_palestra/features/workout/presentation/widgets/workout_exercises_list.dart';
 import 'package:scheda_palestra/features/workout/presentation/widgets/workout_header.dart';
@@ -67,6 +68,10 @@ class _WorkoutViewState extends State<WorkoutView> {
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
           _triggerSuccessAnimationIfNeeded(state);
+
+          if (state is WorkoutDeleted || state is WorkoutEmpty) {
+            return RestDayView();
+          }
 
           if (state is WorkoutLoading) {
             return const Center(child: CircularProgressIndicator());
