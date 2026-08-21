@@ -12,9 +12,15 @@ class WourtkoutLoaded extends WorkoutEvent {
   const WourtkoutLoaded();
 }
 
+class WourtkoutUpdated extends WorkoutEvent {
+  final WorkoutModel workoutModel;
+  const WourtkoutUpdated({required this.workoutModel});
+}
+
+
 //Inizia un nuovo workout
-class WourtkoutStarted extends WorkoutEvent {
-  const WourtkoutStarted();
+class WourtkoutInitial extends WorkoutEvent {
+  const WourtkoutInitial();
 }
 
 //Riprendi workout non completato
@@ -52,6 +58,15 @@ class WorkoutOnDeleted extends WorkoutEvent {
   List<Object?> get props => [workout];
 }
 
+// Silent delete: perform deletion but avoid emitting UI-loading states immediately.
+class WorkoutDeleteSilent extends WorkoutEvent {
+  final WorkoutModel workout;
+  const WorkoutDeleteSilent(this.workout);
+
+  @override
+  List<Object?> get props => [workout];
+}
+
 class WorkoutOnCompleted extends WorkoutEvent {
   final WorkoutModel workout;
   const WorkoutOnCompleted(this.workout);
@@ -59,3 +74,4 @@ class WorkoutOnCompleted extends WorkoutEvent {
   @override
   List<Object?> get props => [workout];
 }
+

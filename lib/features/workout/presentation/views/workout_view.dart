@@ -23,7 +23,6 @@ class _WorkoutViewState extends State<WorkoutView> {
   @override
   void initState() {
     super.initState();
-    context.read<WorkoutBloc>().add(const WourtkoutLoaded());
   }
 
   @override
@@ -68,24 +67,20 @@ class _WorkoutViewState extends State<WorkoutView> {
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
           _triggerSuccessAnimationIfNeeded(state);
+          print("States is $state");
 
-          if (state is WorkoutDeleted || state is WorkoutEmpty) {
+          if (state is WorkoutEmpty || state is WorkoutDeleted) {
             return RestDayView();
           }
 
           if (state is WorkoutLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: AppColors.secondaryBtnColor,));
           }
 
           if (state is WorkoutError) {
             return Center(child: Text('Errore: ${state.message}'));
           }
 
-          if (state is WorkoutEmpty) {
-            return const Center(
-              child: Text('Nessun workout attivo. Creane uno nuovo!'),
-            );
-          }
 
           if (state is WorkoutLoaded || state is WorkoutCompleted) {
             final workout = (state is WorkoutLoaded)

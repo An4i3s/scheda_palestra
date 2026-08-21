@@ -132,6 +132,8 @@ abstract class AppRouter {
   // ─── BLoC (creati una volta sola) ─────────────────────────────────────────
   static final _homeBloc = HomeBloc(
     getHomeSummary: _getHomeSummary.call,
+    createWorkout: _createWorkout.call,
+    deleteWorkout: _deleteWorkout.call,
   )..add(const HomeStarted());
 
   static final _schedeBloc = SchedeBloc(

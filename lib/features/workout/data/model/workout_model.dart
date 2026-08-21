@@ -4,7 +4,7 @@ import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 class WorkoutModel {
   final String id;
   final List<ExerciseModel> completedExercises;
-  final DateTime date;
+  // final DateTime date;
   final int dayOfWeek;
   final SchedaModel scheda;
   final Set<String> completedExerciseIds;
@@ -13,7 +13,7 @@ class WorkoutModel {
   WorkoutModel({
     required this.id,
     required this.completedExercises,
-    required this.date,
+    // required this.date,
     required this.dayOfWeek,
     required this.scheda,
     this.completedExerciseIds = const {},
@@ -36,7 +36,7 @@ class WorkoutModel {
     return WorkoutModel(
       id: id ?? this.id,
       completedExercises: completedExercises ?? this.completedExercises,
-      date: date ?? this.date,
+      // date: date ?? this.date,
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,
       scheda: scheda ?? this.scheda,
       completedExerciseIds: completedExerciseIds ?? this.completedExerciseIds,
@@ -59,4 +59,7 @@ class WorkoutModel {
     updated.remove(exerciseId);
     return copyWith(completedExerciseIds: updated);
   }
+
+  @override
+  String toString() => 'WorkoutModel(id=$id, dayOfWeek=$dayOfWeek, isCompleted=$isCompleted, completed=${completedExerciseIds.length})';
 }

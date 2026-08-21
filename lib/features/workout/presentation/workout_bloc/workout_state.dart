@@ -34,12 +34,21 @@ class WorkoutInProgress extends WorkoutState{
 }
 
 class WorkoutDeleted extends WorkoutState{
-  const WorkoutDeleted(); 
+  final int? dayOfWeek;
+  final String? id;
+  const WorkoutDeleted({this.dayOfWeek, this.id}); 
+
+  @override
+  List<Object?> get props => [dayOfWeek, id];
 }
 
+class WorkoutMutationCompleted extends WorkoutState {
+  final int? dayOfWeek;
+  final String? id;
+  const WorkoutMutationCompleted({this.dayOfWeek, this.id});
 
-class WorkoutRegistered extends WorkoutState{
-  const WorkoutRegistered(); 
+  @override
+  List<Object?> get props => [dayOfWeek, id];
 }
 
 class WorkoutError extends WorkoutState {

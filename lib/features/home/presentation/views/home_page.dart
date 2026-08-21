@@ -8,13 +8,15 @@ import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_state.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/home_header_widget.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/weekly_plan.dart';
-import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
+// import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_state.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/create_workout_dialog.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
+import 'package:scheda_palestra/core/utils/logger.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
+// workout events not used in HomePage; Home handles persistence via HomeBloc
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_state.dart';
 
 
@@ -29,46 +31,72 @@ import 'package:scheda_palestra/features/workout/presentation/workout_bloc/worko
     DOM
     }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  void _openAssignmentDialog(BuildContext context, { int? selectedDay, WorkoutModel? selectedWorkout}) {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  void _openAssignmentDialog(BuildContext context, {required int selectedDay, WorkoutModel? selectedWorkout}) {
     final schedeState = context.read<SchedeBloc>().state;
     if (schedeState is! SchedeLoaded) return;
 
-    
-
-    print("selectedDay  = $selectedDay");
+    // Debug log: tapped day in weekly plan
+    Logger.info('HomePage', 'Tapped day: $selectedDay, workoutId=${selectedWorkout?.id ?? 'null'}');
+            final today = DateTime.now();
 
     showModalBottomSheet(
       isDismissible: false,
       context: context,
-       builder: (_) => CreateWorkoutBottomSheet(
+        builder: (_) => CreateWorkoutBottomSheet(
         schede: schedeState.schede, 
             onCreateWorkout: (workout) {
-          context.read<WorkoutBloc>().add(WorkoutCreated(workout));
-          // context.read<HomeBloc>().add(const HomeStarted());
+                                      print("WK on created is today = ${ today.weekday}  w.dayOfWeek = ${ workout.dayOfWeek} datetime = ${DateTime.now().day}");
+
+          if( today.weekday==workout.dayOfWeek){
+                        context.read<WorkoutBloc>().add(WourtkoutUpdated(workoutModel: workout));
+
+          }
+
+          
+                    context.read<HomeBloc>().add(HomeCreateWorkout(workout));
+
         }, 
         selectedWorkout: selectedWorkout,
-          selectedDay: selectedDay??0,
-           onDeleteWorkout: (WorkoutModel w) { 
-          context.read<WorkoutBloc>().add(WorkoutOnDeleted(w));
-          // context.read<HomeBloc>().add(const HomeStarted());
+          selectedDay: selectedDay,
+           onDeleteWorkout: (WorkoutModel w) {
+            
+                          // final isToday = w.dayOfWeek==DateTime.now().day;
+                        print("WK on deleted is today = ${ today.weekday}  w.dayOfWeek = ${ w.dayOfWeek} datetime = ${DateTime.now().day}");
+
+             if(today.weekday==w.dayOfWeek){
+            context.read<WorkoutBloc>().add(WorkoutOnDeleted(w));
+          }
+            context.read<HomeBloc>().add(HomeDeleteWorkout(w));
+         
            },));
   }
-
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<WorkoutBloc, WorkoutState>(
         listener: (context, state) {
-        if (state is WorkoutDeleted || state is WorkoutLoaded) {
-          context.read<HomeBloc>().add(const HomeStarted());
-        }
+            final today = DateTime.now().weekday;
+            if (state is WorkoutLoaded) {
+              if (state.workout.dayOfWeek == today) {
+                context.read<HomeBloc>().add(const HomeStarted());
+              }
+            } else if (state is WorkoutDeleted) {
+              if (state.dayOfWeek == today) {
+                context.read<HomeBloc>().add(const HomeStarted());
+              }
+            } else if (state is WorkoutMutationCompleted) {
+              // A background create/delete completed; refresh the weekly plan.
+              context.read<HomeBloc>().add(const HomeStarted());
+            }
       },
-        
-        
-         
            child: Scaffold(
             backgroundColor: AppColors.backgroundColor,
             body: SafeArea(
@@ -104,8 +132,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
                    )
-         
-      
     );
   }
 }

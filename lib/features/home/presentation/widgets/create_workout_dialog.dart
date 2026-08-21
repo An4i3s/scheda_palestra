@@ -40,15 +40,15 @@ class _CreateWorkoutBottomSheetState extends State<CreateWorkoutBottomSheet> {
     return;
   }
 
-final selectedScheda = widget.schede
+    final selectedScheda = widget.schede
                           .firstWhere((s) => s.id == _selectedSchedaId);
-                      final workout = WorkoutModel(
-                        id: widget.selectedWorkout?.id ??  DateTime.now().millisecondsSinceEpoch.toString(),
-                        completedExercises: [],
-                        date: DateTime.now(),
-                        dayOfWeek: widget.selectedDay,
-                        scheda: selectedScheda,
-                      );
+
+    final workout = WorkoutModel(
+      id: widget.selectedWorkout?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
+      completedExercises: widget.selectedWorkout?.completedExercises ?? [],
+      dayOfWeek: widget.selectedDay,
+      scheda: selectedScheda,
+    );
                       widget.onCreateWorkout(workout);
                       Navigator.pop(context);
                           

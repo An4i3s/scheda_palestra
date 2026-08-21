@@ -12,7 +12,6 @@ class WorkoutModelAdapter extends TypeAdapter<WorkoutModel> {
     return WorkoutModel(
       id: reader.readString(),
       completedExercises: (reader.readList()).cast<ExerciseModel>(),
-      date: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
       dayOfWeek: reader.readInt(),
       scheda: reader.read() as SchedaModel,
       completedExerciseIds: (reader.readList()).cast<String>().toSet(),
@@ -24,7 +23,6 @@ class WorkoutModelAdapter extends TypeAdapter<WorkoutModel> {
   void write(BinaryWriter writer, WorkoutModel obj) {
     writer.writeString(obj.id);
     writer.writeList(obj.completedExercises);
-    writer.writeInt(obj.date.millisecondsSinceEpoch);
     writer.writeInt(obj.dayOfWeek);
     writer.write(obj.scheda);
     writer.writeList(obj.completedExerciseIds.toList());
