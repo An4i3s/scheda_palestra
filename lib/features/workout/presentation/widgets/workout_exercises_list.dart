@@ -19,10 +19,11 @@ class WorkoutExerciseList extends StatelessWidget {
           exerciseModel: e,
           onPressed: () {
             context.read<WorkoutBloc>().add(
-              WorkoutExerciseToggled(exerciseId: e.id),
+              WorkoutExerciseToggled(exerciseId: e.id, workout: workout),
             );
           },
-          isPressed: workout.isExerciseCompleted(e.id),
+          // isPressed: workout.isExerciseCompleted(e.id),
+          isPressed: workout.completedExerciseIds.contains(e.id),
         ),
       ).toList(),
     );

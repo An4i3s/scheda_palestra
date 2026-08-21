@@ -74,16 +74,18 @@ class WorkoutLocalDatasourceImpl implements WorkoutLocalDatasource {
   }
 
   @override
-  Future<WorkoutModel> toggleExercise(String exerciseId) async {
+  Future<WorkoutModel> toggleExercise(WorkoutModel workout, String exerciseId) async {
     final box = await _box;
-    // find current workout for today using existing logic
+        final current = box.get(workout.id);
+    if (current == null) throw Exception('Nessun workout attivo');
     Logger.info('WorkoutLocalDatasource', 'Toggling exercise: id=$exerciseId');
-    final current = await getCurrentWorkout();
+        // final current = await getCurrentWorkout();
+    // final current = await getCurrentWorkout();
     final updated = current.isExerciseCompleted(exerciseId)
       ? current.unmarkExerciseCompleted(exerciseId)
       : current.markExerciseCompleted(exerciseId);
-
-    await box.put(updated.id, updated);
+      await box.put(updated.id, updated);
+    // await box.put(updated.id, updated);
     Logger.info('WorkoutLocalDatasource', 'Toggled exercise: workoutId=${updated.id} completedCount=${updated.completedExerciseIds.length}');
     return updated;
   }

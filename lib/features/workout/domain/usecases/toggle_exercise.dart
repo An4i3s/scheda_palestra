@@ -8,7 +8,7 @@ class ToggleExercise {
 
   ToggleExercise({required this.repository});
 
-  Future<Either<Failure, WorkoutModel>> call(String exId) {
-    return repository.toggleExercise(exId);
+  Future<Either<Failure, WorkoutModel>> call(WorkoutModel workout,String exId) {
+    return repository.toggleExercise(workout,exId);
   }
 }

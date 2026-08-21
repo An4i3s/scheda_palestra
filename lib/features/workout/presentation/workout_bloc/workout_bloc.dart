@@ -11,7 +11,7 @@ typedef GetCurrentWorkoutFn = Future<Either<Failure, WorkoutModel>>  Function();
 typedef SaveWorkoutFn = Future<Either<Failure, WorkoutModel>> Function(WorkoutModel);
 typedef GetAllWorkoutsFn = Future<Either<Failure, List<WorkoutModel>>> Function();
 typedef CreateWorkoutFn = Future<Either<Failure, WorkoutModel>> Function(WorkoutModel);
-typedef ToggleExerciseFn = Future<Either<Failure, WorkoutModel>> Function(String exerciseId);
+typedef ToggleExerciseFn = Future<Either<Failure, WorkoutModel>> Function(WorkoutModel workout, String exerciseId);
 typedef DeleteWorkoutFn = Future<Either<Failure, bool>> Function(WorkoutModel workout);
 typedef CompleteWorkoutFn = Future<Either<Failure, bool>> Function(WorkoutModel workout);
 
@@ -77,7 +77,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
   ) async {
     // Debug log: exercise toggle requested
     Logger.info('WorkoutBloc', 'ToggleExercise requested: id=${event.exerciseId}');
-    final result = await toggleExerciseFn(event.exerciseId);
+    final result = await toggleExerciseFn(event.workout, event.exerciseId);
 
     await result.fold(
       (failure) async {
@@ -99,12 +99,15 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
               emit(WorkoutError(failure.message));
             },
             (_) {
-              Logger.info('WorkoutBloc', 'emit WorkoutCompleted: id=${completed.id}');
+        Logger.info('WorkoutBloc', 'no full completion after toggle for workoutId=${workout.id}');
+        // Emit the updated workout so the UI reflects the toggled exercise
+        emit(WorkoutLoaded(workout));
               emit(WorkoutCompleted(workout: completed));
             },
           );
           return;
         }
+        emit(WorkoutLoaded(workout));
         Logger.info('WorkoutBloc', 'no full completion after toggle for workoutId=${workout.id}');
       },
     );

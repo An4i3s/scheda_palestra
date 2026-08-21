@@ -50,9 +50,9 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
   }
 
   @override
-  Future<Either<Failure, WorkoutModel>> toggleExercise(String exerciseId) async {
+  Future<Either<Failure, WorkoutModel>> toggleExercise(WorkoutModel workout, String exerciseId) async {
     try {
-      final updated = await datasource.toggleExercise(exerciseId);
+      final updated = await datasource.toggleExercise(workout, exerciseId);
       return Right(updated);
     } catch (e) {
       return Left(CacheFailure(e.toString()));

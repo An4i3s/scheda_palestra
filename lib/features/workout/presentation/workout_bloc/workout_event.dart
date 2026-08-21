@@ -43,8 +43,9 @@ class WorkoutCreated extends WorkoutEvent {
 }
 
 class WorkoutExerciseToggled extends WorkoutEvent {
+  final WorkoutModel workout;
   final String exerciseId;
-  const WorkoutExerciseToggled({required this.exerciseId});
+  const WorkoutExerciseToggled({ required this.workout, required this.exerciseId,});
 
   @override
   List<Object?> get props => [exerciseId];

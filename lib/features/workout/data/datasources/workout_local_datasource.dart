@@ -5,7 +5,7 @@ abstract class WorkoutLocalDatasource {
   Future<WorkoutModel> saveWorkout(WorkoutModel workout);
   Future<List<WorkoutModel>> getAllWorkouts();
   Future<WorkoutModel> createWorkout(WorkoutModel workout);
-  Future<WorkoutModel> toggleExercise(String exerciseId);
+  Future<WorkoutModel> toggleExercise(WorkoutModel workout, String exerciseId);
   Future<bool> deleteWorkout(WorkoutModel workout);
   Future<bool> completeWorkout(WorkoutModel workout);
 }
