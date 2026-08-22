@@ -118,4 +118,9 @@ class WorkoutLocalDatasourceImpl implements WorkoutLocalDatasource {
     Logger.info('WorkoutLocalDatasource', 'Completed workout: id=${completedWorkout.id}');
     return true;
   }
+  
+  @override
+  Future<bool> successWorkout(WorkoutModel workout) async{
+      return  true;
+  }
 }

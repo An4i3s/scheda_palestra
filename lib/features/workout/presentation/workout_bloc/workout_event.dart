@@ -76,3 +76,14 @@ class WorkoutOnCompleted extends WorkoutEvent {
   List<Object?> get props => [workout];
 }
 
+
+class WorkoutOnSuccess extends WorkoutEvent {
+  final WorkoutModel workout;
+  const WorkoutOnSuccess(this.workout);
+
+  @override
+  List<Object?> get props => [workout];
+}
+
+
+

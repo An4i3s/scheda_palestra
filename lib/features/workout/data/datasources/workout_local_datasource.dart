@@ -8,4 +8,5 @@ abstract class WorkoutLocalDatasource {
   Future<WorkoutModel> toggleExercise(WorkoutModel workout, String exerciseId);
   Future<bool> deleteWorkout(WorkoutModel workout);
   Future<bool> completeWorkout(WorkoutModel workout);
+  Future<bool> successWorkout(WorkoutModel workout);
 }

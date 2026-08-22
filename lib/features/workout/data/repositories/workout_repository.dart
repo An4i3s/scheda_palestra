@@ -10,4 +10,5 @@ abstract class WorkoutRepository {
   Future<Either<Failure, WorkoutModel>> toggleExercise(WorkoutModel workout, String exerciseId);
   Future<Either<Failure, bool>> deleteWorkout(WorkoutModel workout);
   Future<Either<Failure, bool>> completeWorkout(WorkoutModel workout);
+  Future<Either<Failure, bool>> successWorkout(WorkoutModel workout);
 }

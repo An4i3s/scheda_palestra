@@ -14,6 +14,8 @@ typedef CreateWorkoutFn = Future<Either<Failure, WorkoutModel>> Function(Workout
 typedef ToggleExerciseFn = Future<Either<Failure, WorkoutModel>> Function(WorkoutModel workout, String exerciseId);
 typedef DeleteWorkoutFn = Future<Either<Failure, bool>> Function(WorkoutModel workout);
 typedef CompleteWorkoutFn = Future<Either<Failure, bool>> Function(WorkoutModel workout);
+typedef SuccessWorkoutFn = Future<Either<Failure, bool>> Function(WorkoutModel workout);
+
 
 class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
   final GetCurrentWorkoutFn getCurrentWorkout;
@@ -23,6 +25,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
   final ToggleExerciseFn toggleExerciseFn;
   final DeleteWorkoutFn deleteWorkoutFn;
   final CompleteWorkoutFn completeWorkoutFn;
+  final SuccessWorkoutFn successWorkoutFn;
 
   WorkoutBloc({
     required this.getCurrentWorkout,
@@ -30,7 +33,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
     required this.getAllWorkoutsFn,
     required this.createWorkoutFn,
     required this.toggleExerciseFn,
-    required this.deleteWorkoutFn, required this.completeWorkoutFn,
+    required this.deleteWorkoutFn, required this.completeWorkoutFn, required this.successWorkoutFn
   }):super(const WorkoutInitial()){
     on<WourtkoutLoaded>(_onLoaded);
     on<WourtkoutUpdated>(_onUpdated);
@@ -38,6 +41,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
     on<WorkoutExerciseToggled>(_onExerciseToggled);
     on<WorkoutOnDeleted>(_onDeleted);
     on<WorkoutOnCompleted>(_onCompleted);
+    on<WorkoutOnSuccess>(_onSuccess);
 
     // on<WorkoutSaved>(_onSaved);
     // on<WorkoutResumed>(_onResumed)
@@ -63,8 +67,11 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
       },
       (workout) async {
         Logger.info('WorkoutBloc', 'emit WorkoutLoaded: id=${workout.id}');
-        emit(WorkoutLoaded(workout));
-      },
+       emit(WorkoutLoaded(workout));
+       if(workout.isCompleted) {
+         emit(WorkoutSuccess(workout: workout));
+      
+       }},
     );
   }
 
@@ -180,5 +187,26 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
         emit(WorkoutCompleted(workout: event.workout));
       },
     );
+  }
+
+
+
+  Future<void> _onSuccess(
+    WorkoutOnSuccess event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    emit(WorkoutSuccess(workout: event.workout));
+    // emit(const WorkoutLoading());
+    // final result = await completeWorkoutFn(event.workout);
+    // result.fold(
+    //   (failure) {
+    //     Logger.info('WorkoutBloc', 'emit WorkoutError: ${failure.message}');
+    //     emit(WorkoutError(failure.message));
+    //   },
+    //   (_) {
+    //     Logger.info('WorkoutBloc', 'emit WorkoutCompleted: id=${event.workout.id}');
+    //     emit(WorkoutCompleted(workout: event.workout));
+    //   },
+    // );
   }
 }

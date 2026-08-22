@@ -78,4 +78,14 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
       return Left(CacheFailure(e.toString()));
     }
   }
+
+
+    @override
+  Future<Either<Failure, bool>> successWorkout(WorkoutModel workout) async {
+    try {
+      return Right(true);
+    } catch (e) {
+      return Left(CacheFailure(e.toString()));
+    }
+  }
 }

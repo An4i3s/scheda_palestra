@@ -64,3 +64,8 @@ class WorkoutCompleted extends WorkoutState{
   const WorkoutCompleted({required this.workout}); 
 }
 
+
+class WorkoutSuccess extends WorkoutState{
+  final WorkoutModel workout;
+  const WorkoutSuccess({required this.workout}); 
+}
