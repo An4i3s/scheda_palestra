@@ -71,7 +71,6 @@ class _WorkoutViewState extends State<WorkoutView> {
         builder: (context, state) {
 
          
-            print("STATE IS $state");
           if(state is WorkoutCompleted){
              _triggerSuccessAnimationIfNeeded(state);
           }
