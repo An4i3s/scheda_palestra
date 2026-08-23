@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/features/exercises/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/exercises/presentation/exercise_type_bloc.dart/exercises_type_bloc.dart';
 import 'package:scheda_palestra/features/exercises/presentation/exercise_type_bloc.dart/exercises_type_state.dart';
-import 'package:scheda_palestra/features/schede/presentation/views/scheda_form_page.dart';
 
 class ExerciseFormDialog extends StatefulWidget {
   final ExerciseModel? esercizio;
@@ -121,7 +120,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
                   child: TextFormField(
                     controller: _serieController,
                     decoration: const InputDecoration(
-                      labelText: 'Serie *',
+                      labelText: 'Serie',
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.number,
@@ -134,7 +133,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
                   child: TextFormField(
                     controller: _ripetizioniController,
                     decoration: const InputDecoration(
-                      labelText: 'Ripetizioni *',
+                      labelText: 'Ripetizioni',
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.number,
@@ -148,7 +147,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
             TextFormField(
               controller: _pesoController,
               decoration: const InputDecoration(
-                labelText: 'Peso (kg) *',
+                labelText: 'Peso (kg)',
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
