@@ -115,7 +115,16 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
       backgroundColor: Color(0xFFf3fdfd),
       appBar: AppBar(
         backgroundColor: Color(0xFFf3fdfd),
-        title: Text(_isEditing ? 'Modifica scheda' : 'Nuova scheda'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(_isEditing ? 'Modifica scheda' : 'Nuova scheda', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600) ,),
+            IconButton(icon: Icon(Icons.close), onPressed: () => Navigator.pop(context),)
+          ],
+        ),
+        leading: null,
+        automaticallyImplyLeading: false,
+        
       ),
       body: Form(
         key: _formKey,
