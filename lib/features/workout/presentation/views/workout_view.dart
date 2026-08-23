@@ -122,12 +122,6 @@ class _WorkoutViewState extends State<WorkoutView> {
                          context.read<WorkoutBloc>().add(
                           WorkoutOnCompleted(workout),
                         );
-
-                        //    WidgetsBinding.instance.addPostFrameCallback((_) {
-                        //   if (!mounted || _overlayEntry != null) return;
-                        //   _showSuccessAnimation();
-                        // });
-                        // if(context.mounted && _overlayEntry==null) _showSuccessAnimation();
                       }
                       return WorkoutExerciseList(workout: currentWorkout);
                     },

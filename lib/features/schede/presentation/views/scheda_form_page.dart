@@ -151,6 +151,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                       ),
                       const SizedBox(height: 12),
                       CustomFormField(
+                        hasValidations: false,
                         nomeController: _descrizioneController,
                         hintText: "Descrizione",
                         label: 'Descrizione',
@@ -190,6 +191,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: ExerciseSchedaForm(esercizi: _esercizi, onDelete: (i) => _deleteEsercizio(i), onEdit: (i, e) => _showExerciseDialog(  index: i, esercizio: e),),
                 ),
+              SizedBox(height: 24,),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: OutlinedButton(
@@ -211,7 +213,9 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                   ),
                 ),
               ),
-            ],
+               SizedBox(height: 42,),
+            ]
+            ,
           ),
         ),
       ),

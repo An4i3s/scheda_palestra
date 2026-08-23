@@ -5,13 +5,15 @@ import 'package:scheda_palestra/core/theme/app_colors.dart';
 class CustomFormField extends StatelessWidget {
   const CustomFormField({
     super.key,
-    required TextEditingController nomeController, this.hintText, required this.label, this.isNum,
+    required TextEditingController nomeController, this.hintText, required this.label, this.isNum, this.hasValidations,
   }) : _controller = nomeController;
 
   final TextEditingController _controller;
   final String? hintText;
   final String label;
   final bool? isNum;
+  final bool? hasValidations;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,9 @@ class CustomFormField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.borderContainerColor), borderRadius: BorderRadius.circular(16),),
             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryBtnColor), borderRadius: BorderRadius.circular(16),)
           ),
-          validator: (v) =>
-              (v == null || v.trim().isEmpty) ? 'Campo obbligatorio' : null,
+          validator:
+           (v) =>
+              (v == null || v.trim().isEmpty) && (hasValidations??true) ?  'Campo obbligatorio' : null,
           textCapitalization: TextCapitalization.sentences,
         ),
       ],
