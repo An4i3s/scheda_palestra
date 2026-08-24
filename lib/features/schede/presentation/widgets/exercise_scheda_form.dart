@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
-import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
-import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats_list.dart';
 
 class ExerciseSchedaForm extends StatefulWidget {
@@ -61,6 +59,7 @@ class _ExerciseSchedaFormState extends State<ExerciseSchedaForm> {
         return Card(
           key: Key(index.toString()),
           child: ListTile(
+            contentPadding: EdgeInsets.only(top: 8, left: 8, bottom: 8),
             selectedTileColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.circular(16),
@@ -91,11 +90,14 @@ class _ExerciseSchedaFormState extends State<ExerciseSchedaForm> {
                 ),
               ],
             ),
-            title: Text(
-              e.name,
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                e.name,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             subtitle: ExerciseStatsList(exerciseModel: e),
@@ -104,9 +106,13 @@ class _ExerciseSchedaFormState extends State<ExerciseSchedaForm> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
-                  constraints: BoxConstraints(maxHeight: 22),
                   padding: EdgeInsets.zero,
-                  onPressed: () => widget.onEdit(widget.esercizi.indexOf(e), e),
+                  style: IconButton.styleFrom(
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  onPressed: () =>
+                      widget.onEdit(widget.esercizi.indexOf(e), e),
                   icon: SvgPicture.asset(
                     "assets/icons/edit.svg",
                     colorFilter: ColorFilter.mode(
@@ -116,9 +122,13 @@ class _ExerciseSchedaFormState extends State<ExerciseSchedaForm> {
                   ),
                 ),
                 IconButton(
-                  constraints: BoxConstraints(maxHeight: 48),
                   padding: EdgeInsets.zero,
-                  onPressed: () => widget.onDelete(widget.esercizi.indexOf(e)),
+                  style: IconButton.styleFrom(
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  onPressed: () =>
+                      widget.onDelete(widget.esercizi.indexOf(e)),
                   icon: SvgPicture.asset(
                     "assets/icons/trash.svg",
                     colorFilter: ColorFilter.mode(

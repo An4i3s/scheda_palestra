@@ -24,7 +24,7 @@ class Metrics extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
-          const SizedBox(width: 2),
+          const SizedBox(width: 4),
           if (hasDescription)
             Text(
               description!.trim(),
