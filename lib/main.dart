@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:scheda_palestra/core/theme/app_theme.dart';
 
 import 'package:scheda_palestra/core/utils/router/app_router.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model_adapter.dart';
@@ -21,6 +22,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      theme: AppTheme.lightTheme, 
       routerConfig: AppRouter.router,
     );
   }
