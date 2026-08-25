@@ -82,14 +82,7 @@ class _SchedaCardState extends State<SchedaCard> {
               ),
             ),
             SizedBox(height: 4,),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("${widget.scheda.esercizi.length} esercizi"),
-                const SizedBox(width: 12),
-                const Text("45 min"),
-              ],
-            ),
+            Text("${widget.scheda.esercizi.length} esercizi"),
             Expansible(
               headerBuilder:
                   (BuildContext context, Animation<double> animation) {
