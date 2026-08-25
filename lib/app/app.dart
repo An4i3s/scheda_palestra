@@ -5,6 +5,7 @@ import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
 import 'package:scheda_palestra/features/schede/presentation/views/scheda_page.dart';
 import 'package:scheda_palestra/features/workout/presentation/views/workout_view.dart';
+import 'package:scheda_palestra/features/workout_log/presentation/view/workout_log_view.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -20,6 +21,7 @@ class _MainPageState extends State<App> {
     HomePage(),
     WorkoutView(),
     SchedePage(),
+    WorkoutLogView()
   ];
 
   @override
@@ -59,6 +61,11 @@ class _MainPageState extends State<App> {
             icon: SvgPicture.asset("assets/icons/note.svg"),
             selectedIcon: SvgPicture.asset("assets/icons/note.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
             label: 'Schede',
+          ),
+           NavigationDestination(
+            icon: SvgPicture.asset("assets/icons/note.svg"),
+            selectedIcon: SvgPicture.asset("assets/icons/note.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
+            label: 'Archivio',
           ),
         ],
       ),

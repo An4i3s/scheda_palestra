@@ -6,6 +6,7 @@ import 'package:scheda_palestra/core/utils/router/app_router.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model_adapter.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model_adapter.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model_adapter.dart';
+import 'package:scheda_palestra/features/workout_log/data/model/workout_log_model_adapter.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,7 @@ void main() async{
   Hive.registerAdapter(SchedaModelAdapter());
   Hive.registerAdapter(ExerciseModelAdapter());
   Hive.registerAdapter(WorkoutModelAdapter());
+  Hive.registerAdapter(WorkoutLogModelAdapter());
   runApp(const MainApp());
 }
 

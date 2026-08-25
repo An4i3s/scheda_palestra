@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
+import 'package:scheda_palestra/features/home/presentation/home_bloc/home_bloc.dart';
+import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 import 'package:scheda_palestra/features/workout/presentation/views/rest_day_view.dart';
 import 'package:scheda_palestra/features/workout/presentation/views/success_view.dart';
@@ -10,6 +12,9 @@ import 'package:scheda_palestra/features/workout/presentation/widgets/workout_he
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_state.dart';
+import 'package:scheda_palestra/features/workout_log/data/model/workout_log_model.dart';
+import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
+import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_event.dart';
 
 class WorkoutView extends StatefulWidget {
   const WorkoutView({super.key});
@@ -51,7 +56,13 @@ class _WorkoutViewState extends State<WorkoutView> {
 
     overlay.insert(_overlayEntry!);
     context.read<WorkoutBloc>().add(WorkoutOnSuccess(w));
-
+    context.read<WorkoutLogBloc>().add(WorkoutLogOnRegistered(workout: WorkoutLogModel(
+      id: DateTime.now().millisecondsSinceEpoch.toString(), 
+      workout: w, 
+      date: DateTime.now())));
+    // context.read<WorkoutLogBloc>().add(WorkoutLogOnLoad());
+    //TODO IMPROVE ADD EVENT UPDATE SERIES
+    context.read<HomeBloc>().add(HomeStarted());
   }
 
   void _triggerSuccessAnimationIfNeeded(WorkoutState state) {
@@ -69,6 +80,7 @@ class _WorkoutViewState extends State<WorkoutView> {
       backgroundColor: AppColors.backgroundColor,
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
+
 
          
           if(state is WorkoutCompleted){

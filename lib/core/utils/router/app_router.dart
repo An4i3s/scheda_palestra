@@ -99,6 +99,13 @@ import 'package:scheda_palestra/features/workout/domain/usecases/success_workout
 import 'package:scheda_palestra/features/workout/domain/usecases/toggle_exercise.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
+import 'package:scheda_palestra/features/workout_log/data/datasources/workout_log_datasource_impl.dart';
+import 'package:scheda_palestra/features/workout_log/data/repositories/workout_log_repository_impl.dart';
+import 'package:scheda_palestra/features/workout_log/domain/usecases/register_workout.dart';
+import 'package:scheda_palestra/features/workout_log/domain/usecases/get_past_workout.dart';
+import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
+import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_event.dart';
+import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_state.dart';
 
 abstract class AppRouter {
   static const String home = '/';
@@ -129,6 +136,12 @@ abstract class AppRouter {
   static final _deleteWorkout = DeleteWorkout(repository: _workoutRepository);
   static final _completeWorkout = CompleteWorkout(repository: _workoutRepository);
   static final _successWorkout = SuccessWorkout(repository: _workoutRepository);
+
+  static final _workoutLogDataSource = WorkoutLogDatasourceImpl();
+  static final _workoutLogRepository = WorkoutLogRepositoryImpl(datasource: _workoutLogDataSource);
+  static final _getPastWorkouts = GetPastWorkouts(repository: _workoutLogRepository);
+  static final _registerWorkout = RegisterWorkout(repository: _workoutLogRepository);
+
 
 
   // ─── BLoC (creati una volta sola) ─────────────────────────────────────────
@@ -161,6 +174,11 @@ abstract class AppRouter {
     
   )..add(const WourtkoutLoaded());
 
+  static final _workoutLogBloc = WorkoutLogBloc(
+    getPastWorkoutstFn: _getPastWorkouts.call,
+    registerWorkoutstFn: _registerWorkout.call
+  )..add(const WorkoutLogOnLoad());
+
   // ─── Router ───────────────────────────────────────────────────────────────
   static final GoRouter router = GoRouter(
     initialLocation: home,
@@ -173,7 +191,8 @@ abstract class AppRouter {
             BlocProvider.value(value: _homeBloc),
             BlocProvider.value(value: _schedeBloc),
             BlocProvider.value(value: _exercisesBloc),
-            BlocProvider.value(value: _workoutBloc)
+            BlocProvider.value(value: _workoutBloc),
+            BlocProvider.value(value: _workoutLogBloc)
           ],
           child: const App(),
         ),
