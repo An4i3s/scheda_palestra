@@ -63,8 +63,8 @@ class _MainPageState extends State<App> {
             label: 'Schede',
           ),
            NavigationDestination(
-            icon: SvgPicture.asset("assets/icons/note.svg"),
-            selectedIcon: SvgPicture.asset("assets/icons/note.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
+            icon: SvgPicture.asset("assets/icons/archive.svg"),
+            selectedIcon: SvgPicture.asset("assets/icons/archive.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
             label: 'Archivio',
           ),
         ],
