@@ -18,18 +18,11 @@ import 'package:scheda_palestra/features/workout/presentation/workout_bloc/worko
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
 // workout events not used in HomePage; Home handles persistence via HomeBloc
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_state.dart';
+import 'package:scheda_palestra/features/workout_log/domain/workout_series.dart';
+import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
+import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_state.dart';
 
-
-
-  enum DaysOfWeek{
-    LUN,
-    MAR,
-    MER,
-    GIO,
-    VEN,
-    SAB,
-    DOM
-    }
+enum DaysOfWeek { LUN, MAR, MER, GIO, VEN, SAB, DOM }
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,99 +32,161 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _openAssignmentDialog(BuildContext context, {required int selectedDay, WorkoutModel? selectedWorkout}) {
+  void _openAssignmentDialog(
+    BuildContext context, {
+    required int selectedDay,
+    WorkoutModel? selectedWorkout,
+  }) {
     final schedeState = context.read<SchedeBloc>().state;
     if (schedeState is! SchedeLoaded) return;
 
     // Debug log: tapped day in weekly plan
-    Logger.info('HomePage', 'Tapped day: $selectedDay, workoutId=${selectedWorkout?.id ?? 'null'}');
-            final today = DateTime.now();
+    Logger.info(
+      'HomePage',
+      'Tapped day: $selectedDay, workoutId=${selectedWorkout?.id ?? 'null'}',
+    );
+    final today = DateTime.now();
 
     showModalBottomSheet(
       isDismissible: false,
       context: context,
-        builder: (_) => CreateWorkoutBottomSheet(
-        schede: schedeState.schede, 
-            onCreateWorkout: (workout) {
-                                      print("WK on created is today = ${ today.weekday}  w.dayOfWeek = ${ workout.dayOfWeek} datetime = ${DateTime.now().day}");
+      builder: (_) => CreateWorkoutBottomSheet(
+        schede: schedeState.schede,
+        onCreateWorkout: (workout) {
+          print(
+            "WK on created is today = ${today.weekday}  w.dayOfWeek = ${workout.dayOfWeek} datetime = ${DateTime.now().day}",
+          );
 
-          if( today.weekday==workout.dayOfWeek){
-                        context.read<WorkoutBloc>().add(WourtkoutUpdated(workoutModel: workout));
-
+          if (today.weekday == workout.dayOfWeek) {
+            context.read<WorkoutBloc>().add(
+              WourtkoutUpdated(workoutModel: workout),
+            );
           }
 
-          
-                    context.read<HomeBloc>().add(HomeCreateWorkout(workout));
-
-        }, 
+          context.read<HomeBloc>().add(HomeCreateWorkout(workout));
+        },
         selectedWorkout: selectedWorkout,
-          selectedDay: selectedDay,
-           onDeleteWorkout: (WorkoutModel w) {
-            
-                          // final isToday = w.dayOfWeek==DateTime.now().day;
-                        print("WK on deleted is today = ${ today.weekday}  w.dayOfWeek = ${ w.dayOfWeek} datetime = ${DateTime.now().day}");
+        selectedDay: selectedDay,
+        onDeleteWorkout: (WorkoutModel w) {
+          // final isToday = w.dayOfWeek==DateTime.now().day;
+          print(
+            "WK on deleted is today = ${today.weekday}  w.dayOfWeek = ${w.dayOfWeek} datetime = ${DateTime.now().day}",
+          );
 
-             if(today.weekday==w.dayOfWeek){
+          if (today.weekday == w.dayOfWeek) {
             context.read<WorkoutBloc>().add(WorkoutOnDeleted(w));
           }
-            context.read<HomeBloc>().add(HomeDeleteWorkout(w));
-         
-           },));
+          context.read<HomeBloc>().add(HomeDeleteWorkout(w));
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<WorkoutBloc, WorkoutState>(
-        listener: (context, state) {
-            final today = DateTime.now().weekday;
-            if (state is WorkoutLoaded) {
-              if (state.workout.dayOfWeek == today) {
-                context.read<HomeBloc>().add(const HomeStarted());
-              }
-            } else if (state is WorkoutDeleted) {
-              if (state.dayOfWeek == today) {
-                context.read<HomeBloc>().add(const HomeStarted());
-              }
-            } else if (state is WorkoutMutationCompleted) {
-              // A background create/delete completed; refresh the weekly plan.
-              context.read<HomeBloc>().add(const HomeStarted());
-            }
+      listener: (context, state) {
+        final today = DateTime.now().weekday;
+        if (state is WorkoutLoaded) {
+          if (state.workout.dayOfWeek == today) {
+            context.read<HomeBloc>().add(const HomeStarted());
+          }
+        } else if (state is WorkoutDeleted) {
+          if (state.dayOfWeek == today) {
+            context.read<HomeBloc>().add(const HomeStarted());
+          }
+        } else if (state is WorkoutMutationCompleted) {
+          // A background create/delete completed; refresh the weekly plan.
+          context.read<HomeBloc>().add(const HomeStarted());
+        }
       },
-           child: Scaffold(
-            backgroundColor: AppColors.backgroundColor,
-            body: SafeArea(
-              child: BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  
-                  if (state is HomeLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                   
-                  if (state is HomeError) {
-                    return const Center(child: Text('Non è stato possibile caricare il piano settimanale.'));
-                  }
-                   
-                  if (state is HomeLoaded) {
-                    final homeModel = state.homeModel;
-                    return SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          spacing: 24,
-                          children: [
-                            HomeHeaderWidget(streaksDays: 0,),
-                            WeeklyPlanWidget(homeModel: homeModel, onPressed: (c, day, workout) => _openAssignmentDialog(c, selectedDay: day, selectedWorkout: workout),),
-                          ],
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundColor,
+        body: SafeArea(
+          child: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is HomeLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (state is HomeError) {
+                return const Center(
+                  child: Text(
+                    'Non è stato possibile caricare il piano settimanale.',
+                  ),
+                );
+              }
+
+              if (state is HomeLoaded) {
+                final homeModel = state.homeModel;
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      spacing: 24,
+                      children: [
+                        BlocBuilder<WorkoutLogBloc, WorkoutLogState>(
+                          buildWhen: (previous, current) =>
+                              current is WorkoutLogLoaded,
+                          builder: (context, workoutState) {
+                            if (workoutState is! WorkoutLogLoaded) {
+                              return const SizedBox.shrink();
+                            }
+
+                            final streak = workoutState.workouts.currentStreak;
+                            final monthlyCount = workoutState.workouts
+                                .countInMonth(DateTime.now());
+
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+
+                              children: [
+                                HomeHeaderWidget(streaksDays: streak),
+                                SizedBox(height: 16,),
+                                Container(
+                                  padding: EdgeInsets.all(16),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.borderContainerColor), color: Colors.white),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    spacing: 8,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        spacing: 8,
+                                        children: [
+                                          Text("🎯", style: TextStyle(fontSize: 18)),
+                                          Text("Obiettivo", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                                        ],
+                                      ),
+                                      Text("$monthlyCount", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
+                                      Text("Allenamenti questo mese", style: TextStyle(fontSize: 12),)
+                                    ],
+                                  ),),
+                              ],
+                            );
+                          },
                         ),
-                      ),
-                    );
-                  }
-                   
-                  return const SizedBox.shrink();
-                },
-              ),
-            ),
-                   )
+                        WeeklyPlanWidget(
+                          homeModel: homeModel,
+                          onPressed: (c, day, workout) => _openAssignmentDialog(
+                            c,
+                            selectedDay: day,
+                            selectedWorkout: workout,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+
+              return const SizedBox.shrink();
+            },
+          ),
+        ),
+      ),
     );
   }
 }
