@@ -18,30 +18,6 @@ class WourtkoutUpdated extends WorkoutEvent {
 }
 
 
-//Inizia un nuovo workout
-class WourtkoutInitial extends WorkoutEvent {
-  const WourtkoutInitial();
-}
-
-//Riprendi workout non completato
-class WorkoutResumed extends WorkoutEvent{
-  const WorkoutResumed();
-}
-
-//Salva workout
-class WorkoutSaved extends WorkoutEvent{
-  const WorkoutSaved();
-}
-
-//Crea un nuovo workout per un giorno specifico
-class WorkoutCreated extends WorkoutEvent {
-  final WorkoutModel workout;
-  const WorkoutCreated(this.workout);
-
-  @override
-  List<Object?> get props => [workout];
-}
-
 class WorkoutExerciseToggled extends WorkoutEvent {
   final WorkoutModel workout;
   final String exerciseId;
@@ -59,14 +35,6 @@ class WorkoutOnDeleted extends WorkoutEvent {
   List<Object?> get props => [workout];
 }
 
-// Silent delete: perform deletion but avoid emitting UI-loading states immediately.
-class WorkoutDeleteSilent extends WorkoutEvent {
-  final WorkoutModel workout;
-  const WorkoutDeleteSilent(this.workout);
-
-  @override
-  List<Object?> get props => [workout];
-}
 
 class WorkoutOnCompleted extends WorkoutEvent {
   final WorkoutModel workout;

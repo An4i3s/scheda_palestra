@@ -29,10 +29,6 @@ class WorkoutEmpty extends WorkoutState {
 }
 
 
-class WorkoutInProgress extends WorkoutState{
-  const WorkoutInProgress(); 
-}
-
 class WorkoutDeleted extends WorkoutState{
   final int? dayOfWeek;
   final String? id;
@@ -42,6 +38,8 @@ class WorkoutDeleted extends WorkoutState{
   List<Object?> get props => [dayOfWeek, id];
 }
 
+
+//TODO IMPROVE
 class WorkoutMutationCompleted extends WorkoutState {
   final int? dayOfWeek;
   final String? id;

@@ -37,14 +37,10 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState>{
   }):super(const WorkoutInitial()){
     on<WourtkoutLoaded>(_onLoaded);
     on<WourtkoutUpdated>(_onUpdated);
-    // on<WourtkoutStarted>((){});
     on<WorkoutExerciseToggled>(_onExerciseToggled);
     on<WorkoutOnDeleted>(_onDeleted);
     on<WorkoutOnCompleted>(_onCompleted);
     on<WorkoutOnSuccess>(_onSuccess);
-
-    // on<WorkoutSaved>(_onSaved);
-    // on<WorkoutResumed>(_onResumed)
   }
 
 
