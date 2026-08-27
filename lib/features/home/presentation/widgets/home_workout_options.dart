@@ -26,27 +26,27 @@ class HomeWorkoutOptions extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              spacing: 16,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.containerColor,
-                    borderRadius: BorderRadius.circular(32)
+            Expanded(
+              child: Row(
+                spacing: 16,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppColors.containerColor,
+                      borderRadius: BorderRadius.circular(32)
+                    ),
+                    child: isRest ?  Text("😴", style: TextStyle(fontSize: 18),): Text("🏋🏻‍♀️", style: TextStyle(fontSize: 18),),),
+                  Expanded(
+                    child: isRest ?  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Giorno di riposo", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),), Text("Nessun allenamento")],
+                    )
+                  : Text(schedaName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,), overflow: TextOverflow.ellipsis, maxLines: 1,),
                   ),
-                  child: isRest ?  Text("😴", style: TextStyle(fontSize: 18),): Text("🏋🏻‍♀️", style: TextStyle(fontSize: 18),),),
-                isRest ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Giorno di riposo", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),), Text("Nessun allenamento")],
-                ): Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(schedaName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),)],
-                ),
-                
-              ],
+                ],
+              ),
             ),
             if(isSelected) Icon(Icons.check_circle_outline, color: AppColors.secondaryBtnColor,)
           ],

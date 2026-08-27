@@ -81,14 +81,16 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
             ),
                        
             widget.workout!=null ? Text("🏋️") : Icon(Icons.add, size: 16,),
-            Text(
-              widget.workout?.scheda.nome ?? 'Riposo',
-              style: TextStyle(
-                fontSize: 16,
-                color:  _isToday() ? Colors.white : widget.workout != null
-                    ? AppColors.textColor
-                    : Colors.grey.shade600,
-                fontWeight: FontWeight.w600,
+            Expanded(
+              child: Text(
+                widget.workout?.scheda.nome ?? 'Riposo',
+                style: TextStyle(
+                  fontSize: 16,
+                  color:  _isToday() ? Colors.white : widget.workout != null
+                      ? AppColors.textColor
+                      : Colors.grey.shade600,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
