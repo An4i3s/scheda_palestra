@@ -1,3 +1,4 @@
+import 'package:scheda_palestra/core/back_up_service/back_up_abstract.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 
 enum WorkoutCategory {
@@ -11,7 +12,7 @@ enum WorkoutCategory {
   crossfit,
 }
 
-class SchedaModel {
+class SchedaModel extends BackupableModel{
   final String id;
 
   final String nome;
@@ -50,4 +51,11 @@ class SchedaModel {
       category: category ?? this.category,
     );
   }
+  
+  @override
+  Map<String, dynamic> toJson() => {"id": id, "nome":nome, "descrizione":descrizione, "createdAt": createdAt, "esercizi": esercizi, "category":category};
+
+    factory SchedaModel.fromJson(Map<String, dynamic> json){
+      return SchedaModel(id: json["id"], nome: json["nome"], createdAt: json["createdAt"], category: json["category"], descrizione: json["descrizione"]);
+    }
 }

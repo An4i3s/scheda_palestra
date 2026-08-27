@@ -1,7 +1,8 @@
+import 'package:scheda_palestra/core/back_up_service/back_up_abstract.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 
-class WorkoutModel {
+class WorkoutModel implements BackupableModel{
   final String id;
   final List<ExerciseModel> completedExercises;
   // final DateTime date;
@@ -44,6 +45,14 @@ class WorkoutModel {
     );
   }
 
+    @override
+  Map<String, dynamic> toJson() => {"id":id, "completedExercises":completedExercises, "dayOfWeek": dayOfWeek, "scheda": scheda.toJson(), "completedExerciseIds":completedExerciseIds, "isCompleted":isCompleted };
+
+  factory WorkoutModel.fromJson(Map<String, dynamic> json){
+        return WorkoutModel(id: json["id"], completedExercises: json["completedExercises"], dayOfWeek: json["dayOfWeek"], scheda: json["scheda"]);
+  }
+
+
   WorkoutModel markCompleted() {
     return copyWith(isCompleted: true);
   }
@@ -62,4 +71,7 @@ class WorkoutModel {
 
   @override
   String toString() => 'WorkoutModel(id=$id, dayOfWeek=$dayOfWeek, isCompleted=$isCompleted, completed=${completedExerciseIds.length})';
+  
+
+  
 }

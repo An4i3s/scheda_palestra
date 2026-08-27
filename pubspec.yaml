@@ -11,6 +11,7 @@ dependencies:
   bloc_test: ^10.0.0
   dartz: ^0.10.1
   equatable: ^2.0.8
+  file_picker: ^12.1.1
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
@@ -20,6 +21,8 @@ dependencies:
   hive_flutter: ^1.1.0
   lottie: ^3.3.3
   mocktail: ^1.0.5
+  path_provider: ^2.1.6
+  share_plus: ^13.3.0
 
 dev_dependencies:
   flutter_test:
