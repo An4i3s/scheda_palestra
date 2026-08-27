@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
@@ -11,7 +10,6 @@ import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_
 import 'package:scheda_palestra/features/schede/presentation/widgets/custom_form_field.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_form_dialog.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_scheda_form.dart';
-import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/workout_category_container.dart';
 
 
@@ -81,14 +79,6 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
 
   void _deleteEsercizio(int index) {
     setState(() => _esercizi.removeAt(index));
-  }
-
-  void _reorderEsercizi(int oldIndex, int newIndex) {
-    setState(() {
-      if (newIndex > oldIndex) newIndex--;
-      final item = _esercizi.removeAt(oldIndex);
-      _esercizi.insert(newIndex, item);
-    });
   }
 
 

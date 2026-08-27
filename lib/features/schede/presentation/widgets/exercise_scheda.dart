@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
-import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
-import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_stats_list.dart';
 
 class ExerciseInScheda extends StatelessWidget {

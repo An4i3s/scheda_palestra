@@ -1,69 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:scheda_palestra/features/home/data/datasources/home_local_datasource_impl.dart';
-// import 'package:scheda_palestra/features/home/data/repositories/home_repo_impl.dart';
-// import 'package:scheda_palestra/features/home/domain/usecases/get_home_summary.dart';
-// import 'package:scheda_palestra/features/home/presentation/home_bloc/home_bloc.dart' hide GetHomeSummary;
-// import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events.dart';
-// import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
-// import 'package:scheda_palestra/features/schede/data/datasources/schede_local_datasource.dart';
-// import 'package:scheda_palestra/features/schede/data/repositories/schede_repo_impl.dart';
-// import 'package:scheda_palestra/features/schede/domain/usecases/delete_scheda.dart';
-// import 'package:scheda_palestra/features/schede/domain/usecases/get_schede.dart';
-// import 'package:scheda_palestra/features/schede/domain/usecases/save_scheda.dart';
-// import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
-// import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
-// import 'package:scheda_palestra/features/schede/presentation/views/scheda_page.dart';
-
-
-// abstract class AppRouter {
-//   static const String home = '/';
-//   static const String schede = '/schede';
-
-//   // ─── Dipendenze create una volta sola (singleton manuale) ────────────────
-//   static final _schedeDataSource = SchedeLocalDatasourceImpl();
-//   static final _schedeRepository = SchedeRepositoryImpl(datasource: _schedeDataSource);
-//   static final _getSchede = GetSchede(repository: _schedeRepository);
-//   static final _saveScheda = SaveScheda(repository: _schedeRepository);
-//   static final _deleteScheda = DeleteScheda(repository: _schedeRepository);
-
-//   static final _homeDataSource = HomeLocalDatasourceImpl();
-//   static final _homeRepository = HomeRepositoryImpl(datasource: _homeDataSource);
-//   static final _getHomeSummary = GetHomeSummary(repository: _homeRepository);
-
-//   // ─── Router ──────────────────────────────────────────────────────────────
-//   static final GoRouter router = GoRouter(
-//     initialLocation: home,
-//     routes: [
-//       GoRoute(
-//         path: home,
-//         name: 'home',
-//         builder: (context, state) => BlocProvider(
-//           create: (_) => HomeBloc(
-//             getHomeSummary: _getHomeSummary.call,
-//           )..add(const HomeStarted()),
-//           child: const HomePage(),
-//         ),
-//       ),
-//       GoRoute(
-//         path: schede,
-//         name: 'schede',
-//         builder: (context, state) => BlocProvider(
-//           create: (_) => SchedeBloc(
-//             getSchede: _getSchede.call,
-//             saveScheda: _saveScheda.call,
-//             deleteScheda: _deleteScheda.call,
-//           )..add(const SchedeStarted()),
-//           child: const SchedePage(),
-//         ),
-//       ),
-//     ],
-//     errorBuilder: (context, state) => Scaffold(
-//       body: Center(child: Text('Pagina non trovata: ${state.error}')),
-//     ),
-//   );
-// }
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -105,7 +39,6 @@ import 'package:scheda_palestra/features/workout_log/domain/usecases/register_wo
 import 'package:scheda_palestra/features/workout_log/domain/usecases/get_past_workout.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_event.dart';
-import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_state.dart';
 
 abstract class AppRouter {
   static const String home = '/';
