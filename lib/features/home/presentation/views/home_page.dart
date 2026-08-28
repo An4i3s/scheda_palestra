@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scheda_palestra/core/back_up_service/back_up_service.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_bloc.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_state.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/home_header_widget.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/weekly_plan.dart';
-// import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_state.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/create_workout_dialog.dart';
@@ -16,11 +16,11 @@ import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 import 'package:scheda_palestra/core/utils/logger.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
-// workout events not used in HomePage; Home handles persistence via HomeBloc
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_state.dart';
 import 'package:scheda_palestra/features/workout_log/domain/workout_series.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_state.dart';
+import 'package:share_plus/share_plus.dart';
 
 enum DaysOfWeek { LUN, MAR, MER, GIO, VEN, SAB, DOM }
 
@@ -102,6 +102,18 @@ class _HomePageState extends State<HomePage> {
       },
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
+        endDrawer: Drawer(
+          backgroundColor: AppColors.backgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                //TOOO EXPORT BACKUP WIDGET
+                BackupWidget(),
+              ],
+            ),
+          ),
+        ),
         body: SafeArea(
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
@@ -129,41 +141,81 @@ class _HomePageState extends State<HomePage> {
                           buildWhen: (previous, current) =>
                               current is WorkoutLogLoaded,
                           builder: (context, workoutState) {
-                            if (workoutState is! WorkoutLogLoaded) {
-                              return const SizedBox.shrink();
-                            }
+                            print("State is = $workoutState");
+                            // if (workoutState is! WorkoutLogLoaded) {
+                            //   return const SizedBox.shrink();
+                            // }
 
-                            final streak = workoutState.workouts.currentStreak;
-                            final monthlyCount = workoutState.workouts
-                                .countInMonth(DateTime.now());
+                              int streak = 0;
+    int monthlyCount = 0;
+
+    if (workoutState is WorkoutLogLoaded) {
+      streak = workoutState.workouts.currentStreak;
+      monthlyCount = workoutState.workouts.countInMonth(DateTime.now());
+    }
+
+                            // final streak = workoutState.workouts.currentStreak;
+                            // final monthlyCount = workoutState.workouts
+                            //     .countInMonth(DateTime.now());
 
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
 
                               children: [
-                                HomeHeaderWidget(streaksDays: streak),
-                                SizedBox(height: 16,),
+                                HomeHeaderWidget(
+                                  streaksDays: streak,
+                                  onSettingsPressed: () =>
+                                      Scaffold.of(context).openEndDrawer(),
+                                ),
+                                SizedBox(height: 16),
                                 Container(
                                   padding: EdgeInsets.all(16),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.borderContainerColor), color: Colors.white),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: AppColors.borderContainerColor,
+                                    ),
+                                    color: Colors.white,
+                                  ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     spacing: 8,
                                     children: [
                                       Row(
                                         mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         spacing: 8,
                                         children: [
-                                          Text("🎯", style: TextStyle(fontSize: 18)),
-                                          Text("Obiettivo", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                                          Text(
+                                            "🎯",
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                          Text(
+                                            "Obiettivo",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
                                         ],
                                       ),
-                                      Text("$monthlyCount", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
-                                      Text("Allenamenti questo mese", style: TextStyle(fontSize: 12),)
+                                      Text(
+                                        "$monthlyCount",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Allenamenti questo mese",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
                                     ],
-                                  ),),
+                                  ),
+                                ),
                               ],
                             );
                           },
@@ -187,6 +239,73 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class BackupWidget extends StatefulWidget {
+  const BackupWidget({super.key});
+
+  @override
+  State<BackupWidget> createState() => _BackupWidgetState();
+}
+
+class _BackupWidgetState extends State<BackupWidget> {
+  bool _isLoading = false;
+
+  Future<void> _handleExport() async {
+    setState(() => _isLoading = true);
+    try {
+      final file = await BackupService.exportBackup();
+
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(file.path)],
+          text: 'Backup dei tuoi dati - Scheda Palestra',
+        ),
+      );
+
+      _showSnackBar('Backup esportato con successo', isError: false);
+    } catch (e) {
+      _showSnackBar('Errore durante l\'export: $e', isError: true);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  void _showSnackBar(String message, {required bool isError}) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isError ? Colors.red : Colors.green,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("Backup"),
+        Row(
+          spacing: 8,
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                onPressed: () {},
+                child: Text("Import backup"),
+              ),
+            ),
+            Expanded(
+              child: OutlinedButton(
+                onPressed: _handleExport,
+                child: Text("Export backup"),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
