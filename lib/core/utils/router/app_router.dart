@@ -3,12 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scheda_palestra/app/app.dart';
-import 'package:scheda_palestra/features/schede/data/datasources/exercise_local_datasource.dart';
-import 'package:scheda_palestra/features/schede/data/repositories/exercises_repository_impl.dart';
-import 'package:scheda_palestra/features/schede/domain/usecases/exercises/get_exercise.dart';
-import 'package:scheda_palestra/features/schede/domain/usecases/exercises/save_exercise.dart';
-import 'package:scheda_palestra/features/schede/presentation/exercises_bloc/exercises_bloc.dart';
-import 'package:scheda_palestra/features/schede/presentation/exercises_bloc/exercises_events.dart';
 import 'package:scheda_palestra/features/home/data/datasources/home_local_datasource_impl.dart';
 import 'package:scheda_palestra/features/home/data/repositories/home_repo_impl.dart';
 import 'package:scheda_palestra/features/home/domain/usecases/get_home_summary.dart';
@@ -54,10 +48,10 @@ abstract class AppRouter {
   static final _homeRepository = HomeRepositoryImpl(datasource: _homeDataSource);
   static final _getHomeSummary = GetHomeSummary(repository: _homeRepository);
   
-  static final _exerciseDataSource = ExerciseLocalDatasource();
-  static final _exerciseRepository = ExercisesRepositoryImpl(datasource: _exerciseDataSource);
-  static final _getExercises = GetExercise(repository: _exerciseRepository);
-  static final _saveExercise = SaveExercise(repository: _exerciseRepository);
+  // static final _exerciseDataSource = ExerciseLocalDatasource();
+  // static final _exerciseRepository = ExercisesRepositoryImpl(datasource: _exerciseDataSource);
+  // static final _getExercises = GetExercise(repository: _exerciseRepository);
+  // static final _saveExercise = SaveExercise(repository: _exerciseRepository);
 
   static final _workoutDataSource = WorkoutLocalDatasourceImpl();
   static final _workoutRepository = WorkoutRepositoryImpl(datasource: _workoutDataSource);
@@ -90,10 +84,10 @@ abstract class AppRouter {
     deleteScheda: _deleteScheda.call,
   )..add(const SchedeStarted());
 
-  static final _exercisesBloc = ExercisesBloc(
-    getExercises: _getExercises.call,
-    saveExercise: _saveExercise.call,
-  )..add(const ExercisesStarted());
+  // static final _exercisesBloc = ExercisesBloc(
+  //   getExercises: _getExercises.call,
+  //   saveExercise: _saveExercise.call,
+  // )..add(const ExercisesStarted());
 
   static final _workoutBloc = WorkoutBloc(
     getCurrentWorkout: _getCurrentWorkout.call,
@@ -123,7 +117,7 @@ abstract class AppRouter {
           providers: [
             BlocProvider.value(value: _homeBloc),
             BlocProvider.value(value: _schedeBloc),
-            BlocProvider.value(value: _exercisesBloc),
+            // BlocProvider.value(value: _exercisesBloc),
             BlocProvider.value(value: _workoutBloc),
             BlocProvider.value(value: _workoutLogBloc)
           ],
