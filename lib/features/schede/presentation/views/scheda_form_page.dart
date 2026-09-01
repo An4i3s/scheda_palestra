@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
-import 'package:scheda_palestra/features/schede/presentation/exercises_bloc/exercises_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/custom_form_field.dart';
@@ -60,9 +59,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     void _showExerciseDialog({int? index, ExerciseModel? esercizio}) {
     showDialog<void>(
       context: context,
-      builder: (_) =>  BlocProvider.value(
-        value: context.read<ExercisesBloc>(),
-        child: ExerciseFormDialog(
+      builder: (_) =>  ExerciseFormDialog(
           esercizio: esercizio,
           defaultCategory: _selectedCategory,
           onSubmit: (saved) {
@@ -73,7 +70,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
             }
           },
         ),
-      ),
+      
     );
   }
 

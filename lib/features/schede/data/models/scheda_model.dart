@@ -53,9 +53,43 @@ class SchedaModel extends BackupableModel{
   }
   
   @override
-  Map<String, dynamic> toJson() => {"id": id, "nome":nome, "descrizione":descrizione, "createdAt": createdAt, "esercizi": esercizi, "category":category};
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "nome": nome,
+        "descrizione": descrizione,
+        "createdAt": createdAt.toIso8601String(),
+        "esercizi": esercizi.map((e) => e.toJson()).toList(),
+        "category": category.name,
+      };
 
     factory SchedaModel.fromJson(Map<String, dynamic> json){
-      return SchedaModel(id: json["id"], nome: json["nome"], createdAt: json["createdAt"], category: json["category"], descrizione: json["descrizione"]);
+      final created = json["createdAt"];
+      DateTime parsedCreated;
+      if (created is String) {
+        parsedCreated = DateTime.parse(created);
+      } else if (created is int) {
+        parsedCreated = DateTime.fromMillisecondsSinceEpoch(created);
+      } else {
+        parsedCreated = DateTime.now();
+      }
+
+      final eserciziJson = json["esercizi"] as List?;
+      final eserciziList = eserciziJson == null
+          ? <ExerciseModel>[]
+          : eserciziJson.map((e) => ExerciseModel.fromJson(Map<String, dynamic>.from(e))).toList();
+
+      final categoryStr = json["category"] as String?;
+      final category = WorkoutCategory.values.firstWhere(
+          (c) => c.name == (categoryStr ?? ''),
+          orElse: () => WorkoutCategory.strength);
+
+      return SchedaModel(
+        id: json["id"] ?? '',
+        nome: json["nome"] ?? '',
+        createdAt: parsedCreated,
+        category: category,
+        descrizione: json["descrizione"] ?? '',
+        esercizi: eserciziList,
+      );
     }
 }

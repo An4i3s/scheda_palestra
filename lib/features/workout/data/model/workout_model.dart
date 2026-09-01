@@ -46,11 +46,36 @@ class WorkoutModel implements BackupableModel{
   }
 
     @override
-  Map<String, dynamic> toJson() => {"id":id, "completedExercises":completedExercises, "dayOfWeek": dayOfWeek, "scheda": scheda.toJson(), "completedExerciseIds":completedExerciseIds, "isCompleted":isCompleted };
+      Map<String, dynamic> toJson() => {
+        "id": id,
+        "completedExercises": completedExercises.map((e) => e.toJson()).toList(),
+        "dayOfWeek": dayOfWeek,
+        "scheda": scheda.toJson(),
+        "completedExerciseIds": completedExerciseIds.toList(),
+        "isCompleted": isCompleted,
+      };
 
-  factory WorkoutModel.fromJson(Map<String, dynamic> json){
-        return WorkoutModel(id: json["id"], completedExercises: json["completedExercises"], dayOfWeek: json["dayOfWeek"], scheda: json["scheda"]);
-  }
+      factory WorkoutModel.fromJson(Map<String, dynamic> json){
+        final completedJson = json["completedExercises"] as List?;
+        final completedExercises = completedJson == null
+        ? <ExerciseModel>[]
+        : completedJson.map((e) => ExerciseModel.fromJson(Map<String, dynamic>.from(e))).toList();
+
+        final schedaJson = json["scheda"] as Map<String, dynamic>?;
+        final scheda = schedaJson == null ? throw ArgumentError('scheda missing') : SchedaModel.fromJson(Map<String, dynamic>.from(schedaJson));
+
+        final completedIdsJson = json["completedExerciseIds"] as List?;
+        final completedIds = completedIdsJson == null ? <String>{} : completedIdsJson.map((e) => e.toString()).toSet();
+
+        return WorkoutModel(
+          id: json["id"] ?? '',
+          completedExercises: completedExercises,
+          dayOfWeek: json["dayOfWeek"] ?? 0,
+          scheda: scheda,
+          completedExerciseIds: completedIds,
+          isCompleted: json["isCompleted"] == true,
+        );
+      }
 
 
   WorkoutModel markCompleted() {

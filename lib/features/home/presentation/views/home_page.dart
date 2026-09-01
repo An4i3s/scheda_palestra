@@ -1,5 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/back_up_service/back_up_service.dart';
@@ -7,6 +10,7 @@ import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_bloc.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_state.dart';
+import 'package:scheda_palestra/features/home/presentation/widgets/back_up_widget.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/home_header_widget.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/weekly_plan.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
@@ -53,10 +57,6 @@ class _HomePageState extends State<HomePage> {
       builder: (_) => CreateWorkoutBottomSheet(
         schede: schedeState.schede,
         onCreateWorkout: (workout) {
-          print(
-            "WK on created is today = ${today.weekday}  w.dayOfWeek = ${workout.dayOfWeek} datetime = ${DateTime.now().day}",
-          );
-
           if (today.weekday == workout.dayOfWeek) {
             context.read<WorkoutBloc>().add(
               WourtkoutUpdated(workoutModel: workout),
@@ -108,7 +108,6 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                //TOOO EXPORT BACKUP WIDGET
                 BackupWidget(),
               ],
             ),
@@ -141,22 +140,16 @@ class _HomePageState extends State<HomePage> {
                           buildWhen: (previous, current) =>
                               current is WorkoutLogLoaded,
                           builder: (context, workoutState) {
-                            print("State is = $workoutState");
-                            // if (workoutState is! WorkoutLogLoaded) {
-                            //   return const SizedBox.shrink();
-                            // }
 
-                              int streak = 0;
-    int monthlyCount = 0;
+                            int streak = 0;
+                            int monthlyCount = 0;
 
-    if (workoutState is WorkoutLogLoaded) {
-      streak = workoutState.workouts.currentStreak;
-      monthlyCount = workoutState.workouts.countInMonth(DateTime.now());
-    }
-
-                            // final streak = workoutState.workouts.currentStreak;
-                            // final monthlyCount = workoutState.workouts
-                            //     .countInMonth(DateTime.now());
+                            if (workoutState is WorkoutLogLoaded) {
+                              streak = workoutState.workouts.currentStreak;
+                              monthlyCount = workoutState.workouts.countInMonth(
+                                DateTime.now(),
+                              );
+                            }
 
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -239,73 +232,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class BackupWidget extends StatefulWidget {
-  const BackupWidget({super.key});
-
-  @override
-  State<BackupWidget> createState() => _BackupWidgetState();
-}
-
-class _BackupWidgetState extends State<BackupWidget> {
-  bool _isLoading = false;
-
-  Future<void> _handleExport() async {
-    setState(() => _isLoading = true);
-    try {
-      final file = await BackupService.exportBackup();
-
-      await SharePlus.instance.share(
-        ShareParams(
-          files: [XFile(file.path)],
-          text: 'Backup dei tuoi dati - Scheda Palestra',
-        ),
-      );
-
-      _showSnackBar('Backup esportato con successo', isError: false);
-    } catch (e) {
-      _showSnackBar('Errore durante l\'export: $e', isError: true);
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
-    }
-  }
-
-  void _showSnackBar(String message, {required bool isError}) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: isError ? Colors.red : Colors.green,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Backup"),
-        Row(
-          spacing: 8,
-          children: [
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () {},
-                child: Text("Import backup"),
-              ),
-            ),
-            Expanded(
-              child: OutlinedButton(
-                onPressed: _handleExport,
-                child: Text("Export backup"),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

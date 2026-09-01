@@ -5,7 +5,7 @@ import 'package:scheda_palestra/features/workout_log/data/model/workout_log_mode
 
 class WorkoutLogDatasourceImpl implements WorkoutLogDatasource{
 
-    static const _boxName = 'past_workouts';
+    static const _boxName = 'workout_logs';
 
 
   Future<Box<WorkoutLogModel>> get _box async =>

@@ -43,6 +43,18 @@ class ExerciseModel implements BackupableModel {
   };
 
   factory ExerciseModel.fromJson(Map<String, dynamic> json){
-    return ExerciseModel(name: json["name"], series: json["series"], repetitions: json["repetitions"], weight: json["weight"], category: json["category"], restTime: json["restTime"], id: json["id"]);
+    return ExerciseModel(
+      name: json["name"] ?? '',
+      series: json["series"] ?? 0,
+      repetitions: json["repetitions"],
+      weight: json["weight"],
+      description: json["description"],
+      category: WorkoutCategory.values.firstWhere((e) => e.name == (json["category"] ?? ''), orElse: () => WorkoutCategory.strength),
+      restTime: json["restTime"],
+      id: json["id"] ?? '',
+      time: json["time"],
+      km: json["km"],
+      elevation: json["elevation"],
+    );
   }
 }

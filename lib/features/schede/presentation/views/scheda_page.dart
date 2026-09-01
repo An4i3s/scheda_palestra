@@ -57,7 +57,7 @@ class _SchedePageState extends State<SchedePage> {
                     builder: (_) => MultiBlocProvider(
                       providers: [
                         BlocProvider.value(value: context.read<SchedeBloc>()),
-                        BlocProvider.value(value: context.read<ExercisesBloc>()),
+                        // BlocProvider.value(value: context.read<ExercisesBloc>()),
                       ],
                       child: const SchedaFormPage(),
                     ),
