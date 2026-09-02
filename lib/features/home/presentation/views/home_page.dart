@@ -1,11 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
-import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:scheda_palestra/core/back_up_service/back_up_service.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_bloc.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events.dart';
@@ -68,10 +65,6 @@ class _HomePageState extends State<HomePage> {
         selectedWorkout: selectedWorkout,
         selectedDay: selectedDay,
         onDeleteWorkout: (WorkoutModel w) {
-          // final isToday = w.dayOfWeek==DateTime.now().day;
-          print(
-            "WK on deleted is today = ${today.weekday}  w.dayOfWeek = ${w.dayOfWeek} datetime = ${DateTime.now().day}",
-          );
 
           if (today.weekday == w.dayOfWeek) {
             context.read<WorkoutBloc>().add(WorkoutOnDeleted(w));
