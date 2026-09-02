@@ -21,7 +21,6 @@ import 'package:scheda_palestra/features/workout/presentation/workout_bloc/worko
 import 'package:scheda_palestra/features/workout_log/domain/workout_series.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_state.dart';
-import 'package:share_plus/share_plus.dart';
 
 enum DaysOfWeek { LUN, MAR, MER, GIO, VEN, SAB, DOM }
 
