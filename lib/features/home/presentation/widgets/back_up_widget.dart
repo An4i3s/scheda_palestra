@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -38,62 +36,59 @@ class _BackupWidgetState extends State<BackupWidget> {
     );
   }
 
- Future<void> _exportBackup() async {
-  setState(() => _isLoadingExport=true,);
-  try{
-        final file = await BackupService.exportBackup();
+  Future<void> _exportBackup() async {
+    setState(() => _isLoadingExport = true);
+    try {
+      final file = await BackupService.exportBackup();
       await SharePlus.instance.share(
         ShareParams(
           files: [XFile(file.path)],
           text: 'Backup dei tuoi dati - Scheda Palestra',
         ),
       );
-       _showSnackBar(isError: false, 'Backup esportato con successo');
-  }catch(e){
-    _showSnackBar(isError: true, "Error durante l'export $e");
-  }finally{
-    if (mounted) setState(() => _isLoadingExport = false);
+      _showSnackBar(isError: false, 'Backup esportato con successo');
+    } catch (e) {
+      _showSnackBar(isError: true, "Error durante l'export $e");
+    } finally {
+      if (mounted) setState(() => _isLoadingExport = false);
+    }
   }
 
+  Future<void> _handleImport() async {
+    final confirmed = await _showConfirmDialog();
+    if (!confirmed) return;
 
-}
+    setState(() => _isLoadingImport = true);
+    try {
+      final pickedFile = await FilePicker.pickFile();
 
-Future<void> _handleImport() async {
-  final confirmed = await _showConfirmDialog();
-  if (!confirmed) return;
+      if (pickedFile == null || pickedFile.path == null) {
+        setState(() => _isLoadingImport = false);
+        return; // utente ha annullato
+      }
 
-  setState(() => _isLoadingImport = true);
-  try {
-    final pickedFile = await FilePicker.pickFile();
-
-    if (pickedFile == null || pickedFile.path == null) {
-      setState(() => _isLoadingImport = false);
-      return; // utente ha annullato
+      final file = File(pickedFile.path!);
+      await BackupService.importBackup(file);
+      if (mounted) {
+        _refreshAllBlocs(context);
+        _showSnackBar('Backup importato con successo', isError: false);
+      }
+    } catch (e) {
+      _showSnackBar('Errore durante l\'import: $e', isError: true);
+    } finally {
+      if (mounted) setState(() => _isLoadingImport = false);
     }
-
-    final file = File(pickedFile.path!);
-    await BackupService.importBackup(file);
-     if (mounted) {
-      _refreshAllBlocs(context);
-      _showSnackBar('Backup importato con successo', isError: false);
-    }
-
-  } catch (e) {
-    _showSnackBar('Errore durante l\'import: $e', isError: true);
-  } finally {
-    if (mounted) setState(() => _isLoadingImport = false);
   }
-}
 
-void _refreshAllBlocs(BuildContext context) {
-  context.read<HomeBloc>().add(const HomeStarted());
-  context.read<SchedeBloc>().add(const SchedeStarted()); 
-  context.read<WorkoutLogBloc>().add(const WorkoutLogOnLoad());
-  context.read<WorkoutBloc>().add(const WourtkoutLoaded());
-  // aggiungi qui gli altri bloc se servono, es. WorkoutBloc se ha uno stato globale da ricaricare
-}
+  void _refreshAllBlocs(BuildContext context) {
+    context.read<HomeBloc>().add(const HomeStarted());
+    context.read<SchedeBloc>().add(const SchedeStarted());
+    context.read<WorkoutLogBloc>().add(const WorkoutLogOnLoad());
+    context.read<WorkoutBloc>().add(const WourtkoutLoaded());
+    // aggiungi qui gli altri bloc se servono, es. WorkoutBloc se ha uno stato globale da ricaricare
+  }
 
-    Future<bool> _showConfirmDialog() async {
+  Future<bool> _showConfirmDialog() async {
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -118,31 +113,54 @@ void _refreshAllBlocs(BuildContext context) {
     return result ?? false;
   }
 
-
+  final _btnStyle = OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(20),
+            ),
+            side: BorderSide(
+              color: AppColors.secondaryBtnColor,
+              width: 2,
+              style: BorderStyle.solid,
+            ),
+            foregroundColor: AppColors.secondaryBtnColor,
+            minimumSize: Size(double.infinity, 32),
+            padding: EdgeInsets.all(12),
+          );
+  
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 4,
       children: [
-        Text("Backup"),
         Row(
           spacing: 8,
           children: [
-            Expanded(
-              child: OutlinedButton(
-                 style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsetsGeometry.all(8))),
-                onPressed: _isLoadingImport ? null : _handleImport,
-                child: _isLoadingImport ? CircularProgressIndicator(color: AppColors.secondaryBtnColor,):  Text("Import backup"),
-              ),
-            ),
-            Expanded(
-              
-              child: OutlinedButton(
-                style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsetsGeometry.all(8))),
-                onPressed: _isLoadingExport ? null : _exportBackup,
-                child:  _isLoadingExport ? CircularProgressIndicator(color: AppColors.secondaryBtnColor,):  Text("Export backup"),
+            Icon(Icons.arrow_circle_down_outlined, color: Colors.blueGrey),
+            Text(
+              "Backup",
+              style: TextStyle(
+                color: Colors.blueGrey,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
             ),
           ],
+        ),
+        SizedBox(height: 4,),
+        OutlinedButton(
+          style: _btnStyle,
+          onPressed: _isLoadingImport ? null : _handleImport,
+          child: _isLoadingImport
+              ? CircularProgressIndicator(color: AppColors.secondaryBtnColor)
+              : Text("Import backup"),
+        ),
+        OutlinedButton(
+          style: _btnStyle,
+          onPressed: _isLoadingExport ? null : _exportBackup,
+          child: _isLoadingExport
+              ? CircularProgressIndicator(color: AppColors.secondaryBtnColor)
+              : Text("Export backup"),
         ),
       ],
     );

@@ -9,6 +9,7 @@ import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_state.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/back_up_widget.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/home_header_widget.dart';
+import 'package:scheda_palestra/features/home/presentation/widgets/settings_drawer.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/weekly_plan.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_state.dart';
@@ -94,17 +95,7 @@ class _HomePageState extends State<HomePage> {
       },
       child: Scaffold(
         backgroundColor: AppColors.backgroundColor,
-        endDrawer: Drawer(
-          backgroundColor: AppColors.backgroundColor,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                BackupWidget(),
-              ],
-            ),
-          ),
-        ),
+        endDrawer: SettingsDrawer(),
         body: SafeArea(
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
