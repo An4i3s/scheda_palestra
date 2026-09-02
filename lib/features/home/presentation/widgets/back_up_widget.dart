@@ -1,17 +1,16 @@
 
 
-//TODO EXPORT + FARE LA UI
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/back_up_service/back_up_service.dart';
+import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_bloc.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
-import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_event.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
@@ -26,7 +25,8 @@ class BackupWidget extends StatefulWidget {
 }
 
 class _BackupWidgetState extends State<BackupWidget> {
-  bool _isLoading = false;
+  bool _isLoadingImport = false;
+  bool _isLoadingExport = false;
 
   void _showSnackBar(String message, {required bool isError}) {
     if (!mounted) return;
@@ -39,7 +39,7 @@ class _BackupWidgetState extends State<BackupWidget> {
   }
 
  Future<void> _exportBackup() async {
-  setState(() => _isLoading=true,);
+  setState(() => _isLoadingExport=true,);
   try{
         final file = await BackupService.exportBackup();
       await SharePlus.instance.share(
@@ -52,7 +52,7 @@ class _BackupWidgetState extends State<BackupWidget> {
   }catch(e){
     _showSnackBar(isError: true, "Error durante l'export $e");
   }finally{
-    if (mounted) setState(() => _isLoading = false);
+    if (mounted) setState(() => _isLoadingExport = false);
   }
 
 
@@ -62,12 +62,12 @@ Future<void> _handleImport() async {
   final confirmed = await _showConfirmDialog();
   if (!confirmed) return;
 
-  setState(() => _isLoading = true);
+  setState(() => _isLoadingImport = true);
   try {
     final pickedFile = await FilePicker.pickFile();
 
     if (pickedFile == null || pickedFile.path == null) {
-      setState(() => _isLoading = false);
+      setState(() => _isLoadingImport = false);
       return; // utente ha annullato
     }
 
@@ -81,7 +81,7 @@ Future<void> _handleImport() async {
   } catch (e) {
     _showSnackBar('Errore durante l\'import: $e', isError: true);
   } finally {
-    if (mounted) setState(() => _isLoading = false);
+    if (mounted) setState(() => _isLoadingImport = false);
   }
 }
 
@@ -129,14 +129,17 @@ void _refreshAllBlocs(BuildContext context) {
           children: [
             Expanded(
               child: OutlinedButton(
-                onPressed: _isLoading ? null : _handleImport,
-                child: Text("Import backup"),
+                 style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsetsGeometry.all(8))),
+                onPressed: _isLoadingImport ? null : _handleImport,
+                child: _isLoadingImport ? CircularProgressIndicator(color: AppColors.secondaryBtnColor,):  Text("Import backup"),
               ),
             ),
             Expanded(
+              
               child: OutlinedButton(
-                onPressed: _isLoading ? null : _exportBackup,
-                child: Text("Export backup"),
+                style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsetsGeometry.all(8))),
+                onPressed: _isLoadingExport ? null : _exportBackup,
+                child:  _isLoadingExport ? CircularProgressIndicator(color: AppColors.secondaryBtnColor,):  Text("Export backup"),
               ),
             ),
           ],
