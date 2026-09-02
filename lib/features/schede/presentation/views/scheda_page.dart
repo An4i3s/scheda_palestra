@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_bloc.dart';
 import 'package:scheda_palestra/features/schede/presentation/schede_bloc/schede_events.dart';
@@ -28,12 +29,12 @@ class _SchedePageState extends State<SchedePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-            const Text(
-              'Le mie schede',
+            Text(
+              context.i18n.myGymSheets,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              'Gestisci i tuoi programmi di allenamento',
+            Text(
+              context.i18n.manageGymSheet,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -74,14 +75,14 @@ class _SchedePageState extends State<SchedePage> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding:  EdgeInsets.symmetric(vertical: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children:  [
                       Icon(Icons.add, color: Colors.white, size: 24),
                       SizedBox(width: 8),
                       Text(
-                        'Crea nuova scheda',
+                        context.i18n.createNewGymSheet,
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ],
@@ -109,7 +110,7 @@ class _SchedePageState extends State<SchedePage> {
                       return Padding(
                         padding: const EdgeInsets.all(16),
                         child: Text(
-                          'Schede Create (${schede.length})',
+                          context.i18n.createdSheets(schede.length),
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -152,7 +153,7 @@ class _SchedePageState extends State<SchedePage> {
                           onPressed: () => context.read<SchedeBloc>().add(
                             const SchedeStarted(),
                           ),
-                          child: const Text('Riprova'),
+                          child:  Text(context.i18n.tryAgain),
                         ),
                       ],
                     ),

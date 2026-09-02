@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/data/home_model.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
@@ -35,7 +36,7 @@ class WeeklyPlanWidget extends StatelessWidget {
       
                Icon(Icons.calendar_today, color: AppColors.primaryBtnColor, size: 18,),
                              Text(
-                'Piano Settimanale',
+                context.i18n.weeklyPlan,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: AppColors.textColor,

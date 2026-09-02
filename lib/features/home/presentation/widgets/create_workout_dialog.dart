@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/home_workout_options_list.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
@@ -79,7 +80,7 @@ class _CreateWorkoutBottomSheetState extends State<CreateWorkoutBottomSheet> {
                     DaysOfWeek.values[widget.selectedDay - 1].name,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                   ),
-                  Text("Schegli una scheda da assegnare"),
+                  Text(context.i18n.chooseGymSheet),
                 ],
               ),
               IconButton(onPressed: _createAndClose, icon: Icon(Icons.close)),
@@ -89,7 +90,7 @@ class _CreateWorkoutBottomSheetState extends State<CreateWorkoutBottomSheet> {
               ? Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Text(
-                    "Nessuna scheda disponibile. Creane una nel tab Schede!",
+                    context.i18n.noGymSheet,
                   ),
                 )
               : HomeWorkoutOptionsList(

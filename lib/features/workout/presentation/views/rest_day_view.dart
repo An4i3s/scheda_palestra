@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 
 class RestDayView extends StatelessWidget{
@@ -35,7 +36,7 @@ class RestDayView extends StatelessWidget{
               ),
               child: SvgPicture.asset("assets/icons/moon.svg", colorFilter: ColorFilter.mode(AppColors.secondaryBtnColor, BlendMode.srcIn), width: 72,)
             ),
-            Text("Giorno di riposo", style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),)
+            Text(context.i18n.restDay, style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),)
           ],
         ),
       ),

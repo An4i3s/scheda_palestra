@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/workout_log/data/model/workout_log_model.dart';
 
@@ -77,7 +78,8 @@ class WorkoutLogCard extends StatelessWidget {
             headerBuilder: (BuildContext context, Animation<double> animation) {
               return ListTile(
                 title: Text(
-                  "${workoutLogModel.workout.scheda.esercizi.length} esercizi",
+                  // "${workoutLogModel.workout.scheda.esercizi.length} esercizi",
+                  context.i18n.exercisesCount2(workoutLogModel.workout.scheda.esercizi.length),
                   style: TextStyle(fontSize: 12, color: Colors.blueGrey),
                 ),
                 onTap: () {
@@ -91,7 +93,7 @@ class WorkoutLogCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      _controller.isExpanded ? "Chiudi" : "Dettagli",
+                      _controller.isExpanded ? context.i18n.close : context.i18n.details,
                       style: TextStyle(
                         fontSize: 12,
                         color: AppColors.secondaryBtnColor,

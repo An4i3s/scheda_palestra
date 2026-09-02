@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/strikes_badge.dart';
 
@@ -27,7 +28,7 @@ class HomeHeaderWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Bentornato!",
+                    context.i18n.homeGreeting,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 32,
@@ -38,7 +39,7 @@ class HomeHeaderWidget extends StatelessWidget {
                 ],
               ),
               Text(
-                "Continua cosi!",
+                context.i18n.homeMessage,
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ],

@@ -22,6 +22,7 @@ import 'package:scheda_palestra/features/workout/presentation/workout_bloc/worko
 import 'package:scheda_palestra/features/workout_log/domain/workout_series.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_state.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 
 enum DaysOfWeek { LUN, MAR, MER, GIO, VEN, SAB, DOM }
 
@@ -104,9 +105,9 @@ class _HomePageState extends State<HomePage> {
               }
 
               if (state is HomeError) {
-                return const Center(
+                return  Center(
                   child: Text(
-                    'Non è stato possibile caricare il piano settimanale.',
+                    context.i18n.weeklyPlanError,
                   ),
                 );
               }
@@ -170,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                                             style: TextStyle(fontSize: 18),
                                           ),
                                           Text(
-                                            "Obiettivo",
+                                            context.i18n.goal,
                                             style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w600,
@@ -186,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       Text(
-                                        "Allenamenti questo mese",
+                                        context.i18n.monthlyGoal,
                                         style: TextStyle(fontSize: 12),
                                       ),
                                     ],

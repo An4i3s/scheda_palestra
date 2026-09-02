@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 
 class WorkoutHeader extends StatelessWidget {
@@ -36,7 +37,8 @@ class WorkoutHeader extends StatelessWidget {
               ),
             ),
             Text(
-              '${workout.scheda.esercizi.length} esercizi',
+              // '${workout.scheda.esercizi.length} esercizi',
+              context.i18n.exercisesCount2(workout.scheda.esercizi.length),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -73,7 +75,8 @@ class WorkoutHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${workout.completedExerciseIds.length} /${workout.scheda.esercizi.length} completati',
+                  // '${workout.completedExerciseIds.length} /${workout.scheda.esercizi.length} completati',
+                  context.i18n.completedExercisesCount('${workout.completedExerciseIds.length} /${workout.scheda.esercizi.length}'),
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,

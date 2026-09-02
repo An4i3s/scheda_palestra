@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 
 class HomeWorkoutOptions extends StatelessWidget {
@@ -41,7 +42,7 @@ class HomeWorkoutOptions extends StatelessWidget {
                     child: isRest ?  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Giorno di riposo", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),), Text("Nessun allenamento")],
+                        Text(context.i18n.restDay, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),), Text(context.i18n.noWorkout)],
                     )
                   : Text(schedaName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700,), overflow: TextOverflow.ellipsis, maxLines: 1,),
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 
 class SuccessView extends StatelessWidget{
   const SuccessView({super.key, required this.workoutName});
@@ -36,7 +37,7 @@ class SuccessView extends StatelessWidget{
               ),
               child: Text("🏃‍♂️", style: TextStyle(fontSize: 72),)
             ),
-            Text("🏆 Workout Completato!", style:  TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.w600)),
+            Text(context.i18n.workoutCompleted, style:  TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.w600)),
             Text(workoutName, style:  TextStyle(fontSize: 16, color: Colors.white) ),
           ],
         ),

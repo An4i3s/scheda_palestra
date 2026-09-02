@@ -1,0 +1,100 @@
+{
+  "@@locale": "en",
+  "appTitle": "Gym Log",
+  "homeGreeting": "Welcome back",
+  "homeMessage": "Keep it up!",
+  "goal": "Goal",
+  "archive": "Archive",
+  "weeklyPlan": "Weekly Plan",
+  "weeklyPlanError": "Unable to load the weekly plan.",
+  "monthlyGoal": "Workouts this month",
+  "chooseGymSheet": "Choose a plan to assign",
+  "noGymSheet": "No plan available. Create one in the Plans tab!",
+  "editGymSheet": "Edit plan",
+  "newGymSheet": "New plan",
+  "createNewGymSheet": "Create new plan",
+  "saveGymSheet": "Save plan",
+  "myGymSheets": "My plans",
+  "noDescription": "No description",
+  "description": "Description",
+  "gymSheet": "Plans",
+  "gymSheetName": "Plan name",
+  "createdSheets": "Created plans ({count})",
+  "deleteGymSheet": "Delete plan",
+  "deleteConfirmMessage": "You are about to delete \"{nome}\"",
+  "@deleteConfirmMessage": {
+    "placeholders": {
+      "nome": { "type": "String" }
+    }
+  },
+  "manageGymSheet": "Manage your workout plans",
+  "exercisesCount": "Exercises ({count})",
+  "exercisesCount2": " ({count}) exercises",
+  "@exercisesCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "noExercise": "No exercises added",
+  "hideExercise": "Hide exercises",
+  "showExercise": "Show exercises",
+  "rest": "Rest",
+  "restDay": "Rest day",
+  "noWorkout": "No workout",
+  "workoutType": "Workout type",
+  "workoutCompleted": "🏆 Workout completed!",
+  "completedExercisesCount": " ({count}) completed",
+  "@completedExercisesCount": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "viewWorkoutLog": "View your past workouts",
+  "noWorkoutLog": "No workouts logged yet!",
+  "totalWorkoutLog": "Total workouts",
+  "ruuning": "Running",
+  "ruuningDescription": "Outdoor or treadmill running",
+  "walking": "Walking",
+  "walkingDescription": "Brisk or incline walking",
+  "strenght": "Strength",
+  "strenghtDescription": "Strength training",
+  "bicycle": "Cycling",
+  "bicycleDescription": "Bike or stationary bike",
+  "pilates": "Pilates",
+  "pilatesDescription": "Pilates session",
+  "swimming": "Swimming",
+  "swimmingDescription": "Swimming in sea or pool",
+  "workoutStreak": "{days, plural, =0{No streak} one{{days}-day streak 🔥} other{{days}-day streak 🔥}}",
+  "@workoutStreak": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "importBackup": "Import backup",
+  "exportBackup": "Export backup",
+  "backupTitle": "Backup",
+  "importConfirmTitle": "Import backup",
+  "importConfirmMessage": "This operation will overwrite all current data with the backup data. This action cannot be undone. Do you want to continue?",
+  "cancel": "Cancel",
+  "overwrite": "Overwrite",
+  "importSuccess": "Backup imported successfully",
+  "exportSuccess": "Backup exported successfully",
+  "importError": "Error during import: {error}",
+  "@importError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "exportError": "Error during export: {error}",
+  "@exportError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "settings": "Settings",
+  "add": "Add",
+  "delete": "Delete",
+  "close": "Close",
+  "details": "Details",
+  "tryAgain": "Try again"
+}

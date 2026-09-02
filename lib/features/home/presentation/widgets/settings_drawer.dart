@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/back_up_widget.dart';
 
@@ -23,7 +24,7 @@ class SettingsDrawer extends StatelessWidget {
                 spacing: 8,
                 children: [
                   Icon(Icons.settings, color: AppColors.secondaryBtnColor,),
-                  Text("Impostazioni", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)),
+                  Text(context.i18n.settings, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,)),
                 ]
               ),
             ),

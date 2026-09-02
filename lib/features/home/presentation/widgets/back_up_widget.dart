@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/back_up_service/back_up_service.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_bloc.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events.dart';
@@ -46,9 +47,9 @@ class _BackupWidgetState extends State<BackupWidget> {
           text: 'Backup dei tuoi dati - Scheda Palestra',
         ),
       );
-      _showSnackBar(isError: false, 'Backup esportato con successo');
+     if(mounted) _showSnackBar(isError: false, context.i18n.exportSuccess);
     } catch (e) {
-      _showSnackBar(isError: true, "Error durante l'export $e");
+      _showSnackBar(isError: true, context.i18n.exportError(e.toString()));
     } finally {
       if (mounted) setState(() => _isLoadingExport = false);
     }
@@ -71,10 +72,10 @@ class _BackupWidgetState extends State<BackupWidget> {
       await BackupService.importBackup(file);
       if (mounted) {
         _refreshAllBlocs(context);
-        _showSnackBar('Backup importato con successo', isError: false);
+        _showSnackBar(context.i18n.importSuccess, isError: false);
       }
     } catch (e) {
-      _showSnackBar('Errore durante l\'import: $e', isError: true);
+      _showSnackBar(context.i18n.importError(e.toString()), isError: true);
     } finally {
       if (mounted) setState(() => _isLoadingImport = false);
     }
@@ -92,20 +93,19 @@ class _BackupWidgetState extends State<BackupWidget> {
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Importa backup'),
-        content: const Text(
-          'Questa operazione sovrascriverà tutti i dati attuali con quelli del backup. '
-          'L\'azione non è reversibile. Vuoi continuare?',
+        title:  Text(context.i18n.importConfirmTitle),
+        content:  Text(
+          context.i18n.importConfirmMessage
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Annulla'),
+            child:  Text(context.i18n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
             style: FilledButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Sovrascrivi'),
+            child:  Text(context.i18n.overwrite),
           ),
         ],
       ),
@@ -153,14 +153,14 @@ class _BackupWidgetState extends State<BackupWidget> {
           onPressed: _isLoadingImport ? null : _handleImport,
           child: _isLoadingImport
               ? CircularProgressIndicator(color: AppColors.secondaryBtnColor)
-              : Text("Import backup"),
+              : Text(context.i18n.importBackup),
         ),
         OutlinedButton(
           style: _btnStyle,
           onPressed: _isLoadingExport ? null : _exportBackup,
           child: _isLoadingExport
               ? CircularProgressIndicator(color: AppColors.secondaryBtnColor)
-              : Text("Export backup"),
+              : Text(context.i18n.exportBackup),
         ),
       ],
     );

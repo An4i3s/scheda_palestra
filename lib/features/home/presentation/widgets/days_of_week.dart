@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
@@ -83,7 +84,7 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
             widget.workout!=null ? Text("🏋️") : Icon(Icons.add, size: 16,),
             Expanded(
               child: Text(
-                widget.workout?.scheda.nome ?? 'Riposo',
+                widget.workout?.scheda.nome ?? context.i18n.rest,
                 style: TextStyle(
                   fontSize: 16,
                   color:  _isToday() ? Colors.white : widget.workout != null

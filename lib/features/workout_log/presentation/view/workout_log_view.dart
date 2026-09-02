@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_bloc.dart';
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_state.dart';
@@ -23,8 +24,8 @@ class WorkoutLogView extends StatelessWidget {
               'Workout Log',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              'Visualizza i tuoi allenamenti passati',
+             Text(
+              context.i18n.viewWorkoutLog,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -45,8 +46,8 @@ class WorkoutLogView extends StatelessWidget {
           }
           if (state is WorkoutLogEmpty) {
             return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(child: Text("Ancora nessun workout registrato!")),
+              padding:  EdgeInsets.all(16.0),
+              child: Center(child: Text(context.i18n.noWorkoutLog)),
             );
           }
           if (state is WorkoutLogError) {
@@ -83,7 +84,7 @@ class WorkoutLogView extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "Allenamenti totali",
+                                context.i18n.totalWorkoutLog,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,

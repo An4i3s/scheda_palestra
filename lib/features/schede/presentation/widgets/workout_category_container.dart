@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 
@@ -39,28 +40,28 @@ class _WorkoutCategoryContainerState extends State<WorkoutCategoryContainer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8,
         children: [
-          Text("Tipo di Allenamento", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+          Text(context.i18n.workoutType, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
           SizedBox(height: 8,),
           Row(
             spacing: 8,
             children: [
-              Expanded(child: WorkoutTileContainer(name: 'Corsa', description: 'Corsa outdoor o tapis roulant', onTap:() => onCategoryTap(WorkoutCategory.ruuning), isSelected: _selectedCategory==WorkoutCategory.ruuning, icon: '🏃‍♂️',)),
-              Expanded(child: WorkoutTileContainer(name: 'Camminata', description: 'Camminata veloce o in pendenza', onTap: () => onCategoryTap(WorkoutCategory.walking), isSelected:  _selectedCategory==WorkoutCategory.walking, icon: '🚶',)),
+              Expanded(child: WorkoutTileContainer(name: context.i18n.ruuning, description: context.i18n.ruuningDescription, onTap:() => onCategoryTap(WorkoutCategory.ruuning), isSelected: _selectedCategory==WorkoutCategory.ruuning, icon: '🏃‍♂️',)),
+              Expanded(child: WorkoutTileContainer(name: context.i18n.walking, description: context.i18n.walkingDescription, onTap: () => onCategoryTap(WorkoutCategory.walking), isSelected:  _selectedCategory==WorkoutCategory.walking, icon: '🚶',)),
             ],
           ),
           Row(
             spacing: 8,
             children: [
-              Expanded(child: WorkoutTileContainer(name: 'Forza', description: 'Allenamento di forza', onTap: () => onCategoryTap(WorkoutCategory.strength), isSelected:  _selectedCategory==WorkoutCategory.strength, icon: '💪',)),
-              Expanded(child: WorkoutTileContainer(name: 'Bicicletta', description: 'Bici o cyclette', onTap: () => onCategoryTap(WorkoutCategory.cycling), isSelected:  _selectedCategory==WorkoutCategory.cycling, icon: '🚴',)),
+              Expanded(child: WorkoutTileContainer(name: context.i18n.strenght, description: context.i18n.strenghtDescription, onTap: () => onCategoryTap(WorkoutCategory.strength), isSelected:  _selectedCategory==WorkoutCategory.strength, icon: '💪',)),
+              Expanded(child: WorkoutTileContainer(name: context.i18n.bicycle, description: context.i18n.bicycleDescription, onTap: () => onCategoryTap(WorkoutCategory.cycling), isSelected:  _selectedCategory==WorkoutCategory.cycling, icon: '🚴',)),
 
             ],
           )       ,
              Row(
             spacing: 8,
             children: [
-              Expanded(child: WorkoutTileContainer(name: 'Pilates', description: 'Sessione di Pilates', onTap: () => onCategoryTap(WorkoutCategory.pilates), isSelected:  _selectedCategory==WorkoutCategory.pilates, icon: '🧘',)),
-              Expanded(child: WorkoutTileContainer(name: 'Nuoto', description: 'Nuoto', onTap: () => onCategoryTap(WorkoutCategory.swimming), isSelected:  _selectedCategory==WorkoutCategory.swimming, icon: '🏊',)),
+              Expanded(child: WorkoutTileContainer(name: context.i18n.pilates, description: context.i18n.pilatesDescription, onTap: () => onCategoryTap(WorkoutCategory.pilates), isSelected:  _selectedCategory==WorkoutCategory.pilates, icon: '🧘',)),
+              Expanded(child: WorkoutTileContainer(name: context.i18n.swimming, description: context.i18n.swimmingDescription, onTap: () => onCategoryTap(WorkoutCategory.swimming), isSelected:  _selectedCategory==WorkoutCategory.swimming, icon: '🏊',)),
 
             ],
           )   

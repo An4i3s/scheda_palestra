@@ -60,8 +60,6 @@ class _WorkoutViewState extends State<WorkoutView> {
       id: DateTime.now().millisecondsSinceEpoch.toString(), 
       workout: w, 
       date: DateTime.now())));
-    // context.read<WorkoutLogBloc>().add(WorkoutLogOnLoad());
-    //TODO IMPROVE ADD EVENT UPDATE SERIES
     context.read<HomeBloc>().add(HomeStarted());
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_scheda.dart';
@@ -76,7 +77,7 @@ class _SchedaCardState extends State<SchedaCard> {
             Text(
               widget.scheda.descrizione.isNotEmpty
                   ? widget.scheda.descrizione
-                  : 'Nessuna descrizione',
+                  : context.i18n.noDescription,
               style: TextStyle(
                 color: widget.scheda.descrizione.isNotEmpty
                     ? Colors.black87
@@ -84,7 +85,8 @@ class _SchedaCardState extends State<SchedaCard> {
               ),
             ),
             SizedBox(height: 4,),
-            Text("${widget.scheda.esercizi.length} esercizi"),
+            // Text("${widget.scheda.esercizi.length} esercizi"),
+            Text(context.i18n.exercisesCount2(widget.scheda.esercizi.length)),
             Expansible(
               headerBuilder:
                   (BuildContext context, Animation<double> animation) {
@@ -92,14 +94,14 @@ class _SchedaCardState extends State<SchedaCard> {
                       contentPadding: EdgeInsets.zero,
                       title: _controller.isExpanded
                           ? Text(
-                              "Nascondi esercizi",
+                              context.i18n.hideExercise,
                               style: TextStyle(
                                 color: AppColors.primaryBtnColor,
                                 fontWeight: FontWeight.w600,
                               ),
                             )
                           : Text(
-                              "Mostra esercizi",
+                              context.i18n.showExercise,
                               style: TextStyle(
                                 color: AppColors.primaryBtnColor,
                                 fontWeight: FontWeight.w600,

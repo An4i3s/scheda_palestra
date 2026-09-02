@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
@@ -105,7 +106,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(_isEditing ? 'Modifica scheda' : 'Nuova scheda', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600) ,),
+            Text(_isEditing ? context.i18n.editGymSheet : context.i18n.newGymSheet, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600) ,),
             IconButton(icon: Icon(Icons.close), onPressed: () => Navigator.pop(context),)
           ],
         ),
@@ -143,14 +144,14 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                       CustomFormField(
                         nomeController: _nomeController,
                         hintText: "ex Upper Body, Leg Day...",
-                        label: "Nome Scheda",
+                        label: context.i18n.gymSheetName,
                       ),
                       const SizedBox(height: 12),
                       CustomFormField(
                         hasValidations: false,
                         nomeController: _descrizioneController,
-                        hintText: "Descrizione",
-                        label: 'Descrizione',
+                        hintText: context.i18n.description,
+                        label: context.i18n.description,
                       ),
                     ],
                   ),
@@ -162,7 +163,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Esercizi (${_esercizi.length})',
+                      context.i18n.exercisesCount((widget.scheda?.esercizi)?.length??0),
                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     FilledButton.icon(
@@ -171,16 +172,16 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                         backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor),
                       ),
                       icon: const Icon(Icons.add),
-                      label: const Text('Aggiungi'),
+                      label:  Text(context.i18n.add),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               if (_esercizi.isEmpty)
-                const Padding(
+                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Center(child: Text('Nessun esercizio aggiunto')),
+                  child: Center(child: Text(context.i18n.noExercise)),
                 )
               else
                 Padding(
@@ -196,13 +197,13 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                     backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor),
                     padding: const WidgetStatePropertyAll(EdgeInsets.all(16)),
                   ),
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.save, color: Colors.white, size: 18),
                       SizedBox(width: 8),
                       Text(
-                        'Salva Scheda',
+                        context.i18n.saveGymSheet,
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ],

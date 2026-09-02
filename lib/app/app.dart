@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
 import 'package:scheda_palestra/features/schede/presentation/views/scheda_page.dart';
@@ -60,12 +61,12 @@ class _MainPageState extends State<App> {
           NavigationDestination(
             icon: SvgPicture.asset("assets/icons/note.svg"),
             selectedIcon: SvgPicture.asset("assets/icons/note.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
-            label: 'Schede',
+            label: context.i18n.gymSheet,
           ),
            NavigationDestination(
             icon: SvgPicture.asset("assets/icons/archive.svg"),
             selectedIcon: SvgPicture.asset("assets/icons/archive.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
-            label: 'Archivio',
+            label: context.i18n.archive,
           ),
         ],
       ),
