@@ -20,20 +20,31 @@ class _SchedePageState extends State<SchedePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      
+
       appBar: AppBar(
         toolbarHeight: 96,
         backgroundColor: AppColors.backgroundColor,
         title: Column(
-        spacing: 8,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        
-        children: [
-          const Text('Le mie schede', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
-          const Text('Gestisci i tuoi programmi di allenamento', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.blueGrey),),
-        ],
-              )),
-       
+          spacing: 8,
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+            const Text(
+              'Le mie schede',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              'Gestisci i tuoi programmi di allenamento',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.blueGrey,
+              ),
+            ),
+          ],
+        ),
+      ),
+
       body: BlocConsumer<SchedeBloc, SchedaState>(
         listener: (context, state) {
           if (state is SchedeError) {
@@ -47,17 +58,17 @@ class _SchedePageState extends State<SchedePage> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             sliver: SliverToBoxAdapter(
               child: OutlinedButton(
-                
                 style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor),
-                  side: WidgetStatePropertyAll(BorderSide.none)
+                  backgroundColor: WidgetStatePropertyAll(
+                    AppColors.secondaryBtnColor,
+                  ),
+                  side: WidgetStatePropertyAll(BorderSide.none),
                 ),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => MultiBlocProvider(
                       providers: [
                         BlocProvider.value(value: context.read<SchedeBloc>()),
-                        // BlocProvider.value(value: context.read<ExercisesBloc>()),
                       ],
                       child: const SchedaFormPage(),
                     ),
@@ -68,9 +79,12 @@ class _SchedePageState extends State<SchedePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
-                      Icon(Icons.add, color: Colors.white, size: 24,),
+                      Icon(Icons.add, color: Colors.white, size: 24),
                       SizedBox(width: 8),
-                      Text('Crea nuova scheda', style: TextStyle(color: Colors.white, fontSize: 18),),
+                      Text(
+                        'Crea nuova scheda',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
                     ],
                   ),
                 ),
@@ -83,53 +97,49 @@ class _SchedePageState extends State<SchedePage> {
             slivers: [
               createButton,
               switch (state) {
-                SchedeInitial() ||
-                SchedeLoading() => const SliverFillRemaining(
+                SchedeInitial() || SchedeLoading() => const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator()),
                 ),
-                SchedeLoaded(schede: final schede) when schede.isEmpty => const SliverFillRemaining(
-                  child: Center(child: Text('Nessuna scheda. Creane una!')),
-                ),
+                SchedeLoaded(schede: final schede) when schede.isEmpty =>
+                  const SliverFillRemaining(
+                    child: Center(child: Text('Nessuna scheda. Creane una!')),
+                  ),
                 SchedeLoaded(schede: final schede) => SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      if (index == 0) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            'Schede Create (${schede.length})',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        );
-                      }
-                      
-                      final scheda = schede[index - 1];
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    if (index == 0) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 16),
-                        child: SchedaCard(
-                          scheda: scheda,
-                          onEdit: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => MultiBlocProvider(
-                                providers: [
-                                  BlocProvider.value(value: context.read<SchedeBloc>()),
-                                  BlocProvider.value(value: context.read<ExercisesBloc>()),
-                                ],
-                                child: SchedaFormPage(scheda: scheda),
-                              ),
-                            ),
-                          ),
-                          onDelete: () => context.read<SchedeBloc>().add(
-                            SchedaDeleted(scheda.id),
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          'Schede Create (${schede.length})',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       );
-                    },
-                    childCount: schede.length + 1,
-                  ),
+                    }
+
+                    final scheda = schede[index - 1];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ).copyWith(bottom: 16),
+                      child: SchedaCard(
+                        scheda: scheda,
+                        onEdit: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                              value: context.read<SchedeBloc>(),
+                              child: SchedaFormPage(scheda: scheda),
+                            ),
+                          ),
+                        ),
+                        onDelete: () => context.read<SchedeBloc>().add(
+                          SchedaDeleted(scheda.id),
+                        ),
+                      ),
+                    );
+                  }, childCount: schede.length + 1),
                 ),
                 SchedeError() => SliverFillRemaining(
                   child: Center(
@@ -140,8 +150,9 @@ class _SchedePageState extends State<SchedePage> {
                         const SizedBox(height: 8),
                         Text((state).message),
                         TextButton(
-                          onPressed: () =>
-                              context.read<SchedeBloc>().add(const SchedeStarted()),
+                          onPressed: () => context.read<SchedeBloc>().add(
+                            const SchedeStarted(),
+                          ),
                           child: const Text('Riprova'),
                         ),
                       ],
@@ -149,7 +160,7 @@ class _SchedePageState extends State<SchedePage> {
                   ),
                 ),
                 _ => const SliverFillRemaining(child: SizedBox.shrink()),
-              }
+              },
             ],
           );
         },
