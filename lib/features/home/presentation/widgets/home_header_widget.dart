@@ -27,12 +27,14 @@ class HomeHeaderWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    context.i18n.homeGreeting,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w600,
+                  Expanded(
+                    child: Text(
+                      context.i18n.homeGreeting,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   IconButton(onPressed: onSettingsPressed, icon: Icon(Icons.settings, color: AppColors.primaryBtnColor,),)
