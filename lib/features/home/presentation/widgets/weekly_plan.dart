@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
+import 'package:scheda_palestra/core/utils/weekday_name.dart';
 import 'package:scheda_palestra/features/home/data/home_model.dart';
-import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/days_of_week.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 
-class WeeklyPlanWidget extends StatelessWidget {
+class WeeklyPlanWidget extends StatefulWidget {
   const WeeklyPlanWidget({
     super.key,
      required this.homeModel, required this.onPressed,
@@ -16,6 +16,19 @@ class WeeklyPlanWidget extends StatelessWidget {
   // final DaysOfWeek daysOfWeek;
   final HomeModel homeModel;
   final void Function(BuildContext c,  int dayOfWeek,  WorkoutModel? selectedWorkout) onPressed;
+
+  @override
+  State<WeeklyPlanWidget> createState() => _WeeklyPlanWidgetState();
+}
+
+class _WeeklyPlanWidgetState extends State<WeeklyPlanWidget> {
+  late List<String> days;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    days = getWeekdayNames(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +68,13 @@ class WeeklyPlanWidget extends StatelessWidget {
               final dayIndex = index + 1;
           
           
-           final assignments = homeModel.weeklyAssignments.isEmpty ? [ ]: homeModel.weeklyAssignments
+           final assignments = widget.homeModel.weeklyAssignments.isEmpty ? [ ]: widget.homeModel.weeklyAssignments
                             .where((workout) => workout.dayOfWeek == dayIndex)
                             .toList();
                         final workout = assignments.isEmpty ? null : assignments.first;
                
               
-              return DaysOfWeekWidget(workout: workout, onPressed: (co, i, workout) =>  onPressed(context, dayIndex, workout), dayOfWeek: DaysOfWeek.values[dayIndex-1],);
+              return DaysOfWeekWidget(workout: workout, onPressed: (co, i, workout) =>  widget.onPressed(context, dayIndex, workout), dayOfWeek: dayIndex,);
             },
           ),
         ],

@@ -7,7 +7,6 @@ import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_bloc.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_events.dart';
 import 'package:scheda_palestra/features/home/presentation/home_bloc/home_state.dart';
-import 'package:scheda_palestra/features/home/presentation/widgets/back_up_widget.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/home_header_widget.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/settings_drawer.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/weekly_plan.dart';
@@ -24,7 +23,6 @@ import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_l
 import 'package:scheda_palestra/features/workout_log/presentation/bloc/workout_log_state.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
 
-enum DaysOfWeek { LUN, MAR, MER, GIO, VEN, SAB, DOM }
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

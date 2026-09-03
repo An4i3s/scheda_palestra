@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
-import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
+import 'package:scheda_palestra/core/utils/weekday_name.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 
 class DaysOfWeekWidget extends StatefulWidget {
@@ -13,18 +13,20 @@ class DaysOfWeekWidget extends StatefulWidget {
 
   final WorkoutModel? workout;
   final void Function(BuildContext c, int? selectedDay, WorkoutModel? selectedWorkout) onPressed;
-  final DaysOfWeek dayOfWeek;
+  final int dayOfWeek;
 
   @override
   State<DaysOfWeekWidget> createState() => _DaysOfWeekWidgetState();
 }
 
 class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
-  //prevede una diversa Box decoration a secondo dello stato
+  late List<String> days;
 
+  //prevede una diversa Box decoration a secondo dello stato
   bool _isToday(){
     int currentDay = DateTime.now().weekday;
-    return currentDay == DaysOfWeek.values.indexOf(widget.dayOfWeek)+1; 
+    // final days = getWeekdayNames(context); 
+    return currentDay == widget.dayOfWeek; 
   }
 
   BoxDecoration _getBoxDecoration(){
@@ -48,11 +50,18 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
     }
   }
 
+    @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    days = getWeekdayNamesMondayFirst(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () =>  widget.onPressed(context,  DaysOfWeek.values.indexOf(widget.dayOfWeek)+1, widget.workout),
+      onTap: () =>  widget.onPressed(context,  widget.dayOfWeek, widget.workout),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: _getBoxDecoration(),
@@ -67,7 +76,7 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.dayOfWeek.name,
+                    days[widget.dayOfWeek-1].toUpperCase(),
                     style:  TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,

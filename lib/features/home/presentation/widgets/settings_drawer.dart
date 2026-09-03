@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/back_up_widget.dart';
-import 'package:scheda_palestra/features/home/presentation/widgets/language_list.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/language_section.dart';
-import 'package:scheda_palestra/features/home/presentation/widgets/language_widget.dart';
 
 class SettingsDrawer extends StatelessWidget {
   const SettingsDrawer({super.key});

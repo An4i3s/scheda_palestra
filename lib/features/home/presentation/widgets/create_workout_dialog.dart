@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
-import 'package:scheda_palestra/features/home/presentation/views/home_page.dart';
+import 'package:scheda_palestra/core/utils/weekday_name.dart';
 import 'package:scheda_palestra/features/home/presentation/widgets/home_workout_options_list.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
@@ -28,11 +28,18 @@ class CreateWorkoutBottomSheet extends StatefulWidget {
 
 class _CreateWorkoutBottomSheetState extends State<CreateWorkoutBottomSheet> {
   String? _selectedSchedaId;
+  late List<String> days;
 
   @override
   void initState() {
     super.initState();
     _selectedSchedaId = widget.selectedWorkout?.scheda.id;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    days = getWeekdayNamesMondayFirst(context);
   }
 
   void _createAndClose() {
@@ -77,7 +84,7 @@ class _CreateWorkoutBottomSheetState extends State<CreateWorkoutBottomSheet> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    DaysOfWeek.values[widget.selectedDay - 1].name,
+                    days[widget.selectedDay-1],
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                   Text(context.i18n.chooseGymSheet),
