@@ -18,9 +18,24 @@ class _LanguageListState extends State<LanguageList> {
     setState(() {
       _selectedIndex = index;
     });
-    context.read<LocaleCubit>().changeLocale(Locale(locale));
-        
-      
+    context.read<LocaleCubit>().changeLocale(Locale(locale));  
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    String? locale = context.read<LocaleCubit>().state.toString();
+    _selectedIndex = _getIntFormLocale(locale);
+  }
+
+  int _getIntFormLocale(String locale){
+    switch(locale){
+      case "it": return 0;
+      case "en": return 1;
+      case "es": return 2;
+      case "fr": return 3;
+      default: return 0;
+    }
   }
 
   @override
