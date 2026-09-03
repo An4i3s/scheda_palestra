@@ -38,6 +38,7 @@ class MainApp extends StatelessWidget {
     return  BlocBuilder<LocaleCubit, Locale>(
       builder: (context, locale) {
         return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
           locale: locale,
           supportedLocales: const [
             Locale('it'),
