@@ -14,27 +14,36 @@ class SettingsDrawer extends StatelessWidget {
       child: Container(
         color: AppColors.backgroundColor,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                spacing: 8,
-                children: [
-                  Icon(Icons.settings, color: AppColors.secondaryBtnColor),
-                  Text(
-                    context.i18n.settings,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    spacing: 8,
+                    children: [
+                      Icon(Icons.settings, color: AppColors.secondaryBtnColor),
+                      Text(
+                        context.i18n.settings,
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Divider(color: AppColors.borderContainerColor, thickness: 2),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: LanguageWidget(),
+                ),
+                Padding(padding: const EdgeInsets.all(16.0), child: BackupWidget()),
+              ],
             ),
-            Divider(color: AppColors.borderContainerColor, thickness: 2),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: LanguageWidget(),
-            ),
-            Padding(padding: const EdgeInsets.all(16.0), child: BackupWidget()),
+              child: Text("version: 1.1.0+2"),
+            )
           ],
         ),
       ),
