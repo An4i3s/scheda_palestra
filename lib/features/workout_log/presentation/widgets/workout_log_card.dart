@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:scheda_palestra/core/i18n/local_cubit.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/workout_log/data/model/workout_log_model.dart';
@@ -58,7 +60,8 @@ class WorkoutLogCard extends StatelessWidget {
                         Text(
                           DateFormat(
                             "dd MMMM yyyy HH:mm",
-                          ).format(workoutLogModel.date.toLocal()),
+                            context.read<LocaleCubit>().state.toString(),
+                          ).format(workoutLogModel.date),
                           style: TextStyle(fontSize: 12),
                         ),
                       ],
@@ -78,7 +81,6 @@ class WorkoutLogCard extends StatelessWidget {
             headerBuilder: (BuildContext context, Animation<double> animation) {
               return ListTile(
                 title: Text(
-                  // "${workoutLogModel.workout.scheda.esercizi.length} esercizi",
                   context.i18n.exercisesCount2(workoutLogModel.workout.scheda.esercizi.length),
                   style: TextStyle(fontSize: 12, color: Colors.blueGrey),
                 ),
