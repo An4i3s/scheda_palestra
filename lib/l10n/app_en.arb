@@ -92,6 +92,11 @@
     }
   },
   "settings": "Settings",
+  "language": "Language",
+  "italian": "Italian",
+  "english": "English",
+  "french": "French",
+  "spanish": "Spanish",
   "add": "Add",
   "delete": "Delete",
   "close": "Close",

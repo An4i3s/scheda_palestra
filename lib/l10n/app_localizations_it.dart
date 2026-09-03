@@ -218,6 +218,21 @@ class AppLocalizationsIt extends AppLocalizations {
   String get settings => 'Impostazioni';
 
   @override
+  String get language => 'Lingua';
+
+  @override
+  String get italian => 'Italiano';
+
+  @override
+  String get english => 'Inglese';
+
+  @override
+  String get french => 'Francese';
+
+  @override
+  String get spanish => 'Spagnolo';
+
+  @override
   String get add => 'Aggiungi';
 
   @override

@@ -93,6 +93,11 @@
     }
   },
   "settings" : "Impostazioni", 
+  "language": "Lingua",
+  "italian": "Italiano",
+  "english": "Inglese",
+  "french": "Francese",
+  "spanish": "Spagnolo",
   "add" : "Aggiungi",
   "delete" : "Delete",
   "close" : "Chiudi",

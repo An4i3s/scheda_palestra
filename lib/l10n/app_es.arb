@@ -1,0 +1,105 @@
+{
+  "@@locale": "es",
+  "appTitle": "Registro de Gimnasio",
+  "homeGreeting": "Bienvenido de nuevo",
+  "homeMessage": "¡Sigue así!",
+  "goal": "Objetivo",
+  "archive": "Archivo",
+  "weeklyPlan": "Plan Semanal",
+  "weeklyPlanError": "No se pudo cargar el plan semanal.",
+  "monthlyGoal": "Entrenamientos este mes",
+  "chooseGymSheet": "Elige una rutina para asignar",
+  "noGymSheet": "No hay rutinas disponibles. ¡Crea una en la pestaña Rutinas!",
+  "editGymSheet": "Editar rutina",
+  "newGymSheet": "Nueva rutina",
+  "createNewGymSheet": "Crear nueva rutina",
+  "saveGymSheet": "Guardar rutina",
+  "myGymSheets": "Mis rutinas",
+  "noDescription": "Sin descripción",
+  "description": "Descripción",
+  "gymSheet": "Rutinas",
+  "gymSheetName": "Nombre de la rutina",
+  "createdSheets": "Rutinas creadas ({count})",
+  "deleteGymSheet": "Eliminar rutina",
+  "deleteConfirmMessage": "Estás a punto de eliminar \"{nome}\"",
+  "@deleteConfirmMessage": {
+    "placeholders": {
+      "nome": { "type": "String" }
+    }
+  },
+  "manageGymSheet": "Gestiona tus programas de entrenamiento",
+  "exercisesCount": "Ejercicios ({count})",
+  "exercisesCount2": " ({count}) ejercicios",
+  "@exercisesCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "noExercise": "No se ha añadido ningún ejercicio",
+  "hideExercise": "Ocultar ejercicios",
+  "showExercise": "Mostrar ejercicios",
+  "rest": "Descanso",
+  "restDay": "Día de descanso",
+  "noWorkout": "Sin entrenamiento",
+  "workoutType": "Tipo de entrenamiento",
+  "workoutCompleted": "🏆 ¡Entrenamiento completado!",
+  "completedExercisesCount": " ({count}) completados",
+  "@completedExercisesCount": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "viewWorkoutLog": "Consulta tus entrenamientos pasados",
+  "noWorkoutLog": "¡Aún no hay entrenamientos registrados!",
+  "totalWorkoutLog": "Entrenamientos totales",
+  "ruuning": "Correr",
+  "ruuningDescription": "Correr al aire libre o en cinta",
+  "walking": "Caminata",
+  "walkingDescription": "Caminata rápida o en pendiente",
+  "strenght": "Fuerza",
+  "strenghtDescription": "Entrenamiento de fuerza",
+  "bicycle": "Bicicleta",
+  "bicycleDescription": "Bicicleta o bicicleta estática",
+  "pilates": "Pilates",
+  "pilatesDescription": "Sesión de Pilates",
+  "swimming": "Natación",
+  "swimmingDescription": "Natación en mar o piscina",
+  "workoutStreak": "{days, plural, =0{Sin racha} one{Racha de {days} día 🔥} other{Racha de {days} días 🔥}}",
+  "@workoutStreak": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "importBackup": "Importar copia de seguridad",
+  "exportBackup": "Exportar copia de seguridad",
+  "backupTitle": "Copia de seguridad",
+  "importConfirmTitle": "Importar copia de seguridad",
+  "importConfirmMessage": "Esta operación sobrescribirá todos los datos actuales con los de la copia de seguridad. Esta acción no se puede deshacer. ¿Quieres continuar?",
+  "cancel": "Cancelar",
+  "overwrite": "Sobrescribir",
+  "importSuccess": "Copia de seguridad importada correctamente",
+  "exportSuccess": "Copia de seguridad exportada correctamente",
+  "importError": "Error durante la importación: {error}",
+  "@importError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "exportError": "Error durante la exportación: {error}",
+  "@exportError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "settings": "Ajustes",
+  "language": "Idioma",
+  "italian": "Italiano",
+  "english": "Inglés",
+  "french": "Francés",
+  "spanish": "Español",
+  "add": "Añadir",
+  "delete": "Eliminar",
+  "close": "Cerrar",
+  "details": "Detalles",
+  "tryAgain": "Reintentar"
+}
