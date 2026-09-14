@@ -28,6 +28,7 @@ class SuccessView extends StatelessWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: 8,
           children: [
             Container(
               padding: EdgeInsets.all(32),
@@ -37,8 +38,8 @@ class SuccessView extends StatelessWidget{
               ),
               child: Text("🏃‍♂️", style: TextStyle(fontSize: 72),)
             ),
-            Text(context.i18n.workoutCompleted, style:  TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.w600)),
-            Text(workoutName, style:  TextStyle(fontSize: 16, color: Colors.white) ),
+            Text(context.i18n.workoutCompleted, style:  TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.w600,), textAlign: TextAlign.center,),
+            Text(workoutName, style:  TextStyle(fontSize: 16, color: Colors.white),  textAlign: TextAlign.center, ),
           ],
         ),
     ),);
