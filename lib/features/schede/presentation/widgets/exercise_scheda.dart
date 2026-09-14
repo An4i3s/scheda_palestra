@@ -27,12 +27,14 @@ class ExerciseInScheda extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
               color: AppColors.primaryBtnColor,
-              borderRadius: BorderRadius.circular(64),
+              shape: BoxShape.circle
             ),
-            child: Center(child: Text(index.toString(), style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),)),
+            child: Center(child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(index.toString(), style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),),
+            )),
           ),
           const SizedBox(width: 16),
           Expanded(
