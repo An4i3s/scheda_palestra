@@ -3,17 +3,21 @@ import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 
-class WorkoutCategoryContainer extends StatefulWidget{
-  const WorkoutCategoryContainer({super.key, required this.selectedCategory, required this.onCategorySelected});
+class WorkoutCategoryContainer extends StatefulWidget {
+  const WorkoutCategoryContainer({
+    super.key,
+    required this.selectedCategory,
+    required this.onCategorySelected,
+  });
   final WorkoutCategory? selectedCategory;
   final void Function(WorkoutCategory c) onCategorySelected;
 
   @override
-  State<WorkoutCategoryContainer> createState() => _WorkoutCategoryContainerState();
+  State<WorkoutCategoryContainer> createState() =>
+      _WorkoutCategoryContainerState();
 }
 
 class _WorkoutCategoryContainerState extends State<WorkoutCategoryContainer> {
-
   WorkoutCategory? _selectedCategory;
 
   @override
@@ -22,7 +26,7 @@ class _WorkoutCategoryContainerState extends State<WorkoutCategoryContainer> {
     _selectedCategory = widget.selectedCategory;
   }
 
-  void onCategoryTap(WorkoutCategory category){
+  void onCategoryTap(WorkoutCategory category) {
     setState(() => _selectedCategory = category);
     widget.onCategorySelected(category);
   }
@@ -40,31 +44,63 @@ class _WorkoutCategoryContainerState extends State<WorkoutCategoryContainer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8,
         children: [
-          Text(context.i18n.workoutType, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-          SizedBox(height: 8,),
-          Row(
-            spacing: 8,
+          Text(
+            context.i18n.workoutType,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(height: 8),
+          GridView.count(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            childAspectRatio: 1.5,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
             children: [
-              Expanded(child: WorkoutTileContainer(name: context.i18n.ruuning, description: context.i18n.ruuningDescription, onTap:() => onCategoryTap(WorkoutCategory.ruuning), isSelected: _selectedCategory==WorkoutCategory.ruuning, icon: '🏃‍♂️',)),
-              Expanded(child: WorkoutTileContainer(name: context.i18n.walking, description: context.i18n.walkingDescription, onTap: () => onCategoryTap(WorkoutCategory.walking), isSelected:  _selectedCategory==WorkoutCategory.walking, icon: '🚶',)),
+              WorkoutTileContainer(
+                name: context.i18n.ruuning,
+                description: context.i18n.ruuningDescription,
+                onTap: () => onCategoryTap(WorkoutCategory.ruuning),
+                isSelected: _selectedCategory == WorkoutCategory.ruuning,
+                icon: '🏃‍♂️',
+              ),
+              WorkoutTileContainer(
+                name: context.i18n.walking,
+                description: context.i18n.walkingDescription,
+                onTap: () => onCategoryTap(WorkoutCategory.walking),
+                isSelected: _selectedCategory == WorkoutCategory.walking,
+                icon: '🚶',
+              ),
+              WorkoutTileContainer(
+                name: context.i18n.strenght,
+                description: context.i18n.strenghtDescription,
+                onTap: () => onCategoryTap(WorkoutCategory.strength),
+                isSelected: _selectedCategory == WorkoutCategory.strength,
+                icon: '💪',
+              ),
+              WorkoutTileContainer(
+                name: context.i18n.bicycle,
+                description: context.i18n.bicycleDescription,
+                onTap: () => onCategoryTap(WorkoutCategory.cycling),
+                isSelected: _selectedCategory == WorkoutCategory.cycling,
+                icon: '🚴',
+              ),
+              WorkoutTileContainer(
+                name: context.i18n.pilates,
+                description: context.i18n.pilatesDescription,
+                onTap: () => onCategoryTap(WorkoutCategory.pilates),
+                isSelected: _selectedCategory == WorkoutCategory.pilates,
+                icon: '🧘',
+              ),
+              WorkoutTileContainer(
+                name: context.i18n.swimming,
+                description: context.i18n.swimmingDescription,
+                onTap: () => onCategoryTap(WorkoutCategory.swimming),
+                isSelected: _selectedCategory == WorkoutCategory.swimming,
+                icon: '🏊',
+              ),
             ],
           ),
-          Row(
-            spacing: 8,
-            children: [
-              Expanded(child: WorkoutTileContainer(name: context.i18n.strenght, description: context.i18n.strenghtDescription, onTap: () => onCategoryTap(WorkoutCategory.strength), isSelected:  _selectedCategory==WorkoutCategory.strength, icon: '💪',)),
-              Expanded(child: WorkoutTileContainer(name: context.i18n.bicycle, description: context.i18n.bicycleDescription, onTap: () => onCategoryTap(WorkoutCategory.cycling), isSelected:  _selectedCategory==WorkoutCategory.cycling, icon: '🚴',)),
-
-            ],
-          )       ,
-             Row(
-            spacing: 8,
-            children: [
-              Expanded(child: WorkoutTileContainer(name: context.i18n.pilates, description: context.i18n.pilatesDescription, onTap: () => onCategoryTap(WorkoutCategory.pilates), isSelected:  _selectedCategory==WorkoutCategory.pilates, icon: '🧘',)),
-              Expanded(child: WorkoutTileContainer(name: context.i18n.swimming, description: context.i18n.swimmingDescription, onTap: () => onCategoryTap(WorkoutCategory.swimming), isSelected:  _selectedCategory==WorkoutCategory.swimming, icon: '🏊',)),
-
-            ],
-          )   
         ],
       ),
     );
@@ -73,24 +109,33 @@ class _WorkoutCategoryContainerState extends State<WorkoutCategoryContainer> {
 
 class WorkoutTileContainer extends StatelessWidget {
   const WorkoutTileContainer({
-    super.key, required this.name, required this.description, required this.onTap, required this.isSelected, required this.icon,
+    super.key,
+    required this.name,
+    required this.description,
+    required this.onTap,
+    required this.isSelected,
+    required this.icon,
   });
   final String name;
   final String icon;
   final String description;
-  final void Function( ) onTap;
+  final void Function() onTap;
   final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:() =>  onTap(),
+      onTap: () => onTap(),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.secondaryBtnColor  : AppColors.containerColor,
+          color: isSelected
+              ? AppColors.secondaryBtnColor
+              : AppColors.containerColor,
           borderRadius: BorderRadius.circular(24),
-          border: isSelected ? null : Border.all(color: AppColors.borderContainerColor)
+          border: isSelected
+              ? null
+              : Border.all(color: AppColors.borderContainerColor),
         ),
         child: Column(
           spacing: 4,
@@ -99,11 +144,24 @@ class WorkoutTileContainer extends StatelessWidget {
             Row(
               spacing: 8,
               children: [
-                Text(icon, style: TextStyle(fontSize: 20),),
-                Text(name, style: TextStyle(color: isSelected ? Colors.white : Colors.black, fontSize: 16, fontWeight: FontWeight.bold),),
+                Text(icon, style: TextStyle(fontSize: 20)),
+                Text(
+                  name,
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
-            Text(description, style: TextStyle(fontSize: 13, color:  isSelected ? Colors.white : Colors.black))
+            Text(
+              description,
+              style: TextStyle(
+                fontSize: 13,
+                color: isSelected ? Colors.white : Colors.black,
+              ),
+            ),
           ],
         ),
       ),
