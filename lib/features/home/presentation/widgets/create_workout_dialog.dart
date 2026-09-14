@@ -43,6 +43,7 @@ class _CreateWorkoutBottomSheetState extends State<CreateWorkoutBottomSheet> {
   }
 
   void _createAndClose() {
+
     if (_selectedSchedaId == null) {
       if (widget.selectedWorkout != null) {
         widget.onDeleteWorkout(widget.selectedWorkout!);
@@ -54,6 +55,12 @@ class _CreateWorkoutBottomSheetState extends State<CreateWorkoutBottomSheet> {
     final selectedScheda = widget.schede.firstWhere(
       (s) => s.id == _selectedSchedaId,
     );
+
+    //Avoid firing a create event if the user does not make any change to the days'selected workout
+    if(widget.selectedWorkout !=null && selectedScheda.id==widget.selectedWorkout?.scheda.id){
+      Navigator.pop(context);
+      return;
+    }
 
     final workout = WorkoutModel(
       id:
