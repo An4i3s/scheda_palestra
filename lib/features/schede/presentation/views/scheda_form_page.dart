@@ -122,14 +122,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: WorkoutCategoryContainer(
-                  selectedCategory: _selectedCategory,
-                  onCategorySelected: (category) => setState(() => _selectedCategory = category),
-                ),
-              ),
-              Padding(
+                            Padding(
                 padding: const EdgeInsets.all(16),
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -155,6 +148,13 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                       ),
                     ],
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: WorkoutCategoryContainer(
+                  selectedCategory: _selectedCategory,
+                  onCategorySelected: (category) => setState(() => _selectedCategory = category),
                 ),
               ),
               Padding(
