@@ -18,7 +18,7 @@ class Metrics extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
+          if(!hasDescription) Text(
             title,
             style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.blueGrey),
             overflow: TextOverflow.ellipsis,
@@ -26,12 +26,11 @@ class Metrics extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           if (hasDescription)
-            Text(
-              description!.trim(),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey),
-              softWrap: true,
-              overflow: TextOverflow.visible,
-              maxLines: 4,
+            Expanded(
+              child: Text(
+                description!.trim(),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.blueGrey),
+              ),
             )
           else if (hasValue)
             Text(
