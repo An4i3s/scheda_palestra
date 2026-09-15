@@ -37,7 +37,7 @@ class _WeeklyPlanWidgetState extends State<WeeklyPlanWidget> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.borderContainerColor)
+        border: Border.all(color: AppColors.secondaryBorderContainerColor)
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

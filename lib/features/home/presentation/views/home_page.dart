@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
-                                      color: AppColors.borderContainerColor,
+                                      color: AppColors.secondaryBorderContainerColor,
                                     ),
                                     color: Colors.white,
                                   ),
