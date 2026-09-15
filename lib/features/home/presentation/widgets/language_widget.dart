@@ -19,9 +19,9 @@ class LanguageContainerWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFFebf9fa): Colors.white,
+          color: isSelected ? AppColors.containerColor: Colors.white,
           borderRadius: BorderRadius.circular(32),
-          border: Border.all(color: AppColors.borderContainerColor)
+          border: Border.all(color: AppColors.secondaryBorderContainerColor)
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

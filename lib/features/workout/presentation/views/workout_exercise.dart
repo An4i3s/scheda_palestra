@@ -26,7 +26,7 @@ class _ExerciseWorkoutState extends State<ExerciseWorkout> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: widget.isPressed ?   AppColors.primaryColor: Colors.grey),
-          color: widget.isPressed ? Color(0xFFebf9f9) : Colors.white
+          color: widget.isPressed ? AppColors.containerColor : Colors.white
         ),
         child: Row(
           spacing: 16,
