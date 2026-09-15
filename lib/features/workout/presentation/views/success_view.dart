@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
+import 'package:scheda_palestra/core/theme/app_colors.dart';
 
-class SuccessView extends StatelessWidget{
+class SuccessView extends StatelessWidget {
   const SuccessView({super.key, required this.workoutName});
   final String workoutName;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
       body: Container(
         padding: EdgeInsets.all(16),
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-      begin: const Alignment(-0.364, -1.0),
-      end: const Alignment(0.364, 1.0),
-      colors: const [
-        Color(0xFF00484D), 
-        Color(0xFF00A0AA), 
-        Color(0xFF002629), 
-      ],
-      stops: const [0.0, 0.5, 1.0],
-          ),
+          gradient: AppColors.primaryLinearGradient,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -34,14 +25,27 @@ class SuccessView extends StatelessWidget{
               padding: EdgeInsets.all(32),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                  color: Color(0xFF2E5559).withAlpha(180)
+                color: AppColors.darkContainerColor,
               ),
-              child: Text("🏃‍♂️", style: TextStyle(fontSize: 72),)
+              child: Text("🏃‍♂️", style: TextStyle(fontSize: 72)),
             ),
-            Text(context.i18n.workoutCompleted, style:  TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.w600,), textAlign: TextAlign.center,),
-            Text(workoutName, style:  TextStyle(fontSize: 16, color: Colors.white),  textAlign: TextAlign.center, ),
+            Text(
+              context.i18n.workoutCompleted,
+              style: TextStyle(
+                fontSize: 28,
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              workoutName,
+              style: TextStyle(fontSize: 16, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
-    ),);
+      ),
+    );
   }
 }

@@ -60,7 +60,7 @@ class _SchedePageState extends State<SchedePage> {
               child: OutlinedButton(
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(
-                    AppColors.secondaryBtnColor,
+                    AppColors.primaryColor,
                   ),
                   side: WidgetStatePropertyAll(BorderSide.none),
                 ),

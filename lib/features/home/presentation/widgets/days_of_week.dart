@@ -32,7 +32,7 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
   BoxDecoration _getBoxDecoration(){
     if(_isToday()){
       return BoxDecoration(
-        color: AppColors.secondaryBtnColor,
+        color: AppColors.primaryColor,
          borderRadius: BorderRadius.circular(16),
       );
     }
@@ -43,9 +43,9 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
         );
     }else{
       return BoxDecoration(
-        color: Color(0xFFeff8f8),
+        color: AppColors.containerColor,
          borderRadius: BorderRadius.circular(16),
-         border: Border.all(color: Color(0xFFc9e7e8))
+         border: Border.all(color: AppColors.secondaryBorderContainerColor)
       );
     }
   }
@@ -84,7 +84,7 @@ class _DaysOfWeekWidgetState extends State<DaysOfWeekWidget> {
                     ),
                   ),
                    Container(width: 1, height: 20, 
-            color: _isToday() ? Colors.white :AppColors.secondaryBtnColor,
+            color: _isToday() ? Colors.white : widget.workout==null ? AppColors.greyTextColor :AppColors.primaryColor,
             ),
                 ],
               ),

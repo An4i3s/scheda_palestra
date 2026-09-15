@@ -98,7 +98,7 @@ class WorkoutLogCard extends StatelessWidget {
                       _controller.isExpanded ? context.i18n.close : context.i18n.details,
                       style: TextStyle(
                         fontSize: 12,
-                        color: AppColors.secondaryBtnColor,
+                        color: AppColors.primaryColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -109,7 +109,7 @@ class WorkoutLogCard extends StatelessWidget {
                       ).animate(animation),
                       child: const Icon(
                         Icons.arrow_drop_down,
-                        color: AppColors.secondaryBtnColor,
+                        color: AppColors.primaryColor,
                       ),
                     ),
                   ],
@@ -150,7 +150,7 @@ class WorkoutLogCard extends StatelessWidget {
                                                 1)
                                             .toString(),
                                         style: TextStyle(
-                                          color: AppColors.secondaryBtnColor,
+                                          color: AppColors.primaryColor,
                                         ),
                                       ),
                                     ),

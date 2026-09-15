@@ -130,7 +130,7 @@ class WorkoutTileContainer extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColors.secondaryBtnColor
+              ? AppColors.primaryColor
               : AppColors.containerColor,
           borderRadius: BorderRadius.circular(24),
           border: isSelected

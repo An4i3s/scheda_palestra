@@ -58,7 +58,7 @@ class _SchedaCardState extends State<SchedaCard> {
                       constraints: BoxConstraints( maxHeight: 22),
                       padding: EdgeInsets.zero,
                       onPressed: widget.onEdit,
-                      icon: SvgPicture.asset("assets/icons/edit.svg", colorFilter: ColorFilter.mode(AppColors.secondaryBtnColor, BlendMode.srcIn),),
+                      icon: SvgPicture.asset("assets/icons/edit.svg", colorFilter: ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),),
                     ),
                     IconButton(
                       constraints: BoxConstraints(maxHeight: 48),
@@ -68,7 +68,7 @@ class _SchedaCardState extends State<SchedaCard> {
                           return SchedaDeleteDialog(schedaModel: widget.scheda, onDelete: widget.onDelete,);
                         });
                       },
-                      icon: SvgPicture.asset("assets/icons/trash.svg",colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
+                      icon: SvgPicture.asset("assets/icons/trash.svg",colorFilter: ColorFilter.mode(AppColors.accentColor, BlendMode.srcIn),),
                     ),
                   ],
                 ),
@@ -96,14 +96,14 @@ class _SchedaCardState extends State<SchedaCard> {
                           ? Text(
                               context.i18n.hideExercise,
                               style: TextStyle(
-                                color: AppColors.primaryBtnColor,
+                                color: AppColors.primaryColor,
                                 fontWeight: FontWeight.w600,
                               ),
                             )
                           : Text(
                               context.i18n.showExercise,
                               style: TextStyle(
-                                color: AppColors.primaryBtnColor,
+                                color: AppColors.primaryColor,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -122,7 +122,7 @@ class _SchedaCardState extends State<SchedaCard> {
                         ).animate(animation),
                         child: const Icon(
                           Icons.arrow_drop_down,
-                          color: AppColors.primaryBtnColor,
+                          color: AppColors.primaryColor,
                         ),
                       ),
                     );

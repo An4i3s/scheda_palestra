@@ -71,13 +71,13 @@ class _ExerciseSchedaFormState extends State<ExerciseSchedaForm> {
               children: [
                 const Icon(
                   Icons.drag_indicator,
-                  color: AppColors.secondaryBtnColor,
+                  color: AppColors.primaryColor,
                   size: 24,
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 7, horizontal: 12),
                   decoration: BoxDecoration(
-                    color: AppColors.secondaryBtnColor,
+                    color: AppColors.primaryColor,
                     borderRadius: BorderRadius.circular(32),
                   ),
                   child: Text(
@@ -116,7 +116,7 @@ class _ExerciseSchedaFormState extends State<ExerciseSchedaForm> {
                   icon: SvgPicture.asset(
                     "assets/icons/edit.svg",
                     colorFilter: ColorFilter.mode(
-                      AppColors.secondaryBtnColor,
+                      AppColors.primaryColor,
                       BlendMode.srcIn,
                     ),
                   ),
@@ -132,7 +132,7 @@ class _ExerciseSchedaFormState extends State<ExerciseSchedaForm> {
                   icon: SvgPicture.asset(
                     "assets/icons/trash.svg",
                     colorFilter: ColorFilter.mode(
-                      AppColors.primaryBtnColor,
+                      AppColors.accentColor,
                       BlendMode.srcIn,
                     ),
                   ),

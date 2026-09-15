@@ -25,7 +25,7 @@ class _ExerciseWorkoutState extends State<ExerciseWorkout> {
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: widget.isPressed ?   AppColors.secondaryBtnColor: Colors.grey),
+          border: Border.all(color: widget.isPressed ?   AppColors.primaryColor: Colors.grey),
           color: widget.isPressed ? Color(0xFFebf9f9) : Colors.white
         ),
         child: Row(
@@ -35,9 +35,9 @@ class _ExerciseWorkoutState extends State<ExerciseWorkout> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: widget.isPressed ? AppColors.secondaryBtnColor : Colors.white,
+                color: widget.isPressed ? AppColors.primaryColor : Colors.white,
                 borderRadius: BorderRadius.circular(64),
-                border: Border.all(color: widget.isPressed ?   AppColors.secondaryBtnColor: Colors.grey),
+                border: Border.all(color: widget.isPressed ?   AppColors.primaryColor: Colors.grey),
               ),
               child:  widget.isPressed ? Icon(Icons.check_circle_outline, color: Colors.white,):null,
             ),
@@ -45,7 +45,7 @@ class _ExerciseWorkoutState extends State<ExerciseWorkout> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.exerciseModel.name, style: TextStyle(fontWeight: FontWeight(600), color:  widget.isPressed ? AppColors.secondaryBtnColor : Colors.black, decoration:widget.isPressed ? TextDecoration.lineThrough:null),),
+                  Text(widget.exerciseModel.name, style: TextStyle(fontWeight: FontWeight(600), color:  widget.isPressed ? AppColors.primaryColor : Colors.black, decoration:widget.isPressed ? TextDecoration.lineThrough:null),),
                   Wrap(
                     spacing: 16,
                     

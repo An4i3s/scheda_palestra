@@ -22,7 +22,7 @@ class HomeWorkoutOptions extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.borderContainerColor),
           borderRadius: BorderRadius.circular(20),
-          color: isSelected ? AppColors.primaryColor: Colors.white
+          color: isSelected ? AppColors.greenSelectionColor: Colors.white
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +49,7 @@ class HomeWorkoutOptions extends StatelessWidget {
                 ],
               ),
             ),
-            if(isSelected) Icon(Icons.check_circle_outline, color: AppColors.secondaryBtnColor,)
+            if(isSelected) Icon(Icons.check_circle_outline, color: AppColors.primaryColor,)
           ],
         ),
       ),

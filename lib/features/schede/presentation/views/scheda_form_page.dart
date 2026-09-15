@@ -100,9 +100,9 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFf3fdfd),
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Color(0xFFf3fdfd),
+        backgroundColor:  AppColors.backgroundColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -169,7 +169,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                     FilledButton.icon(
                       onPressed: () => _showExerciseDialog(),
                       style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor),
+                        backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
                       ),
                       icon: const Icon(Icons.add),
                       label:  Text(context.i18n.add),
@@ -194,7 +194,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                 child: OutlinedButton(
                   onPressed: _submit,
                   style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor),
+                    backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
                     padding: const WidgetStatePropertyAll(EdgeInsets.all(16)),
                   ),
                   child:  Row(

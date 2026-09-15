@@ -43,29 +43,29 @@ class _MainPageState extends State<App> {
         overlayColor: const WidgetStatePropertyAll(Colors.transparent),
         labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((states) {
           if (states.contains(WidgetState.selected)) {
-            return const TextStyle(color: AppColors.primaryBtnColor, fontWeight: FontWeight.w600);
+            return const TextStyle(color: AppColors.accentColor, fontWeight: FontWeight.w600);
           }
           return const TextStyle(color: Colors.black);
         }),
         destinations: [
           NavigationDestination(
             icon: SvgPicture.asset("assets/icons/home.svg"),
-            selectedIcon:SvgPicture.asset("assets/icons/home.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
+            selectedIcon:SvgPicture.asset("assets/icons/home.svg", colorFilter: ColorFilter.mode(AppColors.accentColor, BlendMode.srcIn),),
             label: 'Home',
           ),
             NavigationDestination(
             icon:  SvgPicture.asset("assets/icons/muscle.svg"),
-            selectedIcon: SvgPicture.asset("assets/icons/muscle.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
+            selectedIcon: SvgPicture.asset("assets/icons/muscle.svg", colorFilter: ColorFilter.mode(AppColors.accentColor, BlendMode.srcIn),),
             label: 'Workout',
           ),
           NavigationDestination(
             icon: SvgPicture.asset("assets/icons/note.svg"),
-            selectedIcon: SvgPicture.asset("assets/icons/note.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
+            selectedIcon: SvgPicture.asset("assets/icons/note.svg", colorFilter: ColorFilter.mode(AppColors.accentColor, BlendMode.srcIn),),
             label: context.i18n.gymSheet,
           ),
            NavigationDestination(
             icon: SvgPicture.asset("assets/icons/archive.svg"),
-            selectedIcon: SvgPicture.asset("assets/icons/archive.svg", colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),),
+            selectedIcon: SvgPicture.asset("assets/icons/archive.svg", colorFilter: ColorFilter.mode(AppColors.accentColor, BlendMode.srcIn),),
             label: context.i18n.archive,
           ),
         ],

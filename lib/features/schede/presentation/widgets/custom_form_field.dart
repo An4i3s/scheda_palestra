@@ -31,7 +31,7 @@ class CustomFormField extends StatelessWidget {
             hintText: hintText,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: AppColors.borderContainerColor)),
             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.borderContainerColor), borderRadius: BorderRadius.circular(16),),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryBtnColor), borderRadius: BorderRadius.circular(16),)
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.primaryColor), borderRadius: BorderRadius.circular(16),)
           ),
           validator:
            (v) =>

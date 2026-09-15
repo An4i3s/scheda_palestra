@@ -132,7 +132,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
           child: const Text('Annulla', style: TextStyle(color: Colors.black),),
         ),
         FilledButton(
-          style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.secondaryBtnColor)),
+          style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor)),
           onPressed: _submit,
           child: Text(_isEditing ? 'Salva' : 'Aggiungi'),
         ),

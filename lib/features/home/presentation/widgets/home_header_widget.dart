@@ -15,7 +15,7 @@ class HomeHeaderWidget extends StatelessWidget {
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: AppColors.secondaryBtnColor,
+        gradient: AppColors.primaryLinearGradient
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +37,12 @@ class HomeHeaderWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  IconButton(onPressed: onSettingsPressed, icon: Icon(Icons.settings, color: AppColors.primaryBtnColor,),)
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.darkContainerColor.withAlpha(140)
+                    ),
+                    child: IconButton(onPressed: onSettingsPressed, icon: Icon(Icons.settings, color: AppColors.accentColor,),))
                 ],
               ),
               Text(

@@ -2,37 +2,37 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color neutralColor = Color(0xFFFFFFFF);
-  static const Color primaryColor = Color(0xFFCCFF00);
-  static const Color secondaryColor = Color(0xFF03DAC6);
-  static const Color tertiaryColor = Color(0xFFFF2E63);
+  static const Color greenSelectionColor = Color(0xFFCCFF00);
   static const Color textColor = Color(0xFF121212);
-  static const Color backgroundColor = Color(0xFFf4fdfd);
+  // static const Color backgroundColor = Color(0xFFf4fdfd);
+  static const Color backgroundColor = Color(0xFFF9F8F6);
+  //? dove usarlo?
+  static const Color mutedColor = Color(0xFFF0EFE9);
 
-  // Buttons
-   static const Color primaryBtnColor = Color(0xFFBA1650);
-  static const Color secondaryBtnColor = Color(0xFF00A0AA);
+  // MainColors
+  // static const Color primaryColor = Color(0xFFBA1650);
+  static const Color accentColor = Color(0xFFFFD600);
 
-    //Container
-    
-     static const Color containerColor = Color(0xFFe7f4f5);
-     static const Color borderContainerColor = Color(0xFFc7e8ea);
+  static const LinearGradient primaryLinearGradient = LinearGradient(
+    begin: Alignment(-0.364, -1.0),
+    end: Alignment(0.364, 1.0),
+    colors: [AppColors.restDayColor, Color(0xFF1A1A18), Color(0xFFFF5500)],
+    stops: [0.0, 0.5, 1.0],
+  );
 
-  // Chips
+  static const Color primaryColor = Color(0xFFFF5500);
 
-  static const Color strengthChipColor = Color(0xFF00F0FF);
-  static const Color cardioChipColor = Color(0xFF7000FF);
-  static const Color enduranceChipColor = Color(0xFFFF00E5);
-  static const Color flexibilityChipColor = Color(0xFFCCFF00);
+  //Container
 
+  static const Color containerColor = Color(0xFFFFF2ED);
+  static const Color borderContainerColor = Color(0xFFc7e8ea);
+  static const Color darkContainerColor = Color(0xFF2E2E2D);
+  static const Color secondaryBorderContainerColor = Color(0xFFFFE3D9);
+  static const Color homeBadgeContainerColor = Color(0xFFA55C23);
+  static const Color homeBadgeBorderContainerColor = Color(0xFFBE761F);
 
-  //STATS
+  static const Color restDayColor = Color(0xFF41424C);
 
-  
-    static const Color setsColors = Color(0xFFC7FAFF);
-    static const Color repsColors = Color(0xFFFFD7F0);
-    static const Color restColors = Color(0xFFF6EDFF);
-    
-   
-    static const Color repsTextColors = Color(0xFFD800C1);
-    static const Color restTextColors = Color(0xFF7212FF);
+  //TEXT
+  static const Color greyTextColor = Color(0xFF90908F);
 }

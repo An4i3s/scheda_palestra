@@ -93,7 +93,7 @@ class _WorkoutViewState extends State<WorkoutView> {
           if (state is WorkoutLoading) {
             return const Center(
               child: CircularProgressIndicator(
-                color: AppColors.secondaryBtnColor,
+                color: AppColors.primaryColor,
               ),
             );
           }

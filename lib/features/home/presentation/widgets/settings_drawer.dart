@@ -24,7 +24,7 @@ class SettingsDrawer extends StatelessWidget {
                   child: Row(
                     spacing: 8,
                     children: [
-                      Icon(Icons.settings, color: AppColors.secondaryBtnColor),
+                      Icon(Icons.settings, color: AppColors.primaryColor),
                       Text(
                         context.i18n.settings,
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

@@ -28,7 +28,7 @@ class ExerciseInScheda extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: AppColors.primaryBtnColor,
+              color: AppColors.accentColor,
               shape: BoxShape.circle
             ),
             child: Center(child: Padding(

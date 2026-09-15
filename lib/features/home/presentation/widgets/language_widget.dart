@@ -30,10 +30,10 @@ class LanguageContainerWidget extends StatelessWidget {
               spacing: 16,
               children: [
                 Text(flag,),
-                Text(language, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: isSelected ? AppColors.secondaryBtnColor:Colors.black),),
+                Text(language, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: isSelected ? AppColors.primaryColor:Colors.black),),
               ],
             ),
-          if(isSelected) Icon(Icons.check_circle, color: AppColors.secondaryBtnColor,)
+          if(isSelected) Icon(Icons.check_circle, color: AppColors.primaryColor,)
           ],
         ),
       ),

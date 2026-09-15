@@ -118,11 +118,11 @@ class _BackupWidgetState extends State<BackupWidget> {
               borderRadius: BorderRadiusGeometry.circular(20),
             ),
             side: BorderSide(
-              color: AppColors.secondaryBtnColor,
+              color: AppColors.primaryColor,
               width: 2,
               style: BorderStyle.solid,
             ),
-            foregroundColor: AppColors.secondaryBtnColor,
+            foregroundColor: AppColors.primaryColor,
             minimumSize: Size(double.infinity, 32),
             padding: EdgeInsets.all(12),
           );
@@ -152,14 +152,14 @@ class _BackupWidgetState extends State<BackupWidget> {
           style: _btnStyle,
           onPressed: _isLoadingImport ? null : _handleImport,
           child: _isLoadingImport
-              ? CircularProgressIndicator(color: AppColors.secondaryBtnColor)
+              ? CircularProgressIndicator(color: AppColors.primaryColor)
               : Text(context.i18n.importBackup),
         ),
         OutlinedButton(
           style: _btnStyle,
           onPressed: _isLoadingExport ? null : _exportBackup,
           child: _isLoadingExport
-              ? CircularProgressIndicator(color: AppColors.secondaryBtnColor)
+              ? CircularProgressIndicator(color: AppColors.primaryColor)
               : Text(context.i18n.exportBackup),
         ),
       ],

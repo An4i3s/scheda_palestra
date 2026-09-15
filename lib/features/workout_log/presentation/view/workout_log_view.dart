@@ -40,7 +40,7 @@ class WorkoutLogView extends StatelessWidget {
           if (state is WorkoutLogLoading) {
             return const Center(
               child: CircularProgressIndicator(
-                color: AppColors.secondaryBtnColor,
+                color: AppColors.primaryColor,
               ),
             );
           }

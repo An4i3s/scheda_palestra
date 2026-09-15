@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
+import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 
 class WorkoutHeader extends StatelessWidget {
@@ -13,14 +14,7 @@ class WorkoutHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color.fromRGBO(0, 160, 170, 1.0),
-            Color.fromRGBO(0, 122, 130, 1.0),
-          ],
-        ),
+        gradient: AppColors.primaryLinearGradient,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Center(

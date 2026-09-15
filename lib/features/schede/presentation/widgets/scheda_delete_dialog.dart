@@ -33,7 +33,7 @@ class SchedaDeleteDialog extends StatelessWidget {
                      borderRadius: BorderRadius.circular(16)
                   ),
                  
-                  child: SvgPicture.asset("assets/icons/trash.svg", width: 64, height: 64, colorFilter: ColorFilter.mode(AppColors.primaryBtnColor, BlendMode.srcIn),
+                  child: SvgPicture.asset("assets/icons/trash.svg", width: 64, height: 64, colorFilter: ColorFilter.mode(AppColors.accentColor, BlendMode.srcIn),
                 ),),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class SchedaDeleteDialog extends StatelessWidget {
                   onDelete();
                   Navigator.pop(context);
                 } , 
-                 style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.primaryBtnColor), side: WidgetStatePropertyAll(BorderSide.none), padding: WidgetStatePropertyAll(EdgeInsets.all(8))),
+                 style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.accentColor), side: WidgetStatePropertyAll(BorderSide.none), padding: WidgetStatePropertyAll(EdgeInsets.all(8))),
                 child: Text(context.i18n.delete, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),))),
               ],
             ),

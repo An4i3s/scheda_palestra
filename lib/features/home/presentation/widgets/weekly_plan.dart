@@ -47,7 +47,7 @@ class _WeeklyPlanWidgetState extends State<WeeklyPlanWidget> {
             spacing: 8,
             children: [
       
-               Icon(Icons.calendar_today, color: AppColors.primaryBtnColor, size: 18,),
+               Icon(Icons.calendar_today, color: AppColors.accentColor, size: 18,),
                              Text(
                 context.i18n.weeklyPlan,
                 style: TextStyle(
