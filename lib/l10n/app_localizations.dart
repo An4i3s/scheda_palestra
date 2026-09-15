@@ -279,6 +279,12 @@ abstract class AppLocalizations {
   /// **'Rest day'**
   String get restDay;
 
+  /// No description provided for @restDaySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery is part of the training.\nYour body is growing right now.'**
+  String get restDaySubtitle;
+
   /// No description provided for @noWorkout.
   ///
   /// In en, this message translates to:

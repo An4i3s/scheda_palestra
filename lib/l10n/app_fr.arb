@@ -40,6 +40,7 @@
   "showExercise": "Afficher les exercices",
   "rest": "Repos",
   "restDay": "Jour de repos",
+  "restDaySubtitle": "La récupération fait partie de l'entraînement.\nTon corps est en train de progresser, là, maintenant.",
   "noWorkout": "Aucun entraînement",
   "workoutType": "Type d'entraînement",
   "workoutCompleted": "🏆 Entraînement terminé !",

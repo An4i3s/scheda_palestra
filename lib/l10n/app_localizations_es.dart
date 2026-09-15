@@ -107,6 +107,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get restDay => 'Día de descanso';
 
   @override
+  String get restDaySubtitle => 'La recuperación forma parte del entrenamiento.\nTu cuerpo está creciendo ahora mismo.';
+
+  @override
   String get noWorkout => 'Sin entrenamiento';
 
   @override

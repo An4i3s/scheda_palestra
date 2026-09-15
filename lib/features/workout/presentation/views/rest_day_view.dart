@@ -28,7 +28,7 @@ class RestDayView extends StatelessWidget{
               child: SvgPicture.asset("assets/icons/moon.svg", colorFilter: ColorFilter.mode(AppColors.accentColor, BlendMode.srcIn), width: 72,)
             ),
             Text(context.i18n.restDay, style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),),
-            Text("Il recupero è parte dell'allenamento.\nIl tuo corpo sta crescendo proprio adesso.",  style: TextStyle(color: AppColors.greyTextColor, fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,)
+            Text(context.i18n.restDaySubtitle,  style: TextStyle(color: AppColors.greyTextColor, fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,)
           ],
         ),
       ),

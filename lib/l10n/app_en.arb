@@ -40,6 +40,7 @@
   "showExercise": "Show exercises",
   "rest": "Rest",
   "restDay": "Rest day",
+  "restDaySubtitle": "Recovery is part of the training.\nYour body is growing right now.",
   "noWorkout": "No workout",
   "workoutType": "Workout type",
   "workoutCompleted": "🏆 Workout completed!",
