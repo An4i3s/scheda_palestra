@@ -135,12 +135,14 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomFormField(
+                        isReadOnly: false,
                         nomeController: _nomeController,
                         hintText: "ex Upper Body, Leg Day...",
                         label: context.i18n.gymSheetName,
                       ),
                       const SizedBox(height: 12),
                       CustomFormField(
+                        isReadOnly: false,
                         hasValidations: false,
                         nomeController: _descrizioneController,
                         hintText: context.i18n.description,

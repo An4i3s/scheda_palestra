@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
+import 'package:scheda_palestra/core/widgets/custom_keyboard_controller.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/custom_form_field.dart';
@@ -9,7 +10,12 @@ class ExerciseFormDialog extends StatefulWidget {
   final WorkoutCategory? defaultCategory;
   final void Function(ExerciseModel) onSubmit;
 
-  const ExerciseFormDialog({super.key, this.esercizio, this.defaultCategory, required this.onSubmit});
+  const ExerciseFormDialog({
+    super.key,
+    this.esercizio,
+    this.defaultCategory,
+    required this.onSubmit,
+  });
 
   @override
   State<ExerciseFormDialog> createState() => _ExerciseFormDialogState();
@@ -90,7 +96,9 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
 
     final category = _effectiveCategory;
     final esercizio = ExerciseModel(
-      id: widget.esercizio?.id ?? DateTime.now().millisecondsSinceEpoch.toString(),
+      id:
+          widget.esercizio?.id ??
+          DateTime.now().millisecondsSinceEpoch.toString(),
       name: _nomeController.text.trim(),
       series: _intOrNull(_serieController.text) ?? 0,
       repetitions: _intOrNull(_ripetizioniController.text),
@@ -100,7 +108,9 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
       time: _intOrNull(_timeController.text),
       km: _intOrNull(_kmController.text),
       elevation: _intOrNull(_elevationController.text),
-      description: _obiettivoController.text.trim().isEmpty ? null : _obiettivoController.text.trim(),
+      description: _obiettivoController.text.trim().isEmpty
+          ? null
+          : _obiettivoController.text.trim(),
     );
 
     widget.onSubmit(esercizio);
@@ -109,55 +119,133 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      scrollable: true,
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(side: BorderSide(color: AppColors.secondaryBorderContainerColor,), borderRadius: BorderRadiusGeometry.circular(16)),
-      title: Text(_isEditing ? 'Modifica esercizio' : 'Nuovo esercizio'),
-      content: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomFormField(nomeController: _nomeController, hintText: "es. Panca Piana", label: 'Nome esercizio',),
-            const SizedBox(height: 12),
-            ..._buildCategoryFields(),
-          ],
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        CustomKeyboardController.instance.close();
+      },
+      child: AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: AppColors.secondaryBorderContainerColor),
+          borderRadius: BorderRadiusGeometry.circular(16),
         ),
+        title: Text(_isEditing ? 'Modifica esercizio' : 'Nuovo esercizio'),
+        content: AnimatedBuilder(
+          animation: CustomKeyboardController.instance,
+          builder: (context, _) {
+            final keyboardVisible = CustomKeyboardController.instance.isVisible;
+            return ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.5,
+              ),
+              child: AnimatedPadding(
+                duration: const Duration(milliseconds: 200),
+                padding: EdgeInsets.only(
+                  bottom: keyboardVisible
+                      ? CustomKeyboardController.keyboardHeight
+                      : 0,
+                ),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CustomFormField(
+                          nomeController: _nomeController,
+                          hintText: "es. Panca Piana",
+                          label: 'Nome esercizio',
+                          isReadOnly: false,
+                        ),
+                        const SizedBox(height: 12),
+                        ..._buildCategoryFields(),
+                        const SizedBox(height: 12),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+        actions: [
+          FilledButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(AppColors.containerColor),
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Annulla', style: TextStyle(color: Colors.black)),
+          ),
+          FilledButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
+            ),
+            onPressed: _submit,
+            child: Text(_isEditing ? 'Salva' : 'Aggiungi'),
+          ),
+        ],
       ),
-      actions: [
-        FilledButton(
-          style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.containerColor)),
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Annulla', style: TextStyle(color: Colors.black),),
-        ),
-        FilledButton(
-          style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor)),
-          onPressed: _submit,
-          child: Text(_isEditing ? 'Salva' : 'Aggiungi'),
-        ),
-      ],
     );
   }
 
   List<Widget> _buildCategoryFields() {
     final category = _effectiveCategory;
 
-    final seriesField = CustomFormField(nomeController: _serieController, label: "Serie *", isNum: true,);
+    final seriesField = CustomFormField(
+      nomeController: _serieController,
+      label: "Serie *",
+      isNum: true,
+      isReadOnly: true,
+    );
 
-    final timeField = CustomFormField(nomeController: _timeController, label: "Tempo (min) *", isNum: true,);
-    
-    final kmField =  CustomFormField(nomeController: _kmController, label: "Km *", isNum: true,);
+    final timeField = CustomFormField(
+      nomeController: _timeController,
+      label: "Tempo (min) *",
+      isNum: true,
+      isReadOnly: true,
+    );
 
-    final elevationField = CustomFormField(nomeController: _elevationController, label: "Dislivello (m)", isNum: true,);
+    final kmField = CustomFormField(
+      nomeController: _kmController,
+      label: "Km *",
+      isNum: true,
+      isReadOnly: true,
+    );
 
-    final repetitionsField = CustomFormField(nomeController: _ripetizioniController, label: "Ripetizioni ", isNum: true,);
+    final elevationField = CustomFormField(
+      nomeController: _elevationController,
+      label: "Dislivello (m)",
+      isNum: true,
+      isReadOnly: true,
+    );
 
-    final weightField = CustomFormField(nomeController: _pesoController, label: "Peso (kg) ", isNum: true,);
+    final repetitionsField = CustomFormField(
+      nomeController: _ripetizioniController,
+      label: "Ripetizioni ",
+      isNum: true,
+      isReadOnly: true,
+      keyboardMode: CustomKeyboardMode.reps,
+    );
 
-    final restField = CustomFormField(nomeController: _restTimeController, label: "Recupero (sec) ", isNum: true,);
+    final weightField = CustomFormField(
+      nomeController: _pesoController,
+      label: "Peso (kg) ",
+      isNum: true,
+      isReadOnly: true,
+    );
 
-    final obiettivoField =   CustomFormField(nomeController: _obiettivoController, label: "Obiettivo",);
+    final restField = CustomFormField(
+      nomeController: _restTimeController,
+      label: "Recupero (sec) ",
+      isNum: true,
+      isReadOnly: true,
+    );
+
+    final obiettivoField = CustomFormField(
+      nomeController: _obiettivoController,
+      label: "Obiettivo",
+      isReadOnly: false,
+    );
 
     switch (category) {
       case WorkoutCategory.strength:
@@ -205,11 +293,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
       case WorkoutCategory.pilates:
       case WorkoutCategory.yoga:
       case WorkoutCategory.crossfit:
-        return [
-          obiettivoField,
-          const SizedBox(height: 12),
-          timeField,
-        ];
+        return [obiettivoField, const SizedBox(height: 12), timeField];
     }
   }
 }

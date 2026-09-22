@@ -6,6 +6,7 @@ import 'package:scheda_palestra/core/i18n/local_cubit.dart';
 import 'package:scheda_palestra/core/theme/app_theme.dart';
 
 import 'package:scheda_palestra/core/utils/router/app_router.dart';
+import 'package:scheda_palestra/core/widgets/custom_keyboard_host.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model_adapter.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model_adapter.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model_adapter.dart';
@@ -54,6 +55,14 @@ class MainApp extends StatelessWidget {
           ],
           theme: AppTheme.lightTheme, 
           routerConfig: AppRouter.router,
+          builder: (context, child) {
+            return Stack(
+              children: [
+                ?child,
+                const CustomKeyboardHost(),
+              ],
+            );
+          }
         );
       }
     );
