@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Metrics extends StatelessWidget {
   const Metrics({super.key, required this.value, required this.title, this.description});
 
-  final int? value;
+  final Object? value;
   final String title;
   final String? description;
 
@@ -55,7 +55,7 @@ class StrengthMetricsWidget extends StatelessWidget {
   });
 
   final int? series;
-  final int? reps;
+  final String? reps;
   final int? rest;
   final int? weight;
 
@@ -69,7 +69,7 @@ class StrengthMetricsWidget extends StatelessWidget {
           runSpacing: 8,
           children: [
             SizedBox(width: itemWidth, child: Metrics(title: 'Serie', value: series ?? 0)),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Reps', value: reps ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title: 'Reps', value: reps ?? '0')),
             SizedBox(width: itemWidth, child: Metrics(title: 'Weight', value: weight ?? 0)),
             SizedBox(width: itemWidth, child: Metrics(title: 'Rest', value: rest ?? 0)),
           ],

@@ -15,6 +15,7 @@ class ExerciseModelAdapter extends TypeAdapter<ExerciseModel> {
         return 0;
       }
     }
+
     String readSafeString() {
       try {
         return reader.readString();
@@ -23,10 +24,25 @@ class ExerciseModelAdapter extends TypeAdapter<ExerciseModel> {
       }
     }
 
+    String? readOptionalString() {
+      try {
+        final hasValue = reader.readBool();
+        if (!hasValue) return null;
+        return reader.readString();
+      } catch (_) {
+        try {
+          final value = reader.readInt();
+          return value.toString();
+        } catch (_) {
+          return null;
+        }
+      }
+    }
+
     return ExerciseModel(
       name: reader.readString(),
       series: reader.readInt(),
-      repetitions: readSafeInt(),
+      repetitions: readOptionalString(),
       weight: readSafeInt(),
       category: WorkoutCategory.values[reader.readInt()],
       restTime: readSafeInt(),
@@ -42,14 +58,20 @@ class ExerciseModelAdapter extends TypeAdapter<ExerciseModel> {
   void write(BinaryWriter writer, ExerciseModel obj) {
     writer.writeString(obj.name);
     writer.writeInt(obj.series);
-    writer.writeInt(obj.repetitions??0);
-    writer.writeInt(obj.weight??0);
+
+    final hasRepetitions = obj.repetitions != null;
+    writer.writeBool(hasRepetitions);
+    if (hasRepetitions) {
+      writer.writeString(obj.repetitions!);
+    }
+
+    writer.writeInt(obj.weight ?? 0);
     writer.writeInt(obj.category.index);
-    writer.writeInt(obj.restTime??0);
+    writer.writeInt(obj.restTime ?? 0);
     writer.writeString(obj.id);
-    writer.writeInt(obj.time??0);
-    writer.writeInt(obj.km??0);
-    writer.writeInt(obj.elevation??0);
-    writer.writeString(obj.description??'');
+    writer.writeInt(obj.time ?? 0);
+    writer.writeInt(obj.km ?? 0);
+    writer.writeInt(obj.elevation ?? 0);
+    writer.writeString(obj.description ?? '');
   }
 }

@@ -46,7 +46,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
       text: widget.esercizio?.series.toString() ?? '',
     );
     _ripetizioniController = TextEditingController(
-      text: widget.esercizio?.repetitions.toString() ?? '',
+      text: widget.esercizio?.repetitions ?? '',
     );
     _pesoController = TextEditingController(
       text: widget.esercizio?.weight.toString() ?? '',
@@ -88,6 +88,15 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
     return int.tryParse(value);
   }
 
+  String? _repetitionsOrNull(String? value) {
+    if (value == null) return null;
+    final trimmed = value.trim();
+    if (trimmed.isEmpty) return null;
+    final upper = trimmed.toUpperCase();
+    if (upper == 'MAX') return 'MAX';
+    return int.tryParse(trimmed) != null ? trimmed : null;
+  }
+
   WorkoutCategory get _effectiveCategory =>
       _workoutCategory ?? widget.defaultCategory ?? WorkoutCategory.strength;
 
@@ -101,7 +110,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
           DateTime.now().millisecondsSinceEpoch.toString(),
       name: _nomeController.text.trim(),
       series: _intOrNull(_serieController.text) ?? 0,
-      repetitions: _intOrNull(_ripetizioniController.text),
+      repetitions: _repetitionsOrNull(_ripetizioniController.text),
       weight: _intOrNull(_pesoController.text),
       category: category,
       restTime: _intOrNull(_restTimeController.text),

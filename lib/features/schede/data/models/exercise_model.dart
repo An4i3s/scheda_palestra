@@ -5,7 +5,7 @@ class ExerciseModel implements BackupableModel {
   final String id;
   final String name;
   final int series;
-  final int? repetitions;
+  final String? repetitions;
   final int? weight;
   final WorkoutCategory category;
   final String? description;
@@ -13,6 +13,7 @@ class ExerciseModel implements BackupableModel {
   final int? time;
   final int? km;
   final int? elevation;
+
   ExerciseModel({
     required this.name,
     required this.series,
@@ -42,14 +43,19 @@ class ExerciseModel implements BackupableModel {
     "elevation": elevation,
   };
 
-  factory ExerciseModel.fromJson(Map<String, dynamic> json){
+  factory ExerciseModel.fromJson(Map<String, dynamic> json) {
+    final repetitionsValue = json["repetitions"];
+
     return ExerciseModel(
       name: json["name"] ?? '',
       series: json["series"] ?? 0,
-      repetitions: json["repetitions"],
+      repetitions: repetitionsValue == null ? null : repetitionsValue.toString(),
       weight: json["weight"],
       description: json["description"],
-      category: WorkoutCategory.values.firstWhere((e) => e.name == (json["category"] ?? ''), orElse: () => WorkoutCategory.strength),
+      category: WorkoutCategory.values.firstWhere(
+        (e) => e.name == (json["category"] ?? ''),
+        orElse: () => WorkoutCategory.strength,
+      ),
       restTime: json["restTime"],
       id: json["id"] ?? '',
       time: json["time"],
