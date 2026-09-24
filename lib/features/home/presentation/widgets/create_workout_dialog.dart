@@ -79,48 +79,50 @@ class _CreateWorkoutBottomSheetState extends State<CreateWorkoutBottomSheet> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(32), topRight: Radius.circular(32), )),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        spacing: 16,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    days[widget.selectedDay-1],
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                  ),
-                  Text(context.i18n.chooseGymSheet),
-                ],
-              ),
-              IconButton(onPressed: _createAndClose, icon: Icon(Icons.close)),
-            ],
-          ),
-          widget.schede.isEmpty
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
-                    context.i18n.noGymSheet,
-                  ),
-                )
-              : Padding(
-                padding: const EdgeInsets.only(bottom: 42),
-                child: HomeWorkoutOptionsList(
-                    schede: widget.schede,
-                    onChanged: (i) {
-                      print("Error on changed workout $i");
-                      setState(() {
-                        _selectedSchedaId = i;
-                      });
-                    },
-                    selectedModel: widget.selectedWorkout,
-                  ),
-              ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          spacing: 16,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      days[widget.selectedDay-1],
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                    ),
+                    Text(context.i18n.chooseGymSheet),
+                  ],
+                ),
+                IconButton(onPressed: _createAndClose, icon: Icon(Icons.close)),
+              ],
+            ),
+            widget.schede.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      context.i18n.noGymSheet,
+                    ),
+                  )
+                : Padding(
+                  padding: const EdgeInsets.only(bottom: 42),
+                  child: HomeWorkoutOptionsList(
+                      schede: widget.schede,
+                      onChanged: (i) {
+                        print("Error on changed workout $i");
+                        setState(() {
+                          _selectedSchedaId = i;
+                        });
+                      },
+                      selectedModel: widget.selectedWorkout,
+                    ),
+                ),
+          ],
+        ),
       ),
     );
   }
