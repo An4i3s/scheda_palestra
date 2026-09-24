@@ -165,7 +165,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      context.i18n.exercisesCount((widget.scheda?.esercizi)?.length??0),
+                      context.i18n.exercisesCount(_esercizi.length),
                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     FilledButton.icon(
