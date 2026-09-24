@@ -9,13 +9,46 @@ class WorkoutModelAdapter extends TypeAdapter<WorkoutModel> {
 
   @override
   WorkoutModel read(BinaryReader reader) {
+    final id = reader.readString();
+
+    final completed = reader.readList();
+    final completedExercises = completed
+        .where((e) => e != null)
+        .map((e) {
+          if (e is ExerciseModel) return e;
+          if (e is Map) return ExerciseModel.fromJson(Map<String, dynamic>.from(e));
+          return null;
+        })
+        .whereType<ExerciseModel>()
+        .toList();
+
+    final dayOfWeek = reader.readInt();
+
+    final schedaValue = reader.read();
+    final scheda = schedaValue is SchedaModel
+        ? schedaValue
+        : SchedaModel(
+            id: '',
+            nome: '',
+            createdAt: DateTime.fromMillisecondsSinceEpoch(0),
+            category: WorkoutCategory.strength,
+          );
+
+    final completedIds = reader.readList();
+    final completedExerciseIds = completedIds
+        .where((e) => e != null)
+        .map((e) => e.toString())
+        .toSet();
+
+    final isCompleted = reader.readBool();
+
     return WorkoutModel(
-      id: reader.readString(),
-      completedExercises: (reader.readList()).cast<ExerciseModel>(),
-      dayOfWeek: reader.readInt(),
-      scheda: reader.read() as SchedaModel,
-      completedExerciseIds: (reader.readList()).cast<String>().toSet(),
-      isCompleted: reader.readBool(),
+      id: id,
+      completedExercises: completedExercises,
+      dayOfWeek: dayOfWeek,
+      scheda: scheda,
+      completedExerciseIds: completedExerciseIds,
+      isCompleted: isCompleted,
     );
   }
 

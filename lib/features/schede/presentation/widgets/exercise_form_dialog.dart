@@ -205,6 +205,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
       label: "Serie *",
       isNum: true,
       isReadOnly: true,
+      keyboardMode: CustomKeyboardMode.numeric,
     );
 
     final timeField = CustomFormField(

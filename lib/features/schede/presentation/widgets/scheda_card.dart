@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
+import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_scheda.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/scheda_delete_dialog.dart';
@@ -128,15 +129,22 @@ class _SchedaCardState extends State<SchedaCard> {
                     );
                   },
               bodyBuilder: (BuildContext context, Animation<double> animation) {
+                final exercises = widget.scheda.esercizi
+                    .where((e) => e is ExerciseModel)
+                    .map((e) => e as ExerciseModel)
+                    .toList();
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: widget.scheda.esercizi
+                  children: exercises
+                      .asMap()
+                      .entries
                       .map(
-                        (e) => Padding(
+                        (entry) => Padding(
                           padding: const EdgeInsets.only(top: 6),
                           child: ExerciseInScheda(
-                            index: widget.scheda.esercizi.indexOf(e) + 1,
-                            exercise: e,
+                            index: entry.key + 1,
+                            exercise: entry.value,
                           ),
                         ),
                       )

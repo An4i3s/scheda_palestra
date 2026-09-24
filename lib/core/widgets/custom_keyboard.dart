@@ -61,42 +61,44 @@ class CustomKeyboard extends StatelessWidget {
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
             ),
-            itemCount: 11,
+            itemCount: mode == CustomKeyboardMode.reps ? 11 : 10,
             itemBuilder: (context, index) {
-              int number = index + 1;
-              if (number < 10) {
-                return OutlinedButton(
-                  style: buttonStyle,
-                  onPressed: () {
-                    if (controller.text.trim() == "MAX") {
-                      controller.clear();
-                    }
-                    controller.text += number.toString();
-                  },
-                  child: Text(number.toString()),
-                );
-              } else if (number == 10) {
+              final isMaxButton = mode == CustomKeyboardMode.reps && index == 10;
+
+              if (isMaxButton) {
                 return OutlinedButton(
                   onPressed: () {
-                    if (controller.text.trim() == "MAX") {
-                      controller.clear();
-                    }
-                    controller.text += "0";
+                    controller.text = 'MAX';
                   },
                   style: buttonStyle,
-                  child: Text("0"),
-                );
-              } else if (number == 11 && mode == CustomKeyboardMode.reps) {
-                return OutlinedButton(
-                  onPressed: () {
-                    controller.text = "";
-                    controller.text += "MAX";
-                  },
-                  style: buttonStyle,
-                  child: Text("MAX"),
+                  child: const Text('MAX'),
                 );
               }
-              return null;
+
+              final number = index + 1;
+              if (number == 10) {
+                return OutlinedButton(
+                  onPressed: () {
+                    if (controller.text.trim() == 'MAX') {
+                      controller.clear();
+                    }
+                    controller.text += '0';
+                  },
+                  style: buttonStyle,
+                  child: const Text('0'),
+                );
+              }
+
+              return OutlinedButton(
+                style: buttonStyle,
+                onPressed: () {
+                  if (controller.text.trim() == 'MAX') {
+                    controller.clear();
+                  }
+                  controller.text += number.toString();
+                },
+                child: Text(number.toString()),
+              );
             },
           ),
         ],

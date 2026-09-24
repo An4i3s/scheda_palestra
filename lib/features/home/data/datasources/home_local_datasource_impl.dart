@@ -9,10 +9,21 @@ abstract class HomeLocalDatasource {
 class HomeLocalDatasourceImpl implements HomeLocalDatasource {
   static const _boxName = 'workouts';
 
-  Future<Box<WorkoutModel>> get _box async =>
-      Hive.isBoxOpen(_boxName)
-          ? Hive.box<WorkoutModel>(_boxName)
-          : await Hive.openBox<WorkoutModel>(_boxName);
+  Future<Box<WorkoutModel>> get _box async {
+    if (Hive.isBoxOpen(_boxName)) {
+      try {
+        final existing = Hive.box<WorkoutModel>(_boxName);
+        if (existing.isOpen) return existing;
+      } catch (_) {
+        final staleBox = Hive.box<WorkoutModel>(_boxName);
+        if (staleBox.isOpen) {
+          await staleBox.close();
+        }
+      }
+    }
+
+    return Hive.openBox<WorkoutModel>(_boxName);
+  }
 
   @override
   Future<HomeModel> getHomeSummary() async {

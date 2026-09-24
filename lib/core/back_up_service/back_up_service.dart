@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:scheda_palestra/core/back_up_service/back_up_abstract.dart';
-import 'package:scheda_palestra/features/home/data/home_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 import 'package:scheda_palestra/features/workout_log/data/model/workout_log_model.dart';
@@ -19,11 +18,6 @@ class BoxConfig<T extends BackupableModel> {
 
 class BackupService {
   static final List<BoxConfig> _configs = [
-    BoxConfig<HomeModel>(
-      name: 'home',
-      fromJson: HomeModel.fromJson,
-      openBox: () async => Hive.isBoxOpen('home') ? Hive.box<HomeModel>('home') : await Hive.openBox<HomeModel>('home'),
-    ),
     BoxConfig<SchedaModel>(
       name: 'schede',
       fromJson: SchedaModel.fromJson,
@@ -46,9 +40,21 @@ class BackupService {
 
     for (final config in _configs) {
       final box = await config.openBox();
-      boxesData[config.name] = {
-        for (final key in box.keys) key.toString(): (box.get(key) as BackupableModel).toJson(),
-      };
+      try {
+        final entries = <String, dynamic>{};
+
+        for (final key in box.keys) {
+          final value = box.get(key);
+          if (value is! BackupableModel) continue;
+          entries[key.toString()] = value.toJson();
+        }
+
+        boxesData[config.name] = entries;
+      } finally {
+        if (box.isOpen) {
+          await box.close();
+        }
+      }
     }
 
     final backupData = {
@@ -66,25 +72,63 @@ class BackupService {
 
   static Future<void> importBackup(File file) async {
     final jsonString = await file.readAsString();
-    final Map<String, dynamic> data = jsonDecode(jsonString);
+    final decoded = jsonDecode(jsonString);
+    if (decoded is! Map<String, dynamic>) {
+      throw Exception('Backup non valido');
+    }
 
-    final version = data['version'] as int;
-    //todo improve x versioni successive 
+    final version = decoded['version'] is int ? decoded['version'] as int : 1;
     if (version > 1) {
       throw Exception('Backup creato con una versione più recente dell\'app');
     }
 
-    final boxesData = data['boxes'] as Map<String, dynamic>;
+    final rawBoxes = decoded['boxes'];
+    if (rawBoxes is! Map) {
+      throw Exception('Backup senza contenuto');
+    }
+
+    final boxesData = <String, Map<String, dynamic>>{};
+    for (final entry in rawBoxes.entries) {
+      final value = entry.value;
+      if (value is Map) {
+        boxesData[entry.key.toString()] = Map<String, dynamic>.from(value);
+      }
+    }
 
     for (final config in _configs) {
-      final boxData = boxesData[config.name] as Map<String, dynamic>?;
-      if (boxData == null) continue;
+      final boxData = boxesData[config.name];
+      if (boxData == null || boxData.isEmpty) continue;
 
       final box = await config.openBox();
-      await box.clear();
-      for (final entry in boxData.entries) {
-        final obj = config.fromJson(entry.value as Map<String, dynamic>);
-        await box.put(entry.key, obj);
+      try {
+        final merged = <String, dynamic>{
+          for (final currentEntry in box.toMap().entries)
+            currentEntry.key.toString(): currentEntry.value,
+        };
+
+        for (final entry in boxData.entries) {
+          final value = entry.value;
+          if (value is! Map) continue;
+
+          try {
+            final obj = config.fromJson(Map<String, dynamic>.from(value));
+            merged[entry.key.toString()] = obj;
+          } catch (_) {
+            // record legacy invalido: lo ignoro senza bloccare l'import
+          }
+        }
+
+        await box.clear();
+        for (final entry in merged.entries) {
+          final value = entry.value;
+          if (value is BackupableModel) {
+            await box.put(entry.key, value);
+          }
+        }
+      } finally {
+        if (box.isOpen) {
+          await box.close();
+        }
       }
     }
   }

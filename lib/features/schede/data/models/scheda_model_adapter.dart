@@ -23,9 +23,18 @@ class SchedaModelAdapter extends TypeAdapter<SchedaModel> {
 
     List<ExerciseModel> readSafeList() {
       try {
-        return (reader.readList()).cast<ExerciseModel>();
+        final raw = reader.readList();
+        return raw
+            .where((e) => e != null)
+            .map((e) {
+              if (e is ExerciseModel) return e;
+              if (e is Map) return ExerciseModel.fromJson(Map<String, dynamic>.from(e));
+              return null;
+            })
+            .whereType<ExerciseModel>()
+            .toList();
       } catch (_) {
-        return <ExerciseModel>[];
+        return const <ExerciseModel>[];
       }
     }
 
@@ -34,7 +43,7 @@ class SchedaModelAdapter extends TypeAdapter<SchedaModel> {
     final descrizione = readSafeString();
     final createdAtMillis = readSafeInt();
     final createdAt = DateTime.fromMillisecondsSinceEpoch(
-        createdAtMillis == 0 ? DateTime.now().millisecondsSinceEpoch : createdAtMillis);
+        createdAtMillis == 0 ? 0 : createdAtMillis);
     final esercizi = readSafeList();
     final categoryIndex = readSafeInt();
     final category = (categoryIndex >= 0 && categoryIndex < WorkoutCategory.values.length)

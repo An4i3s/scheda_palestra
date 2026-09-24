@@ -43,24 +43,25 @@ class ExerciseModel implements BackupableModel {
     "elevation": elevation,
   };
 
-  factory ExerciseModel.fromJson(Map<String, dynamic> json) {
-    final repetitionsValue = json["repetitions"];
+  factory ExerciseModel.fromJson(Map<String, dynamic>? json) {
+    final data = json ?? <String, dynamic>{};
+    final repetitionsValue = data["repetitions"];
 
     return ExerciseModel(
-      name: json["name"] ?? '',
-      series: json["series"] ?? 0,
+      name: data["name"] ?? '',
+      series: data["series"] ?? 0,
       repetitions: repetitionsValue == null ? null : repetitionsValue.toString(),
-      weight: json["weight"],
-      description: json["description"],
+      weight: data["weight"],
+      description: data["description"],
       category: WorkoutCategory.values.firstWhere(
-        (e) => e.name == (json["category"] ?? ''),
+        (e) => e.name == (data["category"] ?? ''),
         orElse: () => WorkoutCategory.strength,
       ),
-      restTime: json["restTime"],
-      id: json["id"] ?? '',
-      time: json["time"],
-      km: json["km"],
-      elevation: json["elevation"],
+      restTime: data["restTime"],
+      id: data["id"] ?? '',
+      time: data["time"],
+      km: data["km"],
+      elevation: data["elevation"],
     );
   }
 }

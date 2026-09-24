@@ -59,7 +59,10 @@ class WorkoutModel implements BackupableModel{
         final completedJson = json["completedExercises"] as List?;
         final completedExercises = completedJson == null
         ? <ExerciseModel>[]
-        : completedJson.map((e) => ExerciseModel.fromJson(Map<String, dynamic>.from(e))).toList();
+        : completedJson
+            .whereType<Map<String, dynamic>>()
+            .map((e) => ExerciseModel.fromJson(e))
+            .toList();
 
         final schedaJson = json["scheda"] as Map<String, dynamic>?;
         final scheda = schedaJson == null ? throw ArgumentError('scheda missing') : SchedaModel.fromJson(Map<String, dynamic>.from(schedaJson));

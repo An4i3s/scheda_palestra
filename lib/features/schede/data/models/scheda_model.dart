@@ -76,7 +76,10 @@ class SchedaModel extends BackupableModel{
       final eserciziJson = json["esercizi"] as List?;
       final eserciziList = eserciziJson == null
           ? <ExerciseModel>[]
-          : eserciziJson.map((e) => ExerciseModel.fromJson(Map<String, dynamic>.from(e))).toList();
+          : eserciziJson
+              .whereType<Map<String, dynamic>>()
+              .map((e) => ExerciseModel.fromJson(e))
+              .toList();
 
       final categoryStr = json["category"] as String?;
       final category = WorkoutCategory.values.firstWhere(

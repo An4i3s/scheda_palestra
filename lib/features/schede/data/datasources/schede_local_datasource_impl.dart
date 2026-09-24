@@ -6,10 +6,21 @@ import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
 class SchedeLocalDatasourceImpl implements SchedeLocalDatasource {
   static const _boxName = 'schede';
 
-  Future<Box<SchedaModel>> get _box async =>
-      Hive.isBoxOpen(_boxName)
-          ? Hive.box<SchedaModel>(_boxName)
-          : await Hive.openBox<SchedaModel>(_boxName);
+  Future<Box<SchedaModel>> get _box async {
+    if (Hive.isBoxOpen(_boxName)) {
+      try {
+        final existing = Hive.box<SchedaModel>(_boxName);
+        if (existing.isOpen) return existing;
+      } catch (_) {
+        final staleBox = Hive.box<SchedaModel>(_boxName);
+        if (staleBox.isOpen) {
+          await staleBox.close();
+        }
+      }
+    }
+
+    return Hive.openBox<SchedaModel>(_boxName);
+  }
 
   @override
   Future<List<SchedaModel>> getSchede() async {
