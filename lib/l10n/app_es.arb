@@ -110,5 +110,12 @@
   "time": "Tiempo",
   "km": "Km",
   "elevation": "Desnivel",
-  "description": "Descripción"
+  "description": "Descripción",
+  "timer": "Temporizador",
+  "pause": "Pausa",
+  "restart": "Reiniciar",
+  "resume": "Reanudar",
+  "start": "Iniciar",
+  "close": "Cerrar",
+  "reinitialize": "Restablecer"
 }

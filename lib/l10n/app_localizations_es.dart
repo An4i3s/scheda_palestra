@@ -267,4 +267,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get elevation => 'Desnivel';
+
+  @override
+  String get timer => 'Temporizador';
+
+  @override
+  String get pause => 'Pausa';
+
+  @override
+  String get restart => 'Reiniciar';
+
+  @override
+  String get resume => 'Reanudar';
+
+  @override
+  String get start => 'Iniciar';
+
+  @override
+  String get reinitialize => 'Restablecer';
 }

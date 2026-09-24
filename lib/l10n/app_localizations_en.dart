@@ -267,4 +267,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get elevation => 'Elevation';
+
+  @override
+  String get timer => 'Timer';
+
+  @override
+  String get pause => 'Pause';
+
+  @override
+  String get restart => 'Restart';
+
+  @override
+  String get resume => 'Resume';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get reinitialize => 'Reset';
 }

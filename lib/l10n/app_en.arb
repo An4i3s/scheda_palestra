@@ -110,5 +110,12 @@
   "time": "Time",
   "km": "Km",
   "elevation": "Elevation",
-  "description": "Description"
+  "description": "Description",
+  "timer": "Timer",
+  "pause": "Pause",
+  "restart": "Restart",
+  "resume": "Resume",
+  "start": "Start",
+  "close": "Close",
+  "reinitialize": "Reset"
 }

@@ -267,4 +267,22 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get elevation => 'Altitudine';
+
+  @override
+  String get timer => 'Timer';
+
+  @override
+  String get pause => 'Pausa';
+
+  @override
+  String get restart => 'Riavvia';
+
+  @override
+  String get resume => 'Riprendi';
+
+  @override
+  String get start => 'Avvia';
+
+  @override
+  String get reinitialize => 'Reimposta';
 }

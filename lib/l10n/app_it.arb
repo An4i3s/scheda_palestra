@@ -111,5 +111,12 @@
   "time" : "Tempo",
   "km" : "Km",
   "elevation": "Altitudine",
-  "description": "Descrizione"
-}
+  "description": "Descrizione",
+  "timer": "Timer",
+  "pause": "Pausa",
+  "restart": "Riavvia",
+  "resume": "Riprendi",
+  "start": "Avvia",
+  "close": "Chiudi",
+  "reinitialize": "Reimposta"
+  }
