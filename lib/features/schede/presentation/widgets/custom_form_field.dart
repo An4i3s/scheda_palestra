@@ -49,11 +49,13 @@ class CustomFormField extends StatelessWidget {
             hintText: hintText,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: AppColors.secondaryBorderContainerColor)),
             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryBorderContainerColor), borderRadius: BorderRadius.circular(16),),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.primaryColor), borderRadius: BorderRadius.circular(16),)
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.primaryColor), borderRadius: BorderRadius.circular(16),),
+            errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red), borderRadius: BorderRadius.circular(16),),
+            errorStyle: TextStyle(fontSize: 0)
           ),
           validator:
            (v) =>
-              (v == null || v.trim().isEmpty) && (hasValidations??true) ?  'Campo obbligatorio' : null,
+              (v == null || v.trim().isEmpty) && (hasValidations??true) ?  '' : null,
           textCapitalization: TextCapitalization.sentences,
         ),
       ],
