@@ -154,10 +154,12 @@ class WorkoutLogCard extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      e.name,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    Expanded(
+                                      child: Text(
+                                        e.name,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ],
