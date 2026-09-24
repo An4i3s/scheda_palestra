@@ -102,5 +102,13 @@
   "delete": "Eliminar",
   "close": "Cerrar",
   "details": "Detalles",
-  "tryAgain": "Reintentar"
+  "tryAgain": "Reintentar",
+  "serie": "Series",
+  "reps": "Reps",
+  "weight": "Peso",
+  "rest": "Descanso",
+  "time": "Tiempo",
+  "km": "Km",
+  "elevation": "Desnivel",
+  "description": "Descripción"
 }

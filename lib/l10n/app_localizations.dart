@@ -536,6 +536,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try again'**
   String get tryAgain;
+
+  /// No description provided for @serie.
+  ///
+  /// In en, this message translates to:
+  /// **'Sets'**
+  String get serie;
+
+  /// No description provided for @reps.
+  ///
+  /// In en, this message translates to:
+  /// **'Reps'**
+  String get reps;
+
+  /// No description provided for @weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get weight;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @km.
+  ///
+  /// In en, this message translates to:
+  /// **'Km'**
+  String get km;
+
+  /// No description provided for @elevation.
+  ///
+  /// In en, this message translates to:
+  /// **'Elevation'**
+  String get elevation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

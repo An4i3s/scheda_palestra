@@ -249,4 +249,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tryAgain => 'Reintentar';
+
+  @override
+  String get serie => 'Series';
+
+  @override
+  String get reps => 'Reps';
+
+  @override
+  String get weight => 'Peso';
+
+  @override
+  String get time => 'Tiempo';
+
+  @override
+  String get km => 'Km';
+
+  @override
+  String get elevation => 'Desnivel';
 }

@@ -102,5 +102,13 @@
   "delete": "Delete",
   "close": "Close",
   "details": "Details",
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "serie": "Sets",
+  "reps": "Reps", 
+  "weight": "Weight",
+  "rest": "Rest",
+  "time": "Time",
+  "km": "Km",
+  "elevation": "Elevation",
+  "description": "Description"
 }

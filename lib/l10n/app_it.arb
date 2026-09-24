@@ -103,5 +103,13 @@
   "delete" : "Delete",
   "close" : "Chiudi",
   "details" : "Dettagli",
-  "tryAgain" : "Riprova"
+  "tryAgain" : "Riprova",
+  "serie": "Serie",
+  "reps": "Rip",
+  "weight": "Peso",
+  "rest" : "Riposo",
+  "time" : "Tempo",
+  "km" : "Km",
+  "elevation": "Altitudine",
+  "description": "Descrizione"
 }

@@ -249,4 +249,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tryAgain => 'Réessayer';
+
+  @override
+  String get serie => 'Séries';
+
+  @override
+  String get reps => 'Rép.';
+
+  @override
+  String get weight => 'Poids';
+
+  @override
+  String get time => 'Temps';
+
+  @override
+  String get km => 'Km';
+
+  @override
+  String get elevation => 'Dénivelé';
 }

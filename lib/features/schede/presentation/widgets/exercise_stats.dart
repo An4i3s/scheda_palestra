@@ -1,5 +1,6 @@
  
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 
 class Metrics extends StatelessWidget {
   const Metrics({super.key, required this.value, required this.title, this.description});
@@ -68,10 +69,10 @@ class StrengthMetricsWidget extends StatelessWidget {
           spacing: 16,
           runSpacing: 8,
           children: [
-            SizedBox(width: itemWidth, child: Metrics(title: 'Serie', value: series ?? 0)),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Reps', value: reps ?? '0')),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Weight', value: weight ?? 0)),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Rest', value: rest ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title: context.i18n.serie, value: series ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title: context.i18n.reps, value: reps ?? '0')),
+            SizedBox(width: itemWidth, child: Metrics(title: context.i18n.weight, value: weight ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title: context.i18n.rest, value: rest ?? 0)),
           ],
         );
       },
@@ -100,9 +101,9 @@ class CardioMetricsWidget extends StatelessWidget {
           spacing: 16,
           runSpacing: 8,
           children: [
-            SizedBox(width: itemWidth, child: Metrics(title: 'Time', value: time ?? 0)),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Km', value: km ?? 0)),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Series', value: series ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title:  context.i18n.time, value: time ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title: context.i18n.km, value: km ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title:  context.i18n.serie, value: series ?? 0)),
           ],
         );
       },
@@ -133,10 +134,10 @@ class WalkingMetricsWidget extends StatelessWidget {
           spacing: 16,
           runSpacing: 8,
           children: [
-            SizedBox(width: itemWidth, child: Metrics(title: 'Time', value: time ?? 0)),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Km', value: km ?? 0)),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Series', value: series ?? 0)),
-            SizedBox(width: itemWidth, child: Metrics(title: 'Elevation', value: elevation ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title:  context.i18n.time, value: time ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title:  context.i18n.km, value: km ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title:  context.i18n.serie, value: series ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title:  context.i18n.elevation, value: elevation ?? 0)),
           ],
         );
       },
@@ -165,13 +166,13 @@ class GenericExerciseWidget extends StatelessWidget {
           spacing: 16,
           runSpacing: 8,
           children: [
-            SizedBox(width: itemWidth, child: Metrics(title: 'Time', value: time ?? 0)),
+            SizedBox(width: itemWidth, child: Metrics(title:  context.i18n.time, value: time ?? 0)),
             if (series != null)
-              SizedBox(width: itemWidth, child: Metrics(title: 'Series', value: series!)),
+              SizedBox(width: itemWidth, child: Metrics(title:  context.i18n.serie, value: series!)),
             if (description != null && description!.trim().isNotEmpty)
               SizedBox(
                 width: itemWidth,
-                child: Metrics(title: 'Description', value: null, description: description),
+                child: Metrics(title:  context.i18n.description, value: null, description: description),
               ),
           ],
         );
