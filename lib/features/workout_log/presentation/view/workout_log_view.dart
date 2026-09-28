@@ -54,6 +54,7 @@ class WorkoutLogView extends StatelessWidget {
             return Text("Error");
           }
           if (state is WorkoutLogLoaded) {
+             state.workouts.sort((a, b) => b.date.compareTo(a.date));
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -96,7 +97,6 @@ class WorkoutLogView extends StatelessWidget {
                         ],
                       ),
                     ),
-              
                     ...state.workouts.map(
                       (w) =>
                           WorkoutLogCard(controller: ExpansibleController(), workoutLogModel: w,),
