@@ -100,6 +100,7 @@
   "spanish": "Spanish",
   "add": "Add",
   "delete": "Delete",
+  "save": "Save",
   "close": "Close",
   "details": "Details",
   "tryAgain": "Try again",
@@ -117,5 +118,9 @@
   "resume": "Resume",
   "start": "Start",
   "close": "Close",
-  "reinitialize": "Reset"
+  "reinitialize": "Reset",
+  "exerciseName": "Exercise name",
+  "editExercise": "Edit exercise",
+  "newExercise": "New exercise",
+  "hintExercise": "e.g. Bench Press"
 }

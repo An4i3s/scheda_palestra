@@ -100,7 +100,8 @@
   "french": "Francese",
   "spanish": "Spagnolo",
   "add" : "Aggiungi",
-  "delete" : "Delete",
+  "delete" : "Elimina",
+  "save" : "Salva",
   "close" : "Chiudi",
   "details" : "Dettagli",
   "tryAgain" : "Riprova",
@@ -118,5 +119,9 @@
   "resume": "Riprendi",
   "start": "Avvia",
   "close": "Chiudi",
-  "reinitialize": "Reimposta"
+  "reinitialize": "Reimposta",
+  "exerciseName": "Nome esercizio",
+  "editExercise": "Modifica esercizio",
+  "newExercise" : "Nuovo Esercizio",
+  "hintExercise" : "es. Panca Piana"
   }

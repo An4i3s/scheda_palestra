@@ -239,7 +239,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get add => 'Aggiungi';
 
   @override
-  String get delete => 'Delete';
+  String get delete => 'Elimina';
+
+  @override
+  String get save => 'Salva';
 
   @override
   String get close => 'Chiudi';
@@ -285,4 +288,16 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get reinitialize => 'Reimposta';
+
+  @override
+  String get exerciseName => 'Nome esercizio';
+
+  @override
+  String get editExercise => 'Modifica esercizio';
+
+  @override
+  String get newExercise => 'Nuovo Esercizio';
+
+  @override
+  String get hintExercise => 'es. Panca Piana';
 }

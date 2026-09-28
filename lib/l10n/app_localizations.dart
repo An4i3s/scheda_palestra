@@ -519,6 +519,12 @@ abstract class AppLocalizations {
   /// **'Delete'**
   String get delete;
 
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
   /// No description provided for @close.
   ///
   /// In en, this message translates to:
@@ -608,6 +614,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset'**
   String get reinitialize;
+
+  /// No description provided for @exerciseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise name'**
+  String get exerciseName;
+
+  /// No description provided for @editExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit exercise'**
+  String get editExercise;
+
+  /// No description provided for @newExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'New exercise'**
+  String get newExercise;
+
+  /// No description provided for @hintExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Bench Press'**
+  String get hintExercise;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/core/widgets/custom_keyboard_controller.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
@@ -138,7 +139,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
           side: BorderSide(color: AppColors.secondaryBorderContainerColor),
           borderRadius: BorderRadiusGeometry.circular(16),
         ),
-        title: Text(_isEditing ? 'Modifica esercizio' : 'Nuovo esercizio'),
+        title: Text(_isEditing ? context.i18n.editExercise : context.i18n.newExercise),
         content: AnimatedBuilder(
           animation: CustomKeyboardController.instance,
           builder: (context, _) {
@@ -162,12 +163,12 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
                       children: [
                         CustomFormField(
                           nomeController: _nomeController,
-                          hintText: "es. Panca Piana",
-                          label: 'Nome esercizio',
+                          hintText: context.i18n.hintExercise,
+                          label: context.i18n.exerciseName,
                           isReadOnly: false,
                         ),
                         const SizedBox(height: 12),
-                        ..._buildCategoryFields(),
+                        ..._buildCategoryFields(context),
                         const SizedBox(height: 12),
                       ],
                     ),
@@ -183,26 +184,26 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
               backgroundColor: WidgetStatePropertyAll(AppColors.containerColor),
             ),
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Annulla', style: TextStyle(color: Colors.black)),
+            child:  Text(context.i18n.cancel, style: TextStyle(color: Colors.black)),
           ),
           FilledButton(
             style: ButtonStyle(
               backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
             ),
             onPressed: _submit,
-            child: Text(_isEditing ? 'Salva' : 'Aggiungi'),
+            child: Text(_isEditing ? context.i18n.save : context.i18n.add),
           ),
         ],
       ),
     );
   }
 
-  List<Widget> _buildCategoryFields() {
+  List<Widget> _buildCategoryFields(BuildContext context) {
     final category = _effectiveCategory;
 
     final seriesField = CustomFormField(
       nomeController: _serieController,
-      label: "Serie *",
+      label: "${context.i18n.serie} *",
       isNum: true,
       isReadOnly: true,
       keyboardMode: CustomKeyboardMode.numeric,
@@ -210,28 +211,28 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
 
     final timeField = CustomFormField(
       nomeController: _timeController,
-      label: "Tempo (min) *",
+      label: "${context.i18n.time} (min) *",
       isNum: true,
       isReadOnly: true,
     );
 
     final kmField = CustomFormField(
       nomeController: _kmController,
-      label: "Km *",
+      label: "${context.i18n.km} *",
       isNum: true,
       isReadOnly: true,
     );
 
     final elevationField = CustomFormField(
       nomeController: _elevationController,
-      label: "Dislivello (m)",
+      label: "${context.i18n.elevation} (m)",
       isNum: true,
       isReadOnly: true,
     );
 
     final repetitionsField = CustomFormField(
       nomeController: _ripetizioniController,
-      label: "Ripetizioni ",
+      label: "${context.i18n.reps} ",
       isNum: true,
       isReadOnly: true,
       keyboardMode: CustomKeyboardMode.reps,
@@ -239,21 +240,21 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
 
     final weightField = CustomFormField(
       nomeController: _pesoController,
-      label: "Peso (kg) ",
+      label: "${context.i18n.weight} (kg) ",
       isNum: true,
       isReadOnly: true,
     );
 
     final restField = CustomFormField(
       nomeController: _restTimeController,
-      label: "Recupero (sec) ",
+      label: "${context.i18n.rest} (sec) ",
       isNum: true,
       isReadOnly: true,
     );
 
     final obiettivoField = CustomFormField(
       nomeController: _obiettivoController,
-      label: "Obiettivo",
+      label: context.i18n.goal,
       isReadOnly: false,
     );
 

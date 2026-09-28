@@ -100,6 +100,7 @@
   "spanish": "Español",
   "add": "Añadir",
   "delete": "Eliminar",
+  "save": "Guardar",
   "close": "Cerrar",
   "details": "Detalles",
   "tryAgain": "Reintentar",
@@ -117,5 +118,9 @@
   "resume": "Reanudar",
   "start": "Iniciar",
   "close": "Cerrar",
-  "reinitialize": "Restablecer"
+  "reinitialize": "Restablecer",
+  "exerciseName": "Nombre del ejercicio",
+  "editExercise": "Editar ejercicio",
+  "newExercise": "Nuevo ejercicio",
+  "hintExercise": "p. ej. Press de banca"
 }

@@ -100,6 +100,7 @@
   "spanish": "Espagnol",
   "add": "Ajouter",
   "delete": "Supprimer",
+  "save": "Sauvegarder",
   "close": "Fermer",
   "details": "Détails",
   "tryAgain": "Réessayer",
@@ -118,4 +119,8 @@
   "start": "Démarrer",
   "close" : "Fermer",
   "reinitialize" : "Réinitialiser",
+  "exerciseName": "Nom de l'exercice",
+  "editExercise": "Modifier l'exercice",
+  "newExercise": "Nouvel exercice",
+  "hintExercise": "ex. Squat"
 }
