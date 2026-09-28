@@ -127,13 +127,20 @@ class _WorkoutViewState extends State<WorkoutView> {
                     },
                     builder: (context, currentWorkout) {
                       if (currentWorkout.isCompleted) {
-                       
-                     
-                         context.read<WorkoutBloc>().add(
+                        context.read<WorkoutBloc>().add(
                           WorkoutOnCompleted(workout),
                         );
                       }
-                      return WorkoutExerciseList(workout: currentWorkout);
+
+                      return Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              WorkoutExerciseList(workout: currentWorkout),
+                            ],
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ],
