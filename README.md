@@ -8,7 +8,7 @@ I made this app because I wanted to have an easy and simple way to plan my worko
 
 ## 👀 See a Preview
 
-![](demo.gif)
+<img src="demo.gif" height="600" alt="Demo preview">
 
 
 ## ✨ App Features:
