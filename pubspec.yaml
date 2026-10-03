@@ -1,7 +1,7 @@
 name: scheda_palestra
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.1.0+2
+version: 1.2.0+3
 
 environment:
   sdk: ^3.11.5
@@ -28,6 +28,7 @@ dependencies:
   path_provider: ^2.1.6
   share_plus: ^13.3.0
   shared_preferences: ^2.3.0
+  package_info_plus: ^10.2.2
 
 dev_dependencies:
   flutter_test:
