@@ -4,6 +4,7 @@ import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/core/widgets/custom_keyboard_controller.dart';
 import 'package:scheda_palestra/features/schede/data/models/exercise_model.dart';
 import 'package:scheda_palestra/features/schede/data/models/scheda_model.dart';
+import 'package:scheda_palestra/features/schede/presentation/widgets/custom_drop_down.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/custom_form_field.dart';
 
 class ExerciseFormDialog extends StatefulWidget {
@@ -245,12 +246,7 @@ class _ExerciseFormDialogState extends State<ExerciseFormDialog> {
       isReadOnly: true,
     );
 
-    final restField = CustomFormField(
-      nomeController: _restTimeController,
-      label: "${context.i18n.rest} (sec) ",
-      isNum: true,
-      isReadOnly: true,
-    );
+    final restField = CustomDropDown(onChanged: (v) => _restTimeController.text=v.toString(), label: context.i18n.rest,);
 
     final obiettivoField = CustomFormField(
       nomeController: _obiettivoController,
