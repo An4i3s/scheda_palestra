@@ -7,6 +7,8 @@ import 'package:scheda_palestra/features/workout/data/model/workout_model.dart';
 import 'package:scheda_palestra/features/workout/presentation/views/rest_day_view.dart';
 import 'package:scheda_palestra/features/workout/presentation/views/success_view.dart';
 import 'package:scheda_palestra/features/workout/presentation/widgets/success_animation.dart';
+import 'package:scheda_palestra/features/workout/presentation/widgets/timer_button.dart';
+import 'package:scheda_palestra/features/workout/presentation/widgets/timer_controller.dart';
 import 'package:scheda_palestra/features/workout/presentation/widgets/workout_exercises_list.dart';
 import 'package:scheda_palestra/features/workout/presentation/widgets/workout_header.dart';
 import 'package:scheda_palestra/features/workout/presentation/workout_bloc/workout_bloc.dart';
@@ -25,6 +27,7 @@ class WorkoutView extends StatefulWidget {
 
 class _WorkoutViewState extends State<WorkoutView> {
   OverlayEntry? _overlayEntry;
+  final timer = TimerController();
 
   @override
   void initState() {
@@ -35,6 +38,7 @@ class _WorkoutViewState extends State<WorkoutView> {
   void dispose() {
     _overlayEntry?.remove();
     _overlayEntry = null;
+    timer.dispose();
     super.dispose();
   }
 
@@ -76,6 +80,8 @@ class _WorkoutViewState extends State<WorkoutView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
+      floatingActionButton: TimerButton(controller: timer,),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
 

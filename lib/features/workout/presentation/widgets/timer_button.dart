@@ -4,7 +4,6 @@ import 'package:scheda_palestra/core/i18n/local_extension.dart';
 import 'package:scheda_palestra/core/theme/app_colors.dart';
 import 'package:scheda_palestra/features/workout/presentation/widgets/timer_controller.dart';
 
-import '../../../../core/i18n/local_extension.dart';
 
 class TimerButton extends StatelessWidget {
   const TimerButton({super.key, required this.controller});
@@ -15,10 +14,23 @@ class TimerButton extends StatelessWidget {
     return ListenableBuilder(
       listenable: controller,
       builder: (context, _) {
-        return TextButton.icon(
-          onPressed: () => showTimerSheet(context, controller),
-          icon: Icon(controller.finished ? Icons.alarm_on : Icons.timer_outlined, color: AppColors.accentColor,),
-          label: Text(controller.isIdle ? context.i18n.timer : formatTimer(controller.remaining), style: TextStyle(color: AppColors.accentColor,),),
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => showTimerSheet(context, controller),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 42, vertical: 16),
+            width: 140,
+        decoration: BoxDecoration(color: AppColors.darkContainerColor, shape: BoxShape.circle),
+            child: Column(
+              spacing: 4,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(controller.finished ? Icons.alarm_on : Icons.timer_outlined, color: AppColors.accentColor, size: 32,),
+                if(!controller.isIdle ) Text(controller.isIdle ? "" : formatTimer(controller.remaining), style: TextStyle(color: AppColors.accentColor,),),
+              ],
+            ),
+          ),
         );
       },
     );
