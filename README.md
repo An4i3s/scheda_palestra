@@ -15,7 +15,7 @@ I made this app because I wanted to have an easy and simple way to plan my worko
 
 - Create workout sheets : create your workouts, add exercises based on the type of training your aiming at (strenght, flexibility, swimming)
 - Assign the workout to a day of the week : in the Home Page you can view the workouts assigned to each day of the week
-- Workout View : check off each exercise as you complete it to finish your daily workout
+- Workout View : check off each exercise as you complete it to finish your daily workout; start a timer for rest time
 - Workout Log : see your past workouts
 - Local Back-up : all your data live in your phone only, a backup function is implemented to avoid losing your progresses if the app gets updated
 - Support 4 languages (Italian, English, French, Spanish)
