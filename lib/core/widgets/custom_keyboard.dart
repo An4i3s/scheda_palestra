@@ -15,14 +15,15 @@ class CustomKeyboard extends StatelessWidget {
   final VoidCallback? onClose;
 
   final ButtonStyle buttonStyle = ButtonStyle(
-    side: WidgetStatePropertyAll(BorderSide(color: AppColors.primaryColor)),
-    surfaceTintColor: WidgetStatePropertyAll(AppColors.primaryColor),
+    side: WidgetStatePropertyAll(BorderSide(color: Color(0xFFEDE4D8),  width: 1.5 )),
+    shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
     padding: WidgetStatePropertyAll(EdgeInsetsGeometry.zero),
     backgroundColor: WidgetStatePropertyAll(Colors.white),
     foregroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
     textStyle: WidgetStatePropertyAll(
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      TextStyle(fontWeight: FontWeight.bold, fontSize: 24,),
     ),
+    
   );
 
   @override
@@ -30,11 +31,11 @@ class CustomKeyboard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-        border: Border.all(width: 0.5, color: AppColors.restDayColor),
+        color: Color(0xFFFFF7F0),
+         border: Border.all(width: 1, color: Color(0xFFEDE4D8)),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(36),
-          topRight: Radius.circular(36),
+          topLeft: Radius.circular(42),
+          topRight: Radius.circular(42),
         ),
       ),
       child: Column(
@@ -45,7 +46,7 @@ class CustomKeyboard extends StatelessWidget {
               IconButton(
                 icon: Icon(
                   Icons.close,
-                  color: AppColors.homeBadgeContainerColor,
+                  color: AppColors.restDayColor,
                   weight: 2,
                 ),
                 onPressed: onClose,
@@ -58,12 +59,13 @@ class CustomKeyboard extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               childAspectRatio: 2,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
+              // mainAxisSpacing: 8,
+              // crossAxisSpacing: 8,
             ),
-            itemCount: mode == CustomKeyboardMode.reps ? 11 : 10,
+            // itemCount: mode == CustomKeyboardMode.reps ? 11 : 10,
+            itemCount: 12,
             itemBuilder: (context, index) {
-              final isMaxButton = mode == CustomKeyboardMode.reps && index == 10;
+              final isMaxButton = mode == CustomKeyboardMode.reps && index == 9;
 
               if (isMaxButton) {
                 return OutlinedButton(
@@ -73,10 +75,14 @@ class CustomKeyboard extends StatelessWidget {
                   style: buttonStyle,
                   child: const Text('MAX'),
                 );
+
+              }
+               if(mode != CustomKeyboardMode.reps && index == 9) {
+                return SizedBox();
               }
 
               final number = index + 1;
-              if (number == 10) {
+              if (number == 11) {
                 return OutlinedButton(
                   onPressed: () {
                     if (controller.text.trim() == 'MAX') {
@@ -86,6 +92,19 @@ class CustomKeyboard extends StatelessWidget {
                   },
                   style: buttonStyle,
                   child: const Text('0'),
+                );
+              }
+
+              if (number == 12) {
+                return OutlinedButton(
+                  onPressed: () {
+                    if (controller.text.trim() == 'MAX') {
+                      controller.clear();
+                    }
+                  if(controller.text.isNotEmpty)  controller.text = controller.text.substring(0, controller.text.length-1);
+                  },
+                  style: buttonStyle,
+                  child: Icon(Icons.keyboard_double_arrow_left_outlined),
                 );
               }
 
