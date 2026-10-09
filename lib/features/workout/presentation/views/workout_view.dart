@@ -29,6 +29,8 @@ class _WorkoutViewState extends State<WorkoutView> {
   OverlayEntry? _overlayEntry;
   final timer = TimerController();
 
+  bool _showTimer = false;
+
   @override
   void initState() {
     super.initState();
@@ -60,10 +62,15 @@ class _WorkoutViewState extends State<WorkoutView> {
 
     overlay.insert(_overlayEntry!);
     context.read<WorkoutBloc>().add(WorkoutOnSuccess(w));
-    context.read<WorkoutLogBloc>().add(WorkoutLogOnRegistered(workout: WorkoutLogModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(), 
-      workout: w, 
-      date: DateTime.now())));
+    context.read<WorkoutLogBloc>().add(
+      WorkoutLogOnRegistered(
+        workout: WorkoutLogModel(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          workout: w,
+          date: DateTime.now(),
+        ),
+      ),
+    );
     context.read<HomeBloc>().add(HomeStarted());
   }
 
@@ -80,27 +87,26 @@ class _WorkoutViewState extends State<WorkoutView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      floatingActionButton: TimerButton(controller: timer,),
+      floatingActionButton: _showTimer ? TimerButton(controller: timer) : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
         builder: (context, state) {
-
-
-         
-          if(state is WorkoutCompleted){
-             _triggerSuccessAnimationIfNeeded(state);
+          if (state is WorkoutCompleted) {
+            _triggerSuccessAnimationIfNeeded(state);
           }
 
-
           if (state is WorkoutEmpty || state is WorkoutDeleted) {
+             WidgetsBinding.instance.addPostFrameCallback((_) {
+              setState(() {
+                _showTimer = false;
+              });
+             });
             return RestDayView();
           }
 
           if (state is WorkoutLoading) {
             return const Center(
-              child: CircularProgressIndicator(
-                color: AppColors.primaryColor,
-              ),
+              child: CircularProgressIndicator(color: AppColors.primaryColor),
             );
           }
 
@@ -109,13 +115,24 @@ class _WorkoutViewState extends State<WorkoutView> {
           }
 
           if (state is WorkoutSuccess || state is WorkoutCompleted) {
-             final workout = (state is WorkoutSuccess)
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+              setState(() {
+                _showTimer = false;
+              });
+            });
+            final workout = (state is WorkoutSuccess)
                 ? state.workout
                 : (state as WorkoutCompleted).workout;
             return SuccessView(workoutName: workout.scheda.nome);
           }
 
           if (state is WorkoutLoaded) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              setState(() {
+                _showTimer = true;
+              });
+            });
+
             final workout = state.workout;
 
             return Padding(
