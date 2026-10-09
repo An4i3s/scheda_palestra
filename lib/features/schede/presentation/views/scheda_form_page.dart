@@ -133,7 +133,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                       style: ButtonStyle(
     backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
     foregroundColor: WidgetStatePropertyAll(Colors.white),
-  ),,
+  ),
                       onPressed: (){
                        Navigator.of(context).pop();
                         Navigator.of(context).pop();
