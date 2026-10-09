@@ -29,7 +29,7 @@ class CustomKeyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.only(left: 16, right: 16, bottom: 24),
       decoration: BoxDecoration(
         color: Color(0xFFFFF7F0),
          border: Border.all(width: 1, color: Color(0xFFEDE4D8)),
