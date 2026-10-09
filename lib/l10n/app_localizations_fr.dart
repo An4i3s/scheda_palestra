@@ -54,6 +54,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get myGymSheets => 'Mes fiches';
 
   @override
+  String get confirmExit => 'Voulez-vous vraiment quitter la page ?';
+
+  @override
+  String get confirmExitSubtitle => 'En fermant cette page, vous perdrez toutes vos données';
+
+  @override
   String get noDescription => 'Aucune description';
 
   @override
@@ -197,6 +203,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get cancel => 'Annuler';
+
+  @override
+  String get confirm => 'Confirmer';
 
   @override
   String get overwrite => 'Remplacer';

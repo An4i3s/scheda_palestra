@@ -189,6 +189,18 @@ abstract class AppLocalizations {
   /// **'My plans'**
   String get myGymSheets;
 
+  /// No description provided for @confirmExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want to leave the page?'**
+  String get confirmExit;
+
+  /// No description provided for @confirmExitSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'If you close this screen, you will lose all your data'**
+  String get confirmExitSubtitle;
+
   /// No description provided for @noDescription.
   ///
   /// In en, this message translates to:
@@ -440,6 +452,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
 
   /// No description provided for @overwrite.
   ///

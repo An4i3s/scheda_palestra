@@ -30,6 +30,11 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
   WorkoutCategory? _selectedCategory;
 
   bool get _isEditing => widget.scheda != null;
+
+  ButtonStyle _buttonStyle = ButtonStyle(
+    backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
+    foregroundColor: WidgetStatePropertyAll(Colors.white),
+  );
   
 
   @override
@@ -97,6 +102,52 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     Navigator.of(context).pop();
   }
 
+  void _onClose(){
+    showDialog(context: context, builder: (c){
+      return Dialog(
+        backgroundColor: AppColors.containerColor,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          child: Column(
+            spacing: 8,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(context.i18n.confirmExit, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+              Text(context.i18n.confirmExitSubtitle, textAlign: TextAlign.center,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                spacing: 18,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style:  ButtonStyle(
+    backgroundColor: WidgetStatePropertyAll(AppColors.greyTextColor),
+    foregroundColor: WidgetStatePropertyAll(Colors.white),
+  ),
+                      onPressed: (){
+                      Navigator.of(context).pop();
+                    }, child: Text(context.i18n.cancel, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+    backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
+    foregroundColor: WidgetStatePropertyAll(Colors.white),
+  ),,
+                      onPressed: (){
+                       Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                    }, child: Text(context.i18n.confirm, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +158,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(_isEditing ? context.i18n.editGymSheet : context.i18n.newGymSheet, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600) ,),
-            IconButton(icon: Icon(Icons.close), onPressed: () => Navigator.pop(context),)
+            IconButton(icon: Icon(Icons.close), onPressed: _onClose,)
           ],
         ),
         leading: null,

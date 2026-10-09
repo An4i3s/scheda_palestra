@@ -54,6 +54,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get myGymSheets => 'Le mie schede';
 
   @override
+  String get confirmExit => 'Vuoi davvero uscire dalla pagina?';
+
+  @override
+  String get confirmExitSubtitle => 'Chiudendo la schermata perderai tutti i tuoi dati';
+
+  @override
   String get noDescription => 'Nessuna descrizione';
 
   @override
@@ -197,6 +203,9 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get cancel => 'Annulla';
+
+  @override
+  String get confirm => 'Conferma';
 
   @override
   String get overwrite => 'Sovrascrivi';
