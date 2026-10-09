@@ -171,7 +171,7 @@ class WorkoutLogCard extends StatelessWidget {
                                   spacing: 8,
                                   
                                   children: [
-                                    if (e.km != null)
+                                    if (e.km != null && e.km!=0)
                                       Text(
                                         "Km ${e.km}",
                                         style: TextStyle(
@@ -195,7 +195,7 @@ class WorkoutLogCard extends StatelessWidget {
                                           fontSize: 12,
                                         ),
                                       ),
-                                    if (e.elevation != null)
+                                    if (e.elevation != null && e.elevation!=0)
                                       Text(
                                         "Elev. ${e.elevation}",
                                         style: TextStyle(
