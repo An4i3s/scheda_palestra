@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scheda_palestra/core/i18n/local_extension.dart';
@@ -11,7 +10,6 @@ import 'package:scheda_palestra/features/schede/presentation/widgets/custom_form
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_form_dialog.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/exercise_scheda_form.dart';
 import 'package:scheda_palestra/features/schede/presentation/widgets/workout_category_container.dart';
-
 
 class SchedaFormPage extends StatefulWidget {
   final SchedaModel? scheda;
@@ -31,12 +29,6 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
 
   bool get _isEditing => widget.scheda != null;
 
-  ButtonStyle _buttonStyle = ButtonStyle(
-    backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
-    foregroundColor: WidgetStatePropertyAll(Colors.white),
-  );
-  
-
   @override
   void initState() {
     super.initState();
@@ -54,6 +46,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     _descrizioneController.dispose();
     super.dispose();
   }
+
   void _addEsercizio(ExerciseModel esercizio) {
     setState(() => _esercizi.add(esercizio));
   }
@@ -62,29 +55,26 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     setState(() => _esercizi[index] = esercizio);
   }
 
-    void _showExerciseDialog({int? index, ExerciseModel? esercizio}) {
+  void _showExerciseDialog({int? index, ExerciseModel? esercizio}) {
     showDialog<void>(
       context: context,
-      builder: (_) =>  ExerciseFormDialog(
-          esercizio: esercizio,
-          defaultCategory: _selectedCategory,
-          onSubmit: (saved) {
-            if (index != null) {
-              _editEsercizio(index, saved);
-            } else {
-              _addEsercizio(saved);
-            }
-          },
-        ),
-      
+      builder: (_) => ExerciseFormDialog(
+        esercizio: esercizio,
+        defaultCategory: _selectedCategory,
+        onSubmit: (saved) {
+          if (index != null) {
+            _editEsercizio(index, saved);
+          } else {
+            _addEsercizio(saved);
+          }
+        },
+      ),
     );
   }
 
   void _deleteEsercizio(int index) {
     setState(() => _esercizi.removeAt(index));
   }
-
-
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
@@ -102,50 +92,79 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     Navigator.of(context).pop();
   }
 
-  void _onClose(){
-    showDialog(context: context, builder: (c){
-      return Dialog(
-        backgroundColor: AppColors.containerColor,
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-          child: Column(
-            spacing: 8,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(context.i18n.confirmExit, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-              Text(context.i18n.confirmExitSubtitle, textAlign: TextAlign.center,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                spacing: 18,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      style:  ButtonStyle(
-    backgroundColor: WidgetStatePropertyAll(AppColors.greyTextColor),
-    foregroundColor: WidgetStatePropertyAll(Colors.white),
-  ),
-                      onPressed: (){
-                      Navigator.of(context).pop();
-                    }, child: Text(context.i18n.cancel, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-    backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
-    foregroundColor: WidgetStatePropertyAll(Colors.white),
-  ),
-                      onPressed: (){
-                       Navigator.of(context).pop();
-                        Navigator.of(context).pop();
-                    }, child: Text(context.i18n.confirm, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),),
-                  )
-                ],
-              )
-            ],
+  void _onClose() {
+    showDialog(
+      context: context,
+      builder: (c) {
+        return Dialog(
+          backgroundColor: AppColors.containerColor,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+            child: Column(
+              spacing: 8,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.i18n.confirmExit,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  context.i18n.confirmExitSubtitle,
+                  textAlign: TextAlign.center,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: 18,
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                            AppColors.greyTextColor,
+                          ),
+                          foregroundColor: WidgetStatePropertyAll(Colors.white),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          context.i18n.cancel,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                            AppColors.primaryColor,
+                          ),
+                          foregroundColor: WidgetStatePropertyAll(Colors.white),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          context.i18n.confirm,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
   @override
@@ -153,17 +172,19 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        backgroundColor:  AppColors.backgroundColor,
+        backgroundColor: AppColors.backgroundColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(_isEditing ? context.i18n.editGymSheet : context.i18n.newGymSheet, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600) ,),
-            IconButton(icon: Icon(Icons.close), onPressed: _onClose,)
+            Text(
+              _isEditing ? context.i18n.editGymSheet : context.i18n.newGymSheet,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+            ),
+            IconButton(icon: Icon(Icons.close), onPressed: _onClose),
           ],
         ),
         leading: null,
         automaticallyImplyLeading: false,
-        
       ),
       body: Form(
         key: _formKey,
@@ -173,7 +194,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-                            Padding(
+              Padding(
                 padding: const EdgeInsets.all(16),
                 child: Container(
                   padding: const EdgeInsets.all(16),
@@ -204,10 +225,14 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: WorkoutCategoryContainer(
                   selectedCategory: _selectedCategory,
-                  onCategorySelected: (category) => setState(() => _selectedCategory = category),
+                  onCategorySelected: (category) =>
+                      setState(() => _selectedCategory = category),
                 ),
               ),
               Padding(
@@ -217,40 +242,52 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                   children: [
                     Text(
                       context.i18n.exercisesCount(_esercizi.length),
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     FilledButton.icon(
                       onPressed: () => _showExerciseDialog(),
                       style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
+                        backgroundColor: WidgetStatePropertyAll(
+                          AppColors.primaryColor,
+                        ),
                       ),
                       icon: const Icon(Icons.add),
-                      label:  Text(context.i18n.add),
+                      label: Text(context.i18n.add),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               if (_esercizi.isEmpty)
-                 Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Center(child: Text(context.i18n.noExercise)),
                 )
               else
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ExerciseSchedaForm(esercizi: _esercizi, onDelete: (i) => _deleteEsercizio(i), onEdit: (i, e) => _showExerciseDialog(  index: i, esercizio: e),),
+                  child: ExerciseSchedaForm(
+                    esercizi: _esercizi,
+                    onDelete: (i) => _deleteEsercizio(i),
+                    onEdit: (i, e) =>
+                        _showExerciseDialog(index: i, esercizio: e),
+                  ),
                 ),
-              SizedBox(height: 24,),
+              SizedBox(height: 24),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: OutlinedButton(
                   onPressed: _submit,
                   style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor),
+                    backgroundColor: WidgetStatePropertyAll(
+                      AppColors.primaryColor,
+                    ),
                     padding: const WidgetStatePropertyAll(EdgeInsets.all(16)),
                   ),
-                  child:  Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.save, color: Colors.white, size: 18),
@@ -263,9 +300,8 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                   ),
                 ),
               ),
-               SizedBox(height: 42,),
-            ]
-            ,
+              SizedBox(height: 42),
+            ],
           ),
         ),
       ),
