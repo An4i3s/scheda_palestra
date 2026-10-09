@@ -114,7 +114,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  spacing: 18,
+                  spacing: 8,
                   children: [
                     Expanded(
                       child: ElevatedButton(
@@ -130,7 +130,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                         child: Text(
                           context.i18n.cancel,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -151,7 +151,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                         child: Text(
                           context.i18n.confirm,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
