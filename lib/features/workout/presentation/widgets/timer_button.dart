@@ -143,11 +143,12 @@ class TimerSheet extends StatelessWidget {
                   children: [
                     OutlinedButton(
                       onPressed: () => c.add(const Duration(seconds: -10)),
-                       style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.containerColor,)),
+                       style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.containerColor,), padding: WidgetStatePropertyAll(EdgeInsets.zero)),
                       child: const Text('-10s', style: TextStyle(color: AppColors.primaryColor),),
                     ),
                     IconButton(
                       tooltip: context.i18n.reinitialize,
+                       padding: EdgeInsets.zero,
                       onPressed: c.reset,
                       icon: const Icon(Icons.refresh, color: AppColors.primaryColor,),
                     ),
@@ -155,11 +156,11 @@ class TimerSheet extends StatelessWidget {
                       onPressed: c.running ? c.pause : c.start,
                       icon: Icon(c.running ? Icons.pause : Icons.play_arrow),
                       label: Text(label),
-                      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor)),
+                      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.primaryColor), ),
                     ),
                     OutlinedButton(
                       onPressed: () => c.add(const Duration(seconds: 10)),
-                      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.containerColor,)),
+                      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppColors.containerColor,), padding: WidgetStatePropertyAll(EdgeInsets.zero)),
                       child: const Text('+10s', style: TextStyle(color: AppColors.primaryColor)),
                     ),
                   ],
