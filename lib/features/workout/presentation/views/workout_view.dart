@@ -96,11 +96,11 @@ class _WorkoutViewState extends State<WorkoutView> {
           }
 
           if (state is WorkoutEmpty || state is WorkoutDeleted) {
-             WidgetsBinding.instance.addPostFrameCallback((_) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 _showTimer = false;
               });
-             });
+            });
             return RestDayView();
           }
 
@@ -115,7 +115,7 @@ class _WorkoutViewState extends State<WorkoutView> {
           }
 
           if (state is WorkoutSuccess || state is WorkoutCompleted) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 _showTimer = false;
               });
@@ -149,12 +149,6 @@ class _WorkoutViewState extends State<WorkoutView> {
                       return workout;
                     },
                     builder: (context, currentWorkout) {
-                      if (currentWorkout.isCompleted) {
-                        context.read<WorkoutBloc>().add(
-                          WorkoutOnCompleted(workout),
-                        );
-                      }
-
                       return Expanded(
                         child: SingleChildScrollView(
                           child: Column(
