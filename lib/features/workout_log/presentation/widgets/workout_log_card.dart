@@ -179,7 +179,7 @@ class WorkoutLogCard extends StatelessWidget {
                                           fontSize: 12,
                                         ),
                                       ),
-                                    if (e.repetitions != null)
+                                    if (e.repetitions != null && e.repetitions!="0")
                                       Text(
                                         "Reps ${e.repetitions}",
                                         style: TextStyle(
