@@ -53,7 +53,7 @@ class _WorkoutCategoryContainerState extends State<WorkoutCategoryContainer> {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             crossAxisCount: 2,
-            childAspectRatio: 1.5,
+            childAspectRatio: 1.4,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
             children: [
@@ -142,24 +142,28 @@ class WorkoutTileContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              spacing: 8,
+              spacing: 4,
               children: [
                 Text(icon, style: TextStyle(fontSize: 20)),
-                Text(
-                  name,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
             ),
-            Text(
-              description,
-              style: TextStyle(
-                fontSize: 13,
-                color: isSelected ? Colors.white : Colors.black,
+            Expanded(
+              child: Text(
+                description,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: isSelected ? Colors.white : Colors.black,
+                ),
               ),
             ),
           ],

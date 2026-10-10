@@ -29,18 +29,20 @@ class SchedaDeleteDialog extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                     color: Colors.red[50],
+                    color: AppColors.restDayColor,
                      borderRadius: BorderRadius.circular(16)
                   ),
                  
                   child: SvgPicture.asset("assets/icons/trash.svg", width: 64, height: 64, colorFilter: ColorFilter.mode(AppColors.accentColor, BlendMode.srcIn),
                 ),),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(context.i18n.deleteGymSheet, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-                    Text(context.i18n.deleteConfirmMessage(schedaModel.nome), style: TextStyle(fontSize: 16,),),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(context.i18n.deleteGymSheet, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                      Text(context.i18n.deleteConfirmMessage(schedaModel.nome), style: TextStyle(fontSize: 16,),),
+                    ],
+                  ),
                 ),
               ],
             ),
