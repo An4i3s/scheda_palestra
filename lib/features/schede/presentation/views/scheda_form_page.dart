@@ -285,6 +285,7 @@ class _SchedaFormPageState extends State<SchedaFormPage> {
                     backgroundColor: WidgetStatePropertyAll(
                       AppColors.primaryColor,
                     ),
+                    side: WidgetStatePropertyAll(BorderSide.none),
                     padding: const WidgetStatePropertyAll(EdgeInsets.all(16)),
                   ),
                   child: Row(
